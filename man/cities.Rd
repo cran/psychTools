@@ -35,22 +35,21 @@ Note that the 2 dimensional MDS solution does not perfectly capture the data fro
 \examples{
 
 data(cities)
-city.location[,1] <- -city.location[,1]
-\donttest{
-#an overlay map can be added if the package maps is available
-
-libary(maps)
-map("usa")
-title("MultiDimensional Scaling of US cities")
-points(city.location)
-}
+city.location[,1] <- -city.location[,1] #included in the cities data set
 plot(city.location, xlab="Dimension 1", ylab="Dimension 2",
    main ="Multidimensional scaling of US cities")
+#do the mds   
 city.loc <- cmdscale(cities, k=2) #ask for a 2 dimensional solution  round(city.loc,0) 
-city.loc <- -city.loc 
+city.loc <- -city.loc  #flip the axes
  city.loc <- psych::rescale(city.loc,apply(city.location,2,mean),apply(city.location,2,sd))
-points(city.loc,type="n") 
+points(city.loc,type="n") #add the date point to the map
 text(city.loc,labels=names(cities))
 
+\dontrun{   #we need the maps package to be available
+#an overlay map can be added if the package maps is available
+if(require(maps)) {
+  map("usa",add=TRUE)
+}
+}
 }
 \keyword{datasets}

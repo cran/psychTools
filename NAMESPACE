@@ -1,4 +1,4 @@
-#last modified April, 2019  by William Revelle 
+#last modified December, 2019  by William Revelle 
 #added the various imports from stats, graphics, etc.
 #importFrom(mnormt,rmnorm,sadmvn,dmnorm)
 #importFrom(parallel,mclapply,mcmapply)
@@ -18,7 +18,7 @@ importFrom(grDevices,colorRampPalette,topo.colors,devAskNewPage,dev.flush,dev.ho
 importFrom(tools,file_ext)
 
 importFrom(foreign,read.spss,read.xport,read.systat)
-importFrom(psych,statsBy,cs)
+importFrom(psych,statsBy,cs,setCor, mediate,corPlot, omega)
 
 #S3method(print,psych)
 

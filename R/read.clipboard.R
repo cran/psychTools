@@ -152,6 +152,8 @@ function(filename,header=TRUE) {
           message('File ',f ,' has been loaded.')},
    Rds  = {result <- readRDS(f,...)
           message('File ',f ,' has been loaded.')},
+    RDS  = {result <- readRDS(f,...)
+          message('File ',f ,' has been loaded.')},
     XPT = { result <- read.xport(f,...)
           message('File ',f ,' has been loaded.')},
     xpt = { result <- read.xport(f,...)
@@ -160,7 +162,7 @@ function(filename,header=TRUE) {
     #if we return f and it has the same name as the file loaded, this wipes out the file
    Rda = {result <- f   #not helpful if the  
           # load(f, .GlobalEnv)
-          load(f)
+         # load(f)
           message("To load this ",suffix," file (or these files) you need to load('",f,"')   \nCaution, this might replace an object currently in your environment.") },
    rda  = {result <- f
           load(result)

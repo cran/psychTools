@@ -236,7 +236,7 @@ psych::fa.plot(f2,labels=colnames(msq)[1:72],
      title="2 dimensions of affect at the item level",cex=.5)
 
 #sort them by polar coordinates
-round(polar(f2),2)
+round(psych::polar(f2),2)
 }
             
 

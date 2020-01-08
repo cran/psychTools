@@ -2,6 +2,7 @@
 \alias{epi}
 \alias{epi.dictionary}
 \alias{epiR}
+\alias{epi.keys}
 \docType{data}
 \title{Eysenck Personality Inventory (EPI) data for 3570 participants}
 \description{The EPI is and has been a very frequently administered personality test with 57 measuring two broad dimensions, Extraversion-Introversion and Stability-Neuroticism, with an additional Lie scale. Developed by Eysenck and Eysenck, 1964. Eventually replaced with the EPQ which measures three broad dimensions. This data set represents 3570 observations collected in the early 1990s at the Personality, Motivation and Cognition lab at Northwestern. An additional data set (epiR) has test and retest information for 474 participants. The data are included here as demonstration of scale construction and test-retest reliability.
@@ -106,23 +107,13 @@ Soc = c( "V17", "V25", "V27", "V44", "V46", "V53", "-V11", "-V15", "-V20",
 )
 scores <- psych::scoreItems(epi.keys,epi)
 
-keys <- psych::make.keys(epi,epi.keys)   #the old way of making keys is to make a matrix
-psych::fa.lookup(keys[,1:3],epi.dictionary) #show the items and keying information
+psych::keys.lookup(epi.keys[1:3],epi.dictionary) #show the items and keying information
 
 #a variety of demonstrations (not run) of test retest reliability versus alpha versus omega
 
 E <- psych::selectFromKeys(epi.keys$E)
- \donttest{
-psych::omega(epi[E])  #to show the low omega but high alpha of Extraversion 
-psych::testRetest(epiR,select=E)  #test retest of the extraversion scale (.82) is higher than 
-                     #alpha  for either the first (.77) or second administration (.74)
-Imp <- psych::selectFromKeys(epi.keys$Imp)
-psych::testRetest(epiR,select=Imp)  #Similarly test retest = .68 but alpha = .48 and .50.
-Soc <- psych::selectFromKeys(epi.keys$Soc)
-psych::testRetest(epiR,select=Soc)  # test retest =.83, alpha = .76, .75
-N <- psych::selectFromKeys(epi.keys$N)
-psych::testRetest(epiR, select=N) #Test retest = .8, alpha = .81, .80
-}
+#look at the testRetest help file for more examples 
+
 }
 
 \keyword{datasets}

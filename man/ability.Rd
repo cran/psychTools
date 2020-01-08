@@ -50,9 +50,10 @@ keys <- list(ICAR16=colnames(ability),reasoning =  cs(reason.4,reason.16,reason.
   matrix=cs(matrix.45,matrix.46,matrix.47,matrix.55), 
   rotate=cs(rotate.3,rotate.4,rotate.6,rotate.8))
   psych::scoreOverlap(keys,ability)
-\donttest{    #this next step takes a few seconds
+\donttest{    #this next step takes a few seconds to run and demonstrates IRT approaches
      ability.irt <- psych::irt.fa(ability)
-     ability.scores <- psych::score.irt(ability.irt,ability)
+     ability.scores <- psych::scoreIrt(ability.irt,ability)
+     ability.sub.scores <- psych::scoreIrt.2pl(keys,ability) #demonstrate irt scoring
 }
 
 }

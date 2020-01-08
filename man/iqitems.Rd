@@ -57,7 +57,7 @@ psych::describe(iq.tf)
 iq.irt <- psych::irt.fa(iq.tf)  #do a basic irt
 iq.sc <- psych::scoreIrt(iq.irt,iq.tf)  #find the scores
 op <- par(mfrow=c(4,4))
-irt.responses(iq.sc[,1], iq.tf)  
+psych::irt.responses(iq.sc[,1], iq.tf)  
 op <- par(mfrow=c(1,1))
 }
 }

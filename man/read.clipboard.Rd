@@ -112,6 +112,10 @@ Currently supported output formats are
 
 Note that new=TRUE option in write.file works only in R.app and not in RStudio.  To create a new file using RStudio (or on a PC) you can use the \code{link{fileCreate}} function first. 
 
+Many Excel based files specify missing values as a blank field. When reading from the clipboard, using \code{\link{read.clipboard.tab}} will change these blank fields to NA.
+
+Sometimes missing values are specified as "." or "999", or some other values. These can be converted by the read.file command specifying what values are missing  (e.g., na ="."). See the example for the reading from the remote mtcars.csv file.
+
 \code{\link{read.clipboard}} was based upon a suggestion by Ken Knoblauch to the R-help listserve.
 
 If the input file that was copied into the clipboard was an Excel file with blanks for missing data, then read.clipboard.tab() will correctly replace the blanks with NAs.  Similarly for a csv file with blank entries, read.clipboard.csv will replace empty fields with NA.  
@@ -131,7 +135,7 @@ read.clipboard.fwf will read fixed format files from the clipboard.  It includes
 \examples{
 #All of these functions are meant for interactive Input
 #Because these are dynamic functions, they need to be run interactively and 
-# can not be shown as examples.
+# can not be run as examples.
 #Thus they are not to be tested by CRAN
 \donttest{
 if(interactive()) {
@@ -147,7 +151,9 @@ write.file(Thurstone) #open the search window, choose a location and name the ou
 # write the data file (e.g., Thurstone ) to the file chosen
 
 #the example data set from read.delim in the readr package to read a remote csv file
-my.data  <-read.file("https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv")
+my.data <-read.file(
+"https://github.com/tidyverse/readr/raw/master/inst/extdata/mtcars.csv", 
+na=".")   #the na option is used for an example, but is not needed for these data
 
 
 #These functions read from the local clipboard and thus are interactive

@@ -94,6 +94,17 @@ sai.p = c("calm","at.ease","rested","comfortable", "confident", "secure" ,"relax
 sai.n = c( "tense" , "anxious", "nervous" , "jittery" , "rattled",     "high.strung",  
          "upset", "worrying","worried","regretful" )
 ) 
+tai.keys <- list(tai=c("-pleasant" ,"nervous" , "not.satisfied", "wish.happy",
+   "failure","-rested", "-calm", "difficulties" , "worry" , "-happy" , 
+   "disturbing.thoughts","lack.self.confidence",
+   "-secure", "decisive" , "inadequate","-content","thoughts.bother","disappointments" ,    
+   "-steady" , "tension"  ),
+   tai.pos = c("pleasant", "-wish.happy", "rested","calm","happy" ,"secure",
+   "content","steady" ),
+   tai.neg = c("nervous", "not.satisfied", "failure","difficulties", "worry", 
+    "disturbing.thoughts" ,"lack.self.confidence","decisive","inadequate" , 
+    "thoughts.bother","disappointments","tension" )         )
+
 
 #using the is.element function instead of the \%in\% function 
 #just get the control subjects 
@@ -128,7 +139,7 @@ sai.alternate.forms <- list( pos1 =c( "at.ease","calm","confident","content","re
   
 sai.repeated <- c("AGES","Cart","Fast","FIAT","FILM","FLAT","HOME","PAT","RIM","SALT",
     "SAM","SHED","SHOP","VALE","XRAY")
-sai12 <- subset(sai,is.element(sai$study,  sai.repeated))   #the subset with repeated measures
+sai12 <- subset(sai,is.element(sai$study,  sai.repeated)) #the subset with repeated measures
 
 #Choose those studies with repeated measures by :
 sai.control <- subset(sai,is.element(sai$study, c("Cart", "Fast", "SHED", "SHOP")))

@@ -45,7 +45,7 @@ https://sapa-project.org/research/SPI/SPIdevelopment.pdf.
 }
 \examples{
 data(spi)
-data(sapa.dictionary)
+data(spi.dictionary)
 psych::bestScales(spi, criteria="health",dictionary=spi.dictionary)
 
 sc <- psych::scoreVeryFast(spi.keys,spi) #much faster scoring for just scores

@@ -14,7 +14,7 @@
 df2latex(x,digits=2,rowlabels=TRUE,apa=TRUE,short.names=TRUE,font.size ="scriptsize",
        big.mark=NULL,drop.na=TRUE, heading="A table from the psych package in R",
    caption="df2latex",label="default", char=FALSE, 
-    stars=FALSE,silent=FALSE,file=NULL,append=FALSE,cut=0,big=0)
+    stars=FALSE,silent=FALSE,file=NULL,append=FALSE,cut=0,big=0,abbrev=NULL)
 cor2latex(x,use = "pairwise", method="pearson", adjust="holm",stars=FALSE,
        digits=2,rowlabels=TRUE,lower=TRUE,apa=TRUE,short.names=TRUE,
      font.size ="scriptsize", heading="A correlation table from the psych package in R.",
@@ -40,6 +40,7 @@ ICC2latex(icc,digits=2,rowlabels=TRUE,apa=TRUE,ci=TRUE,
 \arguments{
   \item{x}{A data frame or matrix to convert to LaTeX. If non-square, then correlations will be found prior to printing in cor2latex}
   \item{digits}{Round the output to digits of accuracy.  NULL for formatting character data}
+  \item{abbrev}{How many characters should be used in column names --defaults to digits + 3}
   \item{rowlabels}{If TRUE, use the row names from the matrix or data.frame}
   \item{short.names}{Name the columns with abbreviated rownames to save space}
   \item{apa}{If TRUE formats table in APA style}

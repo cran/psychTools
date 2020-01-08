@@ -50,6 +50,7 @@ Historically interesting data sets
 \code{\link{cubits}} \tab Galtons example of the relationship between height and cubit or forearm length \cr
 \code{\link{peas}} \tab Galtons Peas \cr
 \code{\link{cushny}}  \tab The data set from Cushny and Peebles (1905) on the effect of three drugs on hours of sleep, used by Student (1908) \cr
+\code{\link{holzinger.swineford}} \tab 26 cognitive variables + 7 demographic variables for   301 cases from Holzinger and Swineford. 
 }
 
 Miscellaneous example data sets
@@ -63,6 +64,9 @@ city.location \tab and their geograpical location \cr
 all.income  \tab US family income from US census 2008 \cr
 \code{\link{neo}}  \tab NEO correlation matrix from the NEO_PI_R manual \cr
 \code{\link{Schutz}} \tab The Schutz correlation matrix example from Shapiro and ten Berge \cr
+\code{\link{Spengler}} \tab The Spengler and Damian correlation matrix example from Spengler, Damian and Roberts (2018) \cr
+\code{\link{Damian}} \tab Another correlation matrix from Spengler, Damian and Roberts (2018) \cr
+\code{\link{usaf}} \tab A correlation of  17 body size (anthropometric) measures from the US Air Force. Adapted from the Anthropometric package.\cr
 veg \tab Paired comparison of preferences for 9 vegetables (scaling example) \cr
 }
 
@@ -72,9 +76,9 @@ Functions to convert various objects to latex
 \tabular{ll}{
 \code{\link{fa2latex}}  \tab Convert a data frame, correlation matrix, or factor analysis output to a LaTeX table \cr
 \code{\link{df2latex}}  \tab Convert a data frame, correlation matrix, or factor analysis output to a LaTeX table \cr
-ICC2latex \tab Convert a data frame, correlation matrix, or factor analysis output to a LaTeX table \cr
-irt2latex \tab Convert a data frame, correlation matrix, or factor analysis output to a LaTeX table \cr
-cor2latex \tab Convert a data frame, correlation matrix, or factor analysis output to a LaTeX table \cr
+\code{\link{ICC2latex}} \tab Convert an ICC analyssis output to a LaTeX table \cr
+\code{\link{irt2latex}} \tab Convert an irt analysis output to a LaTeX table \cr
+\code{\link{cor2latex}} \tab Convert a  correlation matrix output to a LaTeX table \cr
 omega2latex \tab Convert a data frame, correlation matrix, or factor analysis output to a LaTeX table \cr
 }
 
@@ -97,7 +101,7 @@ read.clipboard.fwf \tab \cr
 read.clipboard.lower \tab \cr
 read.clipboard.tab \tab \cr
 read.clipboard.upper \tab \cr
-read.file \tab Read a file according to its suffix \cr
+\code{\link{read.file}} \tab Read a file according to its suffix \cr
 read.file.csv \tab \cr
 read.https \tab \cr
 \code{\link{write.file}} \tab Write data to a file \cr

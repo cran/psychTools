@@ -9,8 +9,9 @@
 "df2latex" <- 
 function(x,digits=2,rowlabels=TRUE,apa=TRUE,short.names=TRUE,
 font.size ="scriptsize",big.mark=NULL, drop.na=TRUE, heading="A table from the psych package in R",
-caption="df2latex",label="default",char=FALSE,stars=FALSE,silent=FALSE,file=NULL,append=FALSE,cut=0,big=.0) {
+caption="df2latex",label="default",char=FALSE,stars=FALSE,silent=FALSE,file=NULL,append=FALSE,cut=0,big=.0,abbrev=NULL) {
 #first set up the table
+if(is.null(abbrev)) abbrev<- digits + 3
  nvar <- dim(x)[2]
  rname<- rownames(x)
  tempx <- x
@@ -51,7 +52,7 @@ if(!char) {if(!is.null(digits)) {if(is.numeric(x) ) {x <- round(x,digits=digits)
       }
  
  cname <- colnames(x)
- if (short.names) cname <- abbreviate(cname,minlength=digits+3)  #cname <- 1:nvar
+ if (short.names) cname <- abbreviate(cname,minlength=abbrev)  #cname <- 1:nvar
 
  names1 <- paste0("{",cname[1:(nvar-1)], "} & ")
  lastname <- paste0("{",cname[nvar],"}\\cr \n")
@@ -151,6 +152,8 @@ u2 <- 1- h2
 vtotal <- sum(h2 + u2)
 if(cut > 0) x[abs(x) < cut] <- NA    #modified May 13 following a suggestion from Daniel Zingaro
 if(!is.null(f$complexity)) {x <- data.frame(x,h2=h2,u2=u2,com=f$complexity) } else {x <- data.frame(x,h2=h2,u2=u2)}
+colnames(x)[which(colnames(x)=='h2')] <- '$h^2$'     #added following a request from Alex Weiss 11/28/19
+colnames(x)[which(colnames(x)=='u2')] <- '$u^2$'
 #first set up the table
  nvar <- dim(x)[2]
 comment <- paste("% Called in the psych package ", match.call())

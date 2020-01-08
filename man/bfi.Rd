@@ -1,6 +1,7 @@
 \name{bfi}
 \alias{bfi}
 \alias{bfi.dictionary}
+\alias{bfi.keys}
 \docType{data}
 \title{25 Personality items representing 5 factors}
 \description{25 personality self report items taken from the International Personality Item Pool (ipip.ori.org) were included as part of the Synthetic Aperture Personality Assessment (SAPA) web based personality assessment project.  The data from 2800 subjects are included here as a demonstration set for scale construction, factor analysis, and Item Response Theory analysis.  Three additional demographic variables (sex, education, and age) are also included.
@@ -72,7 +73,7 @@ Revelle, W., Wilt, J.,  and Rosenthal, A. (2010)  Individual Differences in Cogn
 \examples{
 data(bfi)
 psych::describe(bfi)
-# create the bfi.keys 
+# create the bfi.keys (actually already saved in the data file)
  bfi.keys <-
   list(agree=c("-A1","A2","A3","A4","A5"),conscientious=c("C1","C2","C3","-C4","-C5"),
 extraversion=c("-E1","-E2","E3","E4","E5"),neuroticism=c("N1","N2","N3","N4","N5"),
@@ -80,7 +81,7 @@ openness = c("O1","-O2","O3","O4","-O5"))
 
  scores <- psych::scoreItems(bfi.keys,bfi,min=1,max=6) #specify the minimum and maximum values
  scores
- #show the use of the fa.lookup with a dictionary
+ #show the use of the keys.lookup with a dictionary
  psych::keys.lookup(bfi.keys,bfi.dictionary[,1:4])
  
 }
