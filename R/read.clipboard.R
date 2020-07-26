@@ -119,7 +119,7 @@ function(filename,header=TRUE) {
 #August, 2016
 #modified Jan/April 2017 to include SAS xpt 
 #modifed May, 2019 to not load files into the .environment, but give instructions of how to do.
-"read.file" <- function(file=NULL,header=TRUE,use.value.labels=FALSE,to.data.frame=TRUE,sep=",",widths=NULL,f=NULL,filetype=NULL,...) {
+"read.file" <- function(file=NULL,header=TRUE,use.value.labels=FALSE,to.data.frame=TRUE,sep=",",quote="\"",widths=NULL,f=NULL,filetype=NULL,...) {
  if(missing(f) && missing(file))  f <- file.choose()
  if(missing(f) && !missing(file)) f <- file
  suffix <- file_ext(f)
@@ -130,8 +130,10 @@ function(filename,header=TRUE) {
  switch(suffix, 
    sav = {result <- read.spss(f,use.value.labels=use.value.labels,to.data.frame=to.data.frame)
          message('Data from the SPSS sav file ', f ,' has been loaded.')},
-   csv = {result <- read.table(f,header=header,sep=sep,...)
+   csv = {result <- read.table(f,header=header,sep=sep,quote=quote,...)
          message('Data from the .csv file ', f ,' has been loaded.')},
+   tab =  {result <- read.table(f,header=header,sep="\t",...)
+          message('Data from the .tab file ', f , ' has been loaded.')},
    txt = {result <- read.table(f,header=header,...)
           message('Data from the .txt file ', f , ' has been loaded.') },
   TXT = {result <- read.table(f,header=header,...)

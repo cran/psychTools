@@ -70,9 +70,11 @@ cat("Search for a file in the directory where you want to create a new file")
  #Completely rewritten 1/20/18 to follow  the help pages for order more closely
 #sort a data frame according to one or multiple columns 
 #will only work for data.frames (not matrices)
+#needs to not quit if there is nothing to do
 dfOrder <- function(object,columns=NULL,absolute=FALSE,ascending=TRUE) {
   if(is.matrix(object)) {mat<- TRUE
              object <- as.data.frame(object)} else {mat<-FALSE}
+    if(is.null(ncol(object))) {return(object)} else {
    if(is.null(columns)) columns <- 1:ncol(object)
 	 nc <- length(columns)
 	 cn <- colnames(object)
@@ -83,8 +85,8 @@ dfOrder <- function(object,columns=NULL,absolute=FALSE,ascending=TRUE) {
     	 
     	} else {temp[columns < 0] <- -1
     	        columns <- abs(columns) }
-    	
-   if(is.character(columns) ) {	 for (i in 1:length(columns)) {columns[i] <- (which(colnames(object) == columns[i]))
+    
+   if(is.character(columns) ) {  for (i in 1:length(columns)) {columns[i] <- (which(colnames(object) == columns[i]))
        }
        }
       
@@ -96,6 +98,7 @@ dfOrder <- function(object,columns=NULL,absolute=FALSE,ascending=TRUE) {
    	 ord <- do.call(order,temp.object)
    	 if(mat) object <- as.matrix(object)
      if(length(ord) > 1) {
-   	   return(object[ord,]) }else {return(object)} #added length test 4/26/18
+   	   return(object[ord,]) }else {return(object)}   #added length test 4/26/18
+       }
        }
 

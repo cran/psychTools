@@ -11,13 +11,13 @@
 \alias{write.file.csv}
 \alias{read.https}
 \title{Shortcuts for reading from the clipboard or a file}
-\description{Input from a variety of sources may be read.  data.frames may be read from files with suffixes of .txt, .text, .TXT, .dat, .DATA,.data, .csv, .rds, rda, .xpt, or  .sav   (i.e., data from SPSS sav files may be easily read.) Data exported by JMP or EXCEL in the csv format are also able to be read. Fixed Width Files saved in .txt mode may be read if the  widths parameter is specified. Files saved with writeRDS have suffixes of  .rds or  Rds,  and are read using readRDS.  Files associated with objects with suffixes .rda and .Rda are  loaded. The default values for read.spss are adjusted for more standard input from SPSS files.  
-Input from the clipboard is easy but a bit obscure, particularly for Mac users. \code{\link{read.clipboard}} and its variations are just an easier way to do so.  Data may be copied to the clipboard from Excel spreadsheets, csv files, or fixed width formatted files and then into a data.frame. Data may also be read from lower  (or upper) triangular matrices and filled out to square matrices.
-\code{\link{write.file}} will prompt for a file name (if not given) and then write or save to that file depending upon the suffix (text, txt, or csv will call write.table, R, or r will dput, rda, Rda will save,  Rds,rds will saveRDS).
+\description{Input from a variety of sources may be read.  data.frames may be read from files with suffixes of .txt, .text, .TXT, .dat, .DATA,.data, .csv, .rds, rda, .xpt, XPT, or  .sav   (i.e., data from SPSS sav files may be  read as can files saved by SAS using the .xpt option). Data exported by JMP or EXCEL in the csv format are also able to be read. Fixed Width Files saved in .txt mode may be read if the  widths parameter is specified. Files saved with writeRDS have suffixes of  .rds or  Rds,  and are read using readRDS.  Files associated with objects with suffixes .rda and .Rda are  loaded (following a security prompt). The default values for read.spss are adjusted for more standard input from SPSS files.  
+Input from the clipboard is easy but a bit obscure, particularly for Mac users. \code{\link{read.clipboard}} and its variations are just an easier way to do so.  Data may be copied to the clipboard from Excel spreadsheets, csv files, or fixed width formatted files and then into a data.frame. Data may also be read from lower  (or upper) triangular matrices and filled out to square matrices.  Writing text files may be done using \code{\link{write.file}} which
+ will prompt for a file name (if not given) and then write or save to that file depending upon the suffix (text, txt, or csv will call write.table, R, or r will dput, rda, Rda will save,  Rds,rds will saveRDS).
 }
 \usage{
 read.file(file=NULL,header=TRUE,use.value.labels=FALSE,to.data.frame=TRUE,sep=",",
-widths=NULL,f=NULL, filetype=NULL,...)
+quote="\"", widths=NULL,f=NULL, filetype=NULL,...)
  #for .txt, .text, TXT, .csv, .sav, .xpt, XPT,  R, r, Rds, .rds, or .rda, 
 # .Rda, .RData, .Rdata, .dat and .DAT  files
 
@@ -30,9 +30,11 @@ read.clipboard.tab(header=TRUE,sep='\t',...)   #assumes headers and tab delimite
 
 #read in data using a fixed format width (see read.fwf for instructions)
 read.clipboard.fwf(header=FALSE,widths=rep(1,10),...)  
-read.https(filename,header=TRUE)
 
+read.https(filename,header=TRUE)
 read.file.csv(file=NULL,header=TRUE,f=NULL,...)
+
+#For output: 
 write.file(x,file=NULL,row.names=FALSE,f=NULL,...)
 write.file.csv(x,file=NULL,row.names=FALSE,f=NULL,...)
 
@@ -42,6 +44,7 @@ write.file.csv(x,file=NULL,row.names=FALSE,f=NULL,...)
 \arguments{
   \item{header}{Does the first row have variable labels (generally assumed to be TRUE). }
   \item{sep}{What is the designated separater between data fields? For typical csv files, this will be a comma, but if commas designate decimals, then a ; can be used to designate different records.  }
+  \item{quote}{Specified to }
   \item{diag}{for upper or lower triangular matrices, is the diagonal specified or not}
   \item{names}{for read.clipboard.lower or upper, are colnames in the  the first column}
   \item{widths}{how wide are the columns in fixed width input.  The default is to read 10 columns of size 1. }
@@ -56,13 +59,13 @@ write.file.csv(x,file=NULL,row.names=FALSE,f=NULL,...)
  \item{filetype}{If specified the reading will use this term rather than the suffix.}
 
 }
-\details{A typical session of R might involve data stored in text files, generated online, etc. Although it is easy to just read from a file (particularly if using \code{\link{file.choose}}, copying from the file to the clipboard and then reading from the clipboard is also very convenient (and somewhat more intuitive to the naive user). This is particularly convenient when copying from a text book or article and just moving a section of text into R.)
+\details{A typical session of R might involve data stored in text files, generated online, etc. Although it is easy to just read from a file (particularly if using \code{\link{read.file}}, an alternative is to use one's local system to copy from the file to the clipboard and then read from the clipboard  \code{\link{read.clipboard}}. This is  very convenient (and somewhat more intuitive to the naive user). This is particularly convenient when copying from a text book or article and just moving a section of text into R.)  However, copying from a file and then reading the clipboard is hard to automate in a script.  Thus, code{\link{read.file}} will read from a file.
 
-The \code{\link{read.file}} function combines the \code{\link{file.choose}} and either \code{\link{read.table}}, \code{\link{read.fwf}}, \code{\link{read.spss}} or  \code{\link{read.xport}}(from foreign) or \code{\link{load}} or \code{\link{readRDS}} commands. By examining the file suffix, it chooses the appropriate way to read. For more complicated file structures, see the foreign package. For even more complicated file structures, see the rio or haven packages. 
+The \code{\link{read.file}} function combines the \code{\link{file.choose}} and either \code{\link{read.table}}, \code{\link{read.fwf}}, \code{\link{read.spss}} or  \code{\link{read.xport}}(from foreign) or \code{\link{load}} or \code{\link{readRDS}} commands. By examining the file suffix, it chooses the appropriate way to read the file. For more complicated file structures, see the foreign package. For even more complicated file structures, see the rio or haven packages. 
 
 Note that \code{\link{read.file}} assumes by default that the first row has column labels (header =TRUE).  If this is not true, then make sure to specify header = FALSE.  If the file is fixed width, the assumption is that it does not have a header field.  In the unlikely case that a fwf file does have a header, then you probably should try fn <- file.choose() and then my.data <- read.fwf(fn,header=TRUE,widths=   widths)
 
-Further note:  If the file is a .Rda, .rda, etc. file, the read.file command will load this file and return the name of the file.  In this case, it is necessary to either assign the output (the file name) to an object that has a different name than any of the objects in the file, or to call read.file() without any specification. 
+Further note:  If the file is a .Rda, .rda, etc. file, the read.file command will return the name and location of the file. It will prompt the user to load this file.  In this case, it is necessary to either assign the output (the file name) to an object that has a different name than any of the objects in the file, or to call read.file() without any specification. Notice that loading an .Rda file can overwrite existing objects.  Thus the warning and the need to do the second step.
 
 If the file has no suffix the default action is to quit with a warning.  However, if the filetype is specified, it will use that type in the reading (e.g. filetype="txt" will read as text file, even if there is no suffix.)
 
@@ -90,6 +93,8 @@ Currently supported input formats are
 .XPT      \tab       A SAS data file in XPORT format  \cr
 }
 
+Some data files have an extra ' in the data ( e.g. the NYT covid data base).  These files can be read specifying quote ""
+
 The foreign function \code{\link{read.spss}} is used to read SPSS .sav files using the most common options.  Just as  \code{\link{read.spss}}  issues various warnings, so does  \code{\link{read.file}}.   In general, these can be ignored.  For more detailed information about using  \code{\link{read.spss}}, see the help pages in the foreign package.
 
 If you have a file written by JMP, you must first export to a csv or text file.
@@ -110,7 +115,6 @@ Currently supported output formats are
 .r        \tab       A R data structure created using dput \cr
 }
 
-Note that new=TRUE option in write.file works only in R.app and not in RStudio.  To create a new file using RStudio (or on a PC) you can use the \code{link{fileCreate}} function first. 
 
 Many Excel based files specify missing values as a blank field. When reading from the clipboard, using \code{\link{read.clipboard.tab}} will change these blank fields to NA.
 

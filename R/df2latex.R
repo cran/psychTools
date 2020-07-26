@@ -4,7 +4,7 @@
 #cor2latex was modified following Davide Morselli's suggestion to allow direct calculation of the correlations
 #added { and } before and after each variable name to allow siunitx to work with stars
 #added the absolute value in the big comparison for cor2latex and df2latex
-
+#added the ability to round numbers even though other columns are character  (01/24/20)
 #
 "df2latex" <- 
 function(x,digits=2,rowlabels=TRUE,apa=TRUE,short.names=TRUE,
@@ -47,7 +47,7 @@ footer <- paste(footer,"
 )
 
 #now put the data into it
-if(!char) {if(!is.null(digits)) {if(is.numeric(x) ) {x <- round(x,digits=digits)} else {x <- try(round(x,digits=digits)) }
+if(!char) {if(!is.null(digits)) {if(is.numeric(x) ) {x <- round(x,digits=digits)} else {for(i in 1:ncol(x)) {if (is.numeric(x[,i])) x[,i] <- round(x[,i],2)} }
        if(cut > 0) x[abs(x) < cut] <- NA }
       }
  

@@ -55,7 +55,7 @@ A classic data set in psychometrics is that from Holzinger and Swineford (1939).
 
 ``The Holzinger and Swineford (1939) data have been used as a model data set by many investigators. For example, Harman (1976) used the ``24 Psychological Variables" example prominently in his authoritative text on multiple factor analysis, and the data presented under this rubric consisted of 24 of the variables from the Grant-White school (N = 145). Meredith (1964a, 1964b) used several variables from the Holzinger and Swineford study in his work on factorial invariance under selection. Joreskog (1971) based his work on multiple-group confirmatory factor analysis using the Holzinger and Swineford data, subsetting the data into four groups.
 
-Rosseel, who developed the `lavaan' package for  R , included 9 of the manifest variables from Holzinger and Swineford (1939) as a ``resident" data set when one downloads the `lavaan' package. Several background variables are included in this ``resident" data set in addition to 9 of the psychological tests (which are named x1 -- x9 in the data set). When analyzing these data, I found the distributions of the variables (means, SDs) did not match the sample statistics from the original article. For example, in the ``resident" data set in `lavaan', scores on all manifest variables ranged between 0 and 10, sample means varied between 3 and 6, and sample SDs varied between 1.0 and 1.5. In the original data set, scores ranges were rather different across tests, with some variables having scores that ranged between 0 and 20, but other manifest variables having scores ranging from 50 to over 300 -- with obvious attendant differences in sample means and SDs.
+Rosseel, who developed the `lavaan' package for  R, included 9 of the manifest variables from Holzinger and Swineford (1939) as a ``resident" data set when one downloads the `lavaan' package. Several background variables are included in this ``resident" data set in addition to 9 of the psychological tests (which are named x1 -- x9 in the data set). When analyzing these data, I found the distributions of the variables (means, SDs) did not match the sample statistics from the original article. For example, in the ``resident" data set in `lavaan', scores on all manifest variables ranged between 0 and 10, sample means varied between 3 and 6, and sample SDs varied between 1.0 and 1.5. In the original data set, scores ranges were rather different across tests, with some variables having scores that ranged between 0 and 20, but other manifest variables having scores ranging from 50 to over 300 -- with obvious attendant differences in sample means and SDs.
 
 After a bit of snooping (i.e., data analysis), I discovered that the 9 variables in the ``resident" data set in `lavaan' had been rescored through ratio transformations. The ratio transformations involved dividing the raw score for each person on a given test by a particular constant for that test that transformed scores on the test to have the desired range.
 
@@ -110,6 +110,28 @@ holzinger.dictionary  #to see the longer names for these data (taken from Thomps
 
 #show suppression effects
 psych::setCor(t01_visperc + t05_geninfo + t08_wordclas ~ grade + agemo,data = holzinger.raw)
-psych::mediate(t01_visperc  ~ grade + (agemo),data = holzinger.raw,std=TRUE)
+psych::setCor( t06_paracomp ~ grade + agemo, data=holzinger.swineford)
+psych::mediate(t06_paracomp  ~ grade + (agemo),data = holzinger.raw,std=TRUE)
+#show the omega structure of the 24 variables
+ om4 <- psych::omega(holzinger.swineford[8:31],4)
+psych::omega.diagram(om4,sl=FALSE,main="26 variables from Holzinger-Swineford")
+
+#these data also show an interesting suppression effect
+
+psych::lowerCor(holzinger.swineford[c(3,7,12:14)])
+psych::setCor( t06_paracomp ~ grade + agemo, data=holzinger.swineford)
+#or show as a mediation effect
+mod <- psych::mediate(t06_paracomp  ~ grade + (agemo),data = holzinger.raw,std=TRUE,n.iter=50)
+summary(mod)
+
+#now, show a plot of these effets
+plot(t07_sentcomp ~ agemo, col=c("red","blue")[holzinger.swineford$grade -6],
+  pch=26-holzinger.swineford$grade,data=holzinger.swineford,
+   ylab="Sentence Comprehension",xlab="Age in Months",
+   main="Sentence Comprehension varies by age and grade")
+by(holzinger.swineford,holzinger.swineford$grade -6,function(x) abline(
+     lm(t07_sentcomp ~ agemo,data=x),lty=c("dashed","solid")[x$grade-6]))
+text(190,3.3,"grade = 8")
+text(190,2,"grade = 7") 
 }
 \keyword{datasets}

@@ -1,9 +1,9 @@
 \name{NEWS}
 \title{News for Package 'psychTools'}
-\section{Changes in psychTools version 1.9.10 (2019-10-31)}{ 
+\section{Changes in psychTools version 2.0.1 (2020-1-12)}{ 
   \subsection{Introduction}{
     \itemize{
-      \item Version 1.9.10 is the development release of the psychTools package. It is available as a source file for Macs or PCs in the repository at \url{http://personality-project.org/r}. The released version on CRAN is 1.9.6  The second digit reflects the year (i.e., 2019), the third set the month (i.e., 1.8.3 was released in March of 2018, the last two digits of development versions reflect  either an minor change or the day of any modifications, e.g. 1.8.3.3 was the third attempt to get 1.8.3 released.  1.7.8 was  released in August, 2017.
+      \item Version 2.0.1 is the development release of the psychTools package. It is available as a source file for Macs or PCs in the repository at \url{http://personality-project.org/r}. The released version on CRAN is 1.9.12  The second digit reflects the year (i.e., 2019), the third set the month (i.e., 1.8.3 was released in March of 2018, the last two digits of development versions reflect  either an minor change or the day of any modifications, e.g. 1.8.3.3 was the third attempt to get 1.8.3 released.  1.7.8 was  released in August, 2017.
     \item To install this development version, use the command: install.packages("psychTools", repos="http://personality-project.org/r", type="source"). Remember to restart R and library(psych) to make the new version active.
        
       \item The psychTools package includes functions and data sets to accompany the psych package which does classic and modern psychometrics and to analyze personality  and experimental psychological data sets. The psych package has been developed as a supplement to courses in research methods in psychology, personality research, and graduate level psychometric theory. The functions are a supplement to the text (in progress): An introduction to psychometric theory with applications in R. 
@@ -13,6 +13,22 @@
  }
  }
  } 
+ 
+ 
+ \section{Changes in psychTools version 2.0.1 (2020-1-12)}{
+    \subsection{Additions}{
+    \itemize{
+    \item Modified df2latex to allow mixed numeric and character with rounding of numeric
+
+   }
+   }
+    \subsection{Bugs Fixed}{
+    	\itemize{
+   \item Fixed dfOrder to handle Null data
+   \item Fixed holzinger.swineford and holzinger.raw for two cases (180 and 231) where K. Widaman had provided incorrect values (thanks to Keith for finding this).
+   	}
+    	}
+    	}
  \section{Changes in psychTools version 1.9.10 (2018-06-24)}{
     \subsection{Additions}{
     \itemize{
