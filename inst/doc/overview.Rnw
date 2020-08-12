@@ -1146,7 +1146,7 @@ To find the correlations of the items with each of the scales (the ``structure" 
 
 \subsection{Scoring Multiple Choice Items}
 
-Some items (typically associated with ability tests) are not themselves mini-scales ranging from low to high levels of expression of the item of interest, but are rather multiple choice where one response is the correct response.  Two analyses are useful for this kind of item: examining the response patterns to all the alternatives (looking for good or bad distractors) and scoring the items as correct or incorrect.  Both of these operations may be done using  the \pfun{score.multiple.choice} function.  Consider the 16 example items taken from an online ability test at the Personality  Project: \url{https://sapa-project.org}.  This is part of the Synthetic Aperture Personality Assessment (\iemph{SAPA}) study discussed in \cite{rcw:methods,rwr:sapa}.   
+Some items (typically associated with ability tests) are not themselves mini-scales ranging from low to high levels of expression of the item of interest, but are rather multiple choice where one response is the correct response.  Two analyses are useful for this kind of item: examining the response patterns to all the alternatives (looking for good or bad distractors) and scoring the items as correct or incorrect.  Both of these operations may be done using  the \pfun{score.multiple.choice} function.  Consider the 16 example items taken from an online ability test at the Personality  Project: \url{https://www.sapa-project.org/}.  This is part of the Synthetic Aperture Personality Assessment (\iemph{SAPA}) study discussed in \cite{rcw:methods,rwr:sapa}.   
 
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
