@@ -119,12 +119,22 @@ function(filename,header=TRUE) {
 #August, 2016
 #modified Jan/April 2017 to include SAS xpt 
 #modifed May, 2019 to not load files into the .environment, but give instructions of how to do.
+#modified August 2020 to be a little cleaner in code
 "read.file" <- function(file=NULL,header=TRUE,use.value.labels=FALSE,to.data.frame=TRUE,sep=",",quote="\"",widths=NULL,f=NULL,filetype=NULL,...) {
  if(missing(f) && missing(file))  f <- file.choose()
  if(missing(f) && !missing(file)) f <- file
  suffix <- file_ext(f)
  
+ 
  if(!missing(filetype)) suffix <- filetype
+ 
+ #consider the various abbreviations possible
+ if(suffix %in% c("txt","TXT","text","data","dat","DAT")) suffix <- "txt"
+ if(suffix %in% c("R","r")) suffix <- "R"
+ if (suffix %in% c("rds","RDS","Rds"))  suffix <- "rds"
+ if (suffix %in% c("Rda","rda","Rdata","RData","rdata"))  suffix <- "Rda"
+ if (suffix %in% c("SYD","syd","sys","SYS"))  suffix <- "SYD"
+ 
  if(!missing(widths)) { result <- read.fwf(f,widths,...) 
         message("The fixed width file ", f, "has been loaded.") } else {
  switch(suffix, 
@@ -136,26 +146,28 @@ function(filename,header=TRUE) {
           message('Data from the .tab file ', f , ' has been loaded.')},
    txt = {result <- read.table(f,header=header,...)
           message('Data from the .txt file ', f , ' has been loaded.') },
-  TXT = {result <- read.table(f,header=header,...)
-          message('Data from the .TXT file ', f , ' has been loaded.') },
-  text = {result <- read.table(f,header=header,...)
-          message('Data from the .text file ', f , ' has been loaded.')},
-   data =  {result <- read.table(f,header=header,...) 
-           message('Data from the .data file ', f , ' has been loaded.')},
-    dat =  {result <- read.table(f,header=header,...) 
-           message('Data from the .data file ', f , ' has been loaded.')},
-     DAT =  {result <- read.table(f,header=header,...) 
-           message('Data from the .data file ', f , ' has been loaded.')},
-    rds = {result <- readRDS(f,...)
-          message('File ',f ,' has been loaded.')},
+  # TXT = {result <- read.table(f,header=header,...)
+#          message('Data from the .TXT file ', f , ' has been loaded.') },
+#   text = {result <- read.table(f,header=header,...)
+#           message('Data from the .text file ', f , ' has been loaded.')},
+#    data =  {result <- read.table(f,header=header,...) 
+#            message('Data from the .data file ', f , ' has been loaded.')},
+#     dat =  {result <- read.table(f,header=header,...) 
+#            message('Data from the .data file ', f , ' has been loaded.')},
+#      DAT =  {result <- read.table(f,header=header,...) 
+#            message('Data from the .data file ', f , ' has been loaded.')},
+    rds = {result <- try(readRDS(f,...),silent=TRUE)
+           if(class(result) == "try-error") { result <- f
+             message("I had problems reading this file, \ntry  load('",f,"') instead. \nCaution, this might replace an object currently in your environment.")} else {
+          message('File ',f ,' has been loaded.')}},
       R = {result <- dget(f,...)
           message('File ',f ,' has been loaded.')},
-      r = {result <- dget(f,...)
-          message('File ',f ,' has been loaded.')},
-   Rds  = {result <- readRDS(f,...)
-          message('File ',f ,' has been loaded.')},
-    RDS  = {result <- readRDS(f,...)
-          message('File ',f ,' has been loaded.')},
+    #   r = {result <- dget(f,...)
+#           message('File ',f ,' has been loaded.')},
+#    Rds  = {result <- readRDS(f,...)
+#           message('File ',f ,' has been loaded.')},
+#     RDS  = {result <- readRDS(f,...)
+#           message('File ',f ,' has been loaded.')},
     XPT = { result <- read.xport(f,...)
           message('File ',f ,' has been loaded.')},
     xpt = { result <- read.xport(f,...)
@@ -166,25 +178,25 @@ function(filename,header=TRUE) {
           # load(f, .GlobalEnv)
          # load(f)
           message("To load this ",suffix," file (or these files) you need to load('",f,"')   \nCaution, this might replace an object currently in your environment.") },
-   rda  = {result <- f
-          load(result)
-           message("To load this ",suffix," file (or these files) you need to load('",f,"')   \nCaution, this might replace an object currently in your environment.") },
-    Rdata =   {result <- f
-          
-            message("To load this file (or these files) you need to load('",f,"')   \nCaution, this might replace an object currently in your environment.") },
-    RData =   {result <- f
-          
-              message("To load this file (or these files) you need to load('",f,"')   \nCaution, this might replace an object currently in your environment.") },
-     rdata =   {result <- f
-          
-           message("To load this file (or these files) you need to load('",f,"')   \nCaution, this might replace an object currently in your environment.") },
+#    rda  = {result <- f
+#           load(result)
+#            message("To load this ",suffix," file (or these files) you need to load('",f,"')   \nCaution, this might replace an object currently in your environment.") },
+#     Rdata =   {result <- f
+#           
+#             message("To load this file (or these files) you need to load('",f,"')   \nCaution, this might replace an object currently in your environment.") },
+#     RData =   {result <- f
+#           
+#               message("To load this file (or these files) you need to load('",f,"')   \nCaution, this might replace an object currently in your environment.") },
+#      rdata =   {result <- f
+#           
+#            message("To load this file (or these files) you need to load('",f,"')   \nCaution, this might replace an object currently in your environment.") },
         
      SYD =   {result <-  read.systat(f,to.data.frame=to.data.frame )
            message('Data from the systat SYD file ', f ,' has been loaded.')},
-     syd =   {result <- read.systat(f,to.data.frame=to.data.frame )
-           message('Data from the systat syd file ', f ,' has been loaded.')},
-     sys =   {result <-   read.systat(f,to.data.frame=to.data.frame )
-           message('Data from the systat sys file ', f ,' has been loaded.')},
+#      syd =   {result <- read.systat(f,to.data.frame=to.data.frame )
+#            message('Data from the systat syd file ', f ,' has been loaded.')},
+#      sys =   {result <-   read.systat(f,to.data.frame=to.data.frame )
+#            message('Data from the systat sys file ', f ,' has been loaded.')},
     #this section handles (or complains) about jmp and SAS files.
   
     jmp  = {result <- f

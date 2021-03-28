@@ -382,6 +382,7 @@ It is very important to describe your data before you continue on doing more com
 
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
+options(width=160)
 library(psych)
 library(psychTools)
 data(sat.act) 
@@ -2112,12 +2113,12 @@ Revelle, W. (1979).
 \newblock Hierarchical cluster-analysis and the internal structure of tests.
 \newblock {\em Multivariate Behavioral Research}, 14(1):57--74.
 
-\bibitem[\protect\astroncite{Revelle}{2019}]{psych}
-Revelle, W. (2019).
+\bibitem[\protect\astroncite{Revelle}{2020}]{psych}
+Revelle, W. (2020).
 \newblock {\em psych: Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
   https://CRAN.r-project.org/package=psych.
-\newblock R package version 1.9.4.
+\newblock R package version 2.0.8
 
 \bibitem[\protect\astroncite{Revelle}{prep}]{revelle:intro}
 Revelle, W. ({in prep}).

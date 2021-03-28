@@ -101,17 +101,22 @@ Thompson, Bruce. Five Methodology Errors in Educational  Research:The Pantheon o
 
 \note{As discussed by Widaman, the descriptive values reported in Harman (1967) (p 124) do not quite match the descriptive statistics in \code{\link{holzinger.raw}}.  Further note that the correlation matrix and factor loadings are trivially different from the Harman.24 factor loadings in the GPA rotation package. 
 
-The purpose behind presenting both the raw and transformed data is to show that the fit statistics from factor analysis are identical for these two data sets.  }
+The purpose behind presenting both the raw and transformed data is to show that the fit statistics from factor analysis are identical for these two data sets. 
+
+The variables v1 ... v9 in the lavaan package correspond to tests 1, 2, 4, 6, 7, 9, 10, 12 and 13. }
 \examples{
 data(holzinger.raw)
 psych::describe(holzinger.raw)
 data(holzinger.dictionary)
 holzinger.dictionary  #to see the longer names for these data (taken from Thompson)
 
-#show suppression effects
+#Compare these to the lavaan correlation matrix
+psych::lowerCor(holzinger.swineford[ 7+ c(1, 2, 4, 6, 7, 9, 10, 12,  13)])
+
 psych::setCor(t01_visperc + t05_geninfo + t08_wordclas ~ grade + agemo,data = holzinger.raw)
 psych::setCor( t06_paracomp ~ grade + agemo, data=holzinger.swineford)
 psych::mediate(t06_paracomp  ~ grade + (agemo),data = holzinger.raw,std=TRUE)
+
 #show the omega structure of the 24 variables
  om4 <- psych::omega(holzinger.swineford[8:31],4)
 psych::omega.diagram(om4,sl=FALSE,main="26 variables from Holzinger-Swineford")

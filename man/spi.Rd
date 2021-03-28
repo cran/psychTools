@@ -35,6 +35,8 @@ data(spi.keys)
 
 \details{Using the data contributed by about 125,000 visitors to the \url{https://www.SAPA-project.org/} website, David Condon has developed a hierarchical framework for assessing personality at two levels. The higher level has the familiar five factors that have been studied extensively in personality research since the 1980s -- Conscientiousness, Agreeableness, Neuroticism, Openness, and Extraversion. The lower level has 27 factors that are considerably more narrow. These were derived based on administrations of about 700 public-domain IPIP items to 3 large samples. Condon describes these scales as being "empirically-derived" because relatively little theory was used to select the number of factors in the hierarchy and the items in the scale for each factor (to be clear, he means relatively little personality theory though he relied on quite a lot of sampling and statistical theory). You can read all about the procedures used to develop this framework in  his book/manual. If you would like to reproduce these analyses, you can download the data files from Dataverse (links are also provided in the manual) and compile this script in R (he used knitR). Instructions are provided in the Preface to the manual.
 
+The content of the spi items may be seen by examining the spi.dictionary.  Included in the dictionary are the item_id number from the SAPA project, the wording of the item, the source of the item, which Big 5 scale the item marks, and which "Little 27" scale the item marks.  
+
 This small subset of the data is provided for demonstration purposes. 
 }
 \source{
@@ -49,9 +51,9 @@ data(spi.dictionary)
 psych::bestScales(spi, criteria="health",dictionary=spi.dictionary)
 
 sc <- psych::scoreVeryFast(spi.keys,spi) #much faster scoring for just scores
-sc <- psych::scoreItems(spi.keys,spi)  #gives the alpha reliabilities and various stats 
-
+sc <- psych::scoreOverlap(spi.keys,spi)  #gives the alpha reliabilities and various stats 
+      #these are corrected for overlap
 psych::corPlot(sc$corrected,numbers=TRUE,cex=.4,xlas=2,min.length=6,
-     main="Structure of SPI (disattenuated r above the diagonal)")
+     main="Structure of SPI (Corrected for overlap) disattenuated r above the diagonal)")
 }
 \keyword{datasets}

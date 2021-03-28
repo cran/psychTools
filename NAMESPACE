@@ -35,6 +35,8 @@ importFrom(psych,statsBy,cs,setCor, mediate,corPlot, omega)
  df2latex,
 # cor2,
 # cor2dist,
+#cta.15,
+#cta,
  dfOrder,
 # d2r,
 # d2t,
