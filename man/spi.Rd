@@ -44,6 +44,11 @@ https://sapa-project.org/research/SPI/SPIdevelopment.pdf.
 }
 \references{Condon, D. (2017) The SAPA Personality Inventory:An empirically-derived, hierarchically-organized self-report personality assessment model 
 
+An analysis using the spi data set and various tools from the psych package may be found at
+
+Revelle, Dworak and Condon, (2021)  Exploring the persome: the power of the item in understanding persnality structure. Personality and Individual Differences, 169, 1.  Doi: 10.1016/j.paid.2020.109905.  
+
+
 }
 \examples{
 data(spi)

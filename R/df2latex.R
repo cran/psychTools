@@ -5,30 +5,59 @@
 #added { and } before and after each variable name to allow siunitx to work with stars
 #added the absolute value in the big comparison for cor2latex and df2latex
 #added the ability to round numbers even though other columns are character  (01/24/20)
+#modified May 29, 2021 to addthe ability to do long tables
 #
+
 "df2latex" <- 
 function(x,digits=2,rowlabels=TRUE,apa=TRUE,short.names=TRUE,
 font.size ="scriptsize",big.mark=NULL, drop.na=TRUE, heading="A table from the psych package in R",
-caption="df2latex",label="default",char=FALSE,stars=FALSE,silent=FALSE,file=NULL,append=FALSE,cut=0,big=.0,abbrev=NULL) {
+caption="df2latex",label="default",char=FALSE,stars=FALSE,silent=FALSE,file=NULL,append=FALSE,cut=0,big=.0,abbrev=NULL,long=FALSE) {
 #first set up the table
 if(is.null(abbrev)) abbrev<- digits + 3
  nvar <- dim(x)[2]
  rname<- rownames(x)
  tempx <- x
 comment <- paste("%", match.call())
+if(long) {
+ header <- paste0("\\begin{center}
+ \\begin{",font.size,"} 
+ \\begin{longtable}")
+header <- c(header,"{l",rep("r",(nvar)),"}\n")
+header <- c(header,paste0("
+\\caption{",caption,"}
+\\endfirsthead
+\\multicolumn{",nvar+1,"}{c}
+{{\\bfseries \\tablename\\ \\thetable{} -- continued from previous page}} \\\\
+\\endhead 
+\\hline \\multicolumn{",nvar+1,"}{|c|}{{Continued on next page}} \\\\ 
+\\hline
+\\endfoot
+\\hline \\hline
+\\endlastfoot
+"))
+ #this wraps up the long table
+footer <- paste0("\\end{longtable}   
+\\end{",font.size,"}
+\\end{center}")
+} else {
 header <- paste("\\begin{table}[htpb]",
 "\\caption{",caption,"}
 \\begin{center}
 \\begin{",font.size,"} 
 \\begin{tabular}",sep="")
-if(stars) {if(rowlabels) {
+
+
+ if(stars) {if(rowlabels) {
                header <- c(header,"{l",rep("S",(nvar)),"}\n")} else {header <- c(header,"{",rep("S",(nvar+1)),"}\n")}  } else {
               if(rowlabels) { header <- c(header,"{l",rep("r",(nvar)),"}\n")} else {header <- c(header,"{",rep("r",(nvar+1)),"}\n")}
                }
+
 if(apa) {header <- c(header,
 "\\multicolumn{",nvar,"}{l}{",heading,"}",
 '\\cr \n \\hline ')
-footer <- paste(" \\hline ")}  else {footer <- NULL}
+footer <- paste(" \\hline ")} else {footer <- NULL}
+ 
+
 if (stars){
       footer <- paste(" \\hline 
                       \n \\multicolumn{7}{l}{\\scriptsize{\\emph{Note: }\\textsuperscript{***}$p<.001$; 
@@ -45,7 +74,8 @@ footer <- paste(footer,"
 
 ",sep=""
 )
-
+#end of not long 
+}
 #now put the data into it
 if(!char) {if(!is.null(digits)) {if(is.numeric(x) ) {x <- round(x,digits=digits)} else {for(i in 1:ncol(x)) {if (is.numeric(x[,i])) x[,i] <- round(x[,i],2)} }
        if(cut > 0) x[abs(x) < cut] <- NA }
@@ -84,8 +114,7 @@ result <- c(header,allnames,values,footer)
 if(!is.null(file)) write.table(result,file=file,row.names=FALSE,col.names=FALSE,quote=FALSE,append=append)
 
 invisible(result)
- }
- 
+ }  #end df2latex
  
  
  cor2latex <- function (x, use = "pairwise", method="pearson", adjust="holm", stars = FALSE, digits=2, rowlabels = TRUE, lower = TRUE, apa = TRUE, 

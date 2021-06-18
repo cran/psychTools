@@ -14,7 +14,7 @@
 df2latex(x,digits=2,rowlabels=TRUE,apa=TRUE,short.names=TRUE,font.size ="scriptsize",
        big.mark=NULL,drop.na=TRUE, heading="A table from the psych package in R",
    caption="df2latex",label="default", char=FALSE, 
-    stars=FALSE,silent=FALSE,file=NULL,append=FALSE,cut=0,big=0,abbrev=NULL)
+    stars=FALSE,silent=FALSE,file=NULL,append=FALSE,cut=0,big=0,abbrev=NULL,long=FALSE)
 cor2latex(x,use = "pairwise", method="pearson", adjust="holm",stars=FALSE,
        digits=2,rowlabels=TRUE,lower=TRUE,apa=TRUE,short.names=TRUE,
      font.size ="scriptsize", heading="A correlation table from the psych package in R.",
@@ -66,7 +66,7 @@ ICC2latex(icc,digits=2,rowlabels=TRUE,apa=TRUE,ci=TRUE,
   \item{silent}{If TRUE, do not print any output, just return silently -- useful if using Sweave}
   \item{file}{If specified, write the output to this file}
   \item{append}{If file is specified, then should we append (append=TRUE) or just write to the file}
-}
+  \item{long}{if TRUE, then do long tables.  (requires the longtables package in latex)}}
 \value{A LaTeX table.  Note that if showing "stars" for correlations, then one needs to use the siunitx  package in LaTex. 
   The entire LaTeX output is also returned invisibly.  If using Sweave to create tables, then the silent option should be set to TRUE and the returned object saved as a file.  See the last example.}
 
