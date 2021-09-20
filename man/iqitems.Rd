@@ -36,7 +36,13 @@ In addition, the data set is a good example of doing item analysis to examine th
 } 
 
 \references{
+
 Condon, David and Revelle, William, (2014) The International Cognitive Ability Resource:  Development and initial validation of a public-domain measure. Intelligence, 43, 52-64.
+
+Revelle, William, Dworak, Elizabeth M. and Condon, David (2020) Cognitive ability in everyday life: the utility of open-source measures.  Current Directions in Psychological Science, 29, (4) 358-363. Open access at \doi{10.1177/0963721420922178}.
+
+Dworak, Elizabeth M., Revelle, William, Doebler, Philip and Condon, David (2021)  Using the International Cognitive Ability Resource as an open source tool to explore individual differences in cognitive ability.  Personality and Individual Differences, 169. Open access at \doi{10.1016/j.paid.2020.109906}.
+
 
 Revelle, W., Wilt, J.,  and Rosenthal, A. (2010)  Individual Differences in Cognition: New Methods for examining the Personality-Cognition Link In Gruszka, A.  and Matthews, G. and Szymura, B. (Eds.) Handbook of Individual Differences in Cognition: Attention, Memory and Executive Control, Springer.
 

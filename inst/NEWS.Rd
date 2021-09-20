@@ -18,6 +18,7 @@
     \subsection{Additions}{
      \itemize{
      \item Added the ability to do long tables in df2latex (requested by Lizz Dworak)
+   
      }
    }
    
