@@ -61,6 +61,18 @@ keys <- list(ICAR16=colnames(ability),reasoning =  cs(reason.4,reason.16,reason.
      ability.scores <- psych::scoreIrt(ability.irt,ability)
      ability.sub.scores <- psych::scoreIrt.2pl(keys,ability) #demonstrate irt scoring
 }
+#It is sometimes asked how to handle missing data when finding scores
+#this next example compares 3 ways of scoring ability items from icar
+#Just sum the items
+#Sum the means for the items
+#IRT score the items
+
+total <- rowSums(ability, na.rm=TRUE)
+ means  <- rowMeans(ability, na.rm=TRUE)
+irt <- psych::scoreIrt(items=ability)[1]
+ df <- data.frame(total, means,irt)
+ psych:: pairs.panels(df)
+
 
 }
 \keyword{datasets}
