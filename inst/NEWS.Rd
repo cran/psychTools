@@ -15,6 +15,16 @@
  }
  } 
  
+  \section{Changes in psychTools version 2.2.2 (2021-02-21 )}{
+    \subsection{Additions}{
+     \itemize{
+     \item Improved dfOrder to treat matrices as well.  This quasi mimics fa.lookup in that it sorts numeric values by largest in the row rather than lexicographically.
+    \item Added the long option to fa2latex (requested by Alexander Weiss)
+     }
+   }
+   
+   	}
+ 
  \section{Changes in psychTools version 2.1.12 (2021-12-06 )}{
     \subsection{Additions}{
      \itemize{

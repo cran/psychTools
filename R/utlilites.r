@@ -71,15 +71,22 @@ cat("Search for a file in the directory where you want to create a new file")
 #sort a data frame according to one or multiple columns 
 #will only work for data.frames (not matrices)
 #needs to not quit if there is nothing to do
+#Then rewritten again 01/02/22 to allow sorting correlation matrices as well
+#Minor tweak 2/21/22 for the case of a single column
+#There are actually two cases; for data.frames (select=null) and for correlations (select = column names)
 dfOrder <- function(object,columns=NULL,absolute=FALSE,ascending=TRUE) {
   if(is.matrix(object)) {mat<- TRUE
              object <- as.data.frame(object)} else {mat<-FALSE}
     if(is.null(ncol(object))) {return(object)} else {
-   if(is.null(columns)) columns <- 1:ncol(object)
+   
+   if(is.null(columns)) columns <- colnames(object)
+    if(psych::isCorrelation(object)) {select <- columns} else {select<- NULL}
 	 nc <- length(columns)
 	 cn <- colnames(object)
+	 if(is.null(select)) {
+	 #this allows us to sort columns independently of each other 
  	 if(ascending) {temp <- rep(1,nc)} else {temp <- rep(-1,nc)}    
- 	 if(is.character(columns)) {  #treat character strings 
+ 	  if(is.character(columns)) {  #treat character strings 
    		 temp [strtrim(columns,1)=="-"] <- -1
     	 if(any(temp < 0  ) )  {columns <- sub("-","",columns) }
     	 
@@ -88,17 +95,42 @@ dfOrder <- function(object,columns=NULL,absolute=FALSE,ascending=TRUE) {
     
    if(is.character(columns) ) {  for (i in 1:length(columns)) {columns[i] <- (which(colnames(object) == columns[i]))
        }
+       columns <- as.numeric(columns)
        }
-      
-   	  columns <- colnames(object)[as.numeric(columns)]
+   
+   
     if(absolute) {  temp.object<- t(t(abs(psych::char2numeric(object[columns]))) * temp)  } else {
-   	  temp.object<- t(t(psych::char2numeric(object[columns])) * temp)}
+    	  temp.object<- t(t(psych::char2numeric(object[columns])) * temp)}
+   #   if(absolute) {temp.object <-  psych::char2numeric(object[columns])} else {
+    #  temp.object <- psych::char2numeric(object[columns])}
    	  temp.object <- data.frame(temp.object)
- 
-   	 ord <- do.call(order,temp.object)
+
+}  else { #the correlation case
+if(!is.numeric(select)) {if (!all(select %in% cn)) stop ('Variable names are incorrect')}
+   # if(absolute) object <- abs(object)
+  temp.ord <- apply(abs(object[,select,drop=FALSE]),1,which.max)
+  if(!ascending) temp.ord <- length(select)- temp.ord
+if(absolute) { t.m <- apply(abs(object[,select,drop=FALSE]) ,1,max)} else {
+  temp.max <- apply(object[,select,drop=FALSE] ,1,max)
+  temp.min <- apply(object[,select,drop=FALSE],1,min) 
+  abs.max <- apply(abs(object[,select,drop=FALSE]),1,max)
+  t.m <- abs.max 
+  t.m[abs.max > temp.max] <- temp.min[abs.max > temp.max]}
+  temp.max <- t.m + 3*(length(select)-1+ temp.ord)
+  # else {temp.ord <- apply(object[,select],1,which.min)
+#  temp.max <- apply(object[,select],1,min)}
+# temp.max <- temp.max + 3 * (length(select) + 1 +temp.ord) #this takes into account the possibility of signed values
+  ord <- order(temp.max,decreasing=!ascending)
+
+  if(NCOL(object) == NROW(object)) {return(object[ord,ord])} else {return(object[ord,])}
+ }
+   	 ord <- do.call(order,temp.object) 
    	 if(mat) object <- as.matrix(object)
+   	 
      if(length(ord) > 1) {
-   	   return(object[ord,]) }else {return(object)}   #added length test 4/26/18
+   	   return(object[ord,]) } else {return(object)}   #added length test 4/26/18
        }
        }
+       
+       
 

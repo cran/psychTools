@@ -4,8 +4,7 @@
 \alias{big5.adjectives.dictionary}
 
 \docType{data}
-\title{Dictionary for the  100 Big Five Adjectives
-}
+\title{Dictionary for the  100 Big Five Adjectives}
 \description{Lew Goldberg organized 100 adjectives to measure 5 factors of personality (The Big5).  500 hundred participants were given these adjectives along with other personality measures.  This dictionary allows for easy item labeling of the results. 
 ~
 }

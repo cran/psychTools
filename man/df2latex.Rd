@@ -20,7 +20,7 @@ cor2latex(x,use = "pairwise", method="pearson", adjust="holm",stars=FALSE,
      font.size ="scriptsize", heading="A correlation table from the psych package in R.",
       caption="cor2latex",label="default",silent=FALSE,file=NULL,append=FALSE,cut=0,big=0)
 fa2latex(f,digits=2,rowlabels=TRUE,apa=TRUE,short.names=FALSE,cumvar=FALSE,
-       cut=0,big=.3,alpha=.05,font.size ="scriptsize",
+       cut=0,big=.3,alpha=.05,font.size ="scriptsize",long=FALSE,
        heading="A factor analysis table from the psych package in R",
        caption="fa2latex",label="default",silent=FALSE,file=NULL,append=FALSE) 
 omega2latex(f,digits=2,rowlabels=TRUE,apa=TRUE,short.names=FALSE,cumvar=FALSE,cut=.2,

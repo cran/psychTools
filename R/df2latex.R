@@ -25,6 +25,7 @@ if(long) {
 header <- c(header,"{l",rep("r",(nvar)),"}\n")
 header <- c(header,paste0("
 \\caption{",caption,"}
+\\label{",label,"}
 \\endfirsthead
 \\multicolumn{",nvar+1,"}{c}
 {{\\bfseries \\tablename\\ \\thetable{} -- continued from previous page}} \\\\
@@ -36,9 +37,11 @@ header <- c(header,paste0("
 \\endlastfoot
 "))
  #this wraps up the long table
-footer <- paste0("\\end{longtable}   
+footer <- paste0("
+\\end{longtable}   
 \\end{",font.size,"}
 \\end{center}")
+# \\label{",label,"}")
 } else {
 header <- paste("\\begin{table}[htpb]",
 "\\caption{",caption,"}
@@ -172,7 +175,7 @@ if (!is.na(class(x)[2]) & class(x)[2]=="corr.test") {  #we already did the analy
 }
 
 "fa2latex" <- 
-function(f,digits=2,rowlabels=TRUE,apa=TRUE,short.names=FALSE,cumvar=FALSE,cut=0,big=.3,alpha=.05,font.size ="scriptsize", heading="A factor analysis table from the psych package in R",caption="fa2latex",label="default",silent=FALSE,file=NULL,append=FALSE) {
+function(f,digits=2,rowlabels=TRUE,apa=TRUE,short.names=FALSE,cumvar=FALSE,cut=0,big=.3,alpha=.05,font.size ="scriptsize",long=FALSE, heading="A factor analysis table from the psych package in R",caption="fa2latex",label="default",silent=FALSE,file=NULL,append=FALSE) {
 if(class(f)[2] == "fa.ci") {
 if(is.null(f$cip)) {px <- f$cis$p} else {px <- f$cip}} else {px <- NULL}  #get the probabilities if we did fa.ci
 #if(class(f)[2] !="fa") f <- f$fa
@@ -187,19 +190,50 @@ if(cut > 0) x[abs(x) < cut] <- NA    #modified May 13 following a suggestion fro
 if(!is.null(f$complexity)) {x <- data.frame(x,h2=h2,u2=u2,com=f$complexity) } else {x <- data.frame(x,h2=h2,u2=u2)}
 colnames(x)[which(colnames(x)=='h2')] <- '$h^2$'     #added following a request from Alex Weiss 11/28/19
 colnames(x)[which(colnames(x)=='u2')] <- '$u^2$'
+
 #first set up the table
  nvar <- dim(x)[2]
 comment <- paste("% Called in the psych package ", match.call())
-header <- paste("\\begin{table}[htpb]",
+
+if(long) {
+ header <- paste0("\\begin{center}
+ \\begin{",font.size,"} 
+ \\begin{longtable}")
+header <- c(header,"{l",rep("r",(nvar)),"}\n")
+header <- c(header,paste0("
+\\caption{",caption,"}
+\\label{",label,"}
+\\endfirsthead
+\\multicolumn{",nvar+1,"}{c}
+{{\\bfseries \\tablename\\ \\thetable{} -- continued from previous page}} \\\\
+\\endhead 
+\\hline \\multicolumn{",nvar+1,"}{|c|}{{Continued on next page}} \\\\ 
+\\hline
+\\endfoot
+\\hline \\hline
+\\endlastfoot
+"))
+ #this wraps up the long table
+footer <- paste0("\\end{longtable}   
+\\end{",font.size,"}
+\\end{center} ")
+#\\label{",label,"}")
+} else {
+ header <- paste("\\begin{table}[htpb]",
 "\\caption{",caption,"}
 \\begin{center}
 \\begin{",font.size,"} 
 \\begin{tabular}",sep="")
+
+
 header <- c(header,"{l",rep("r",nvar),"}\n")
 if(apa) header <- c(header,
 "\\multicolumn{",nvar,"}{l}{",heading,"}",
 '\\cr \n \\hline ')
+footer<- NULL
 if(apa) {footer <- paste(" \\hline ")} 
+
+
 footer <- paste(footer,"
 \\end{tabular}
 \\end{",font.size,"}
@@ -210,7 +244,7 @@ footer <- paste(footer,"
 ",sep=""
 )
 
-
+}  #end of not long
 #now put the data into it
  
  x <- round(x,digits=digits)   
@@ -253,29 +287,35 @@ footer <- paste(footer,"
                                       vx <- vx*nvar/vtotal 
       	                             }} else {vx <- diag(Phi %*% t(x) %*% x)
       	                                      vx <- vx*nvar/vtotal }
-      	  #names(vx) <- colnames(x)[1:nvar]
-      	  vx <- round(vx,digits) 
-      	  
-          loads <- c("\\hline \\cr SS loadings &",paste(vx," & ",sep=""),"\\cr  \n")
+      	  # names(vx) <- colnames(x)[1:nvar]
+      	  vx1 <- round(vx,digits) 
+      	   cn <- c("&",allnames[2:(NCOL(x)+1)],"\\cr \n")      
+          loads <- c("\\hline \\cr",cn,"SS loadings &",paste(vx1," & ",sep=""),"\\cr  \n")
            
  if(!silent) { cat(loads)}
        summ <- NULL
             
           #varex <- rbind("SS loadings " =   vx)
           if(cumvar) {
-          provar <- round(vx/nvar,digits)        
+          provar <- round(vx/nvar,digits)  
+          
          summ <- c("Proportion Var &" ,paste(  provar, "  & ",sep=""),"\\cr \n")
          
        #  cat("Proportion Var &" ,paste(  provar, "  & ",sep=""),"\\cr \n")
            if (nfactors > 1) {cumvar <- round(cumsum(vx/nvar),digits)
-             cumfavar <- round(cumsum(vx/sum(vx)),digits=digits)
+             cumfavar <- sprintf("%.2f",cumsum(vx/sum(vx))) 
         summ <- c(summ,  "Cumulative Var & ",paste( cumvar," & ", sep=""),"\\cr \n",
-         "Cum. factor Var & ",paste(round(cumsum(vx/sum(vx)),digits=digits),"  & ",sep=""),"\\cr \n")
+         "Cum. total Var & ",paste(sprintf("%.2f",round(cumsum(vx/sum(vx)),digits=digits)),"  & ",sep=""),"\\cr \n")
           } 
+          
+
           if(!silent) {cat(summ)  }
           }
    loads <- c(loads,summ)      
  if(!is.null(Phi)) {
+ 
+
+ 
       summ <-   c("\\cr 
             \\hline \\cr \n") 
             if(!silent) {cat(summ)  }
@@ -284,8 +324,9 @@ footer <- paste(footer,"
        phi <-apply(phi,1,paste,collapse=" & ")
        phi <-paste(colnames(x),"  &",phi)
        phi <- paste(phi, "\\cr", "\n")
-       loads <- c(loads,summ,phi)
-     if(!silent) {  cat(phi)}
+        cn <- c("&",allnames[2:(NCOL(x)+1)],"\\cr \n")
+       loads <- c(loads,summ,cn,phi)
+     if(!silent) {  cat(cn,phi)}
      }
 if(!silent) { cat(footer)}   #close it up with a footer
  }

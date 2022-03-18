@@ -5,8 +5,8 @@
 \alias{GERAS.dictionary}
 \alias{GERAS.scales}
 \docType{data}
-\title{Data from Gruber et al, 2020, Study 2: Gender Related Attributes Survey
-}
+
+\title{Data from Gruber et al, 2020, Study 2: Gender Related Attributes Survey}
 \description{
 Gruber et al. (2020) report on the psychometric properties of a multifaceted Gender Related Attributes Survey. Here are the data from their 3 domains (Personality, Cognition and Activities and Interests from their study 2. Eagly and Revelle (in press) include these data in their review of the power of aggregation. The data  are included here as demonstrations of the \code{\link{cohen.d}} and \code{\link{scatterHist}} functions in the psych package and may be used to show the power of aggregation.
 }
