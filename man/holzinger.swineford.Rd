@@ -103,7 +103,12 @@ Thompson, Bruce. Five Methodology Errors in Educational  Research:The Pantheon o
 
 The purpose behind presenting both the raw and transformed data is to show that the fit statistics from factor analysis are identical for these two data sets. 
 
-The variables v1 ... v9 in the lavaan package correspond to tests 1, 2, 4, 6, 7, 9, 10, 12 and 13. }
+The variables v1 ... v9 in the lavaan package correspond to tests 1, 2, 4, 6, 7, 9, 10, 12 and 13. 
+}
+
+\seealso{ psych::Holzinger }
+
+
 \examples{
 data(holzinger.raw)
 psych::describe(holzinger.raw)

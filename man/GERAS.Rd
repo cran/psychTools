@@ -97,7 +97,7 @@ Gruber, Freya M. and Distlberger, Eva and Scherndl, Thomas and Ortner, Tuulia M.
 data(GERAS)
 GERAS.keys  #show the keys
 #show the items from the dictionary
-psych::lookupFromKeys(GERAS.keys, GERAS.dictionary[,1,drop=FALSE])
+psych::lookupFromKeys(GERAS.keys, GERAS.dictionary[,4,drop=FALSE])
 
 
 #now, use the GERAS.scales to show a scatterHist  plot showing univariate d and bivariate 
