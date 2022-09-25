@@ -20,7 +20,7 @@ Marco Del Giudice criticized an earlier study by Simonton for using partial regr
     \item{\code{h}}{The 'h' index of citations}
 }
 }
-\details{Simonton (1997, 2014) discusses various estimates of eminence among 69  psychologists born between 1842 and 1912 and reports that the regression weights are small and interprets this as meaning  number of publications and citations are not very important.  Del Giudice (2020) points out that  citations and the number of publications are highly collinear and thus while their independent contributioons are small, their joint effect is quite large (R= .69 ).  These data are given here as an example of multiple correlation and partial correlation
+\details{Simonton (1997, 2014) discusses various estimates of eminence among 69  psychologists born between 1842 and 1912 and reports that the regression weights are small and interprets this as meaning  number of publications and citations are not very important.  Del Giudice (2020) points out that  citations and the number of publications are highly collinear and thus while their independent contributions are small, their joint effect is quite large (R= .69 ).  These data are given here as an example of multiple correlation and partial correlation
 }
 \source{
 Del Giudice (2020) links to a web page with the data. 

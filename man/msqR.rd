@@ -1,5 +1,6 @@
 \name{msqR}
 \alias{msqR}
+\alias{msq.keys}
 \docType{data}
 \title{75 mood items from the Motivational State Questionnaire for 3032 unique participants}
 \description{Emotions may be described either as discrete emotions or in dimensional terms.  The Motivational State Questionnaire (MSQ) was developed to study emotions in laboratory and field settings.  The data can be well described in terms of a two dimensional solution of energy vs tiredness and tension versus calmness. Alternatively, this space can be organized by the two dimensions of Positive Affect and Negative Affect. Additional items include what time of day the data were collected and a few personality questionnaire scores. 3032 unique participants took the MSQ  at least once, 2753 at least twice, 446 three times, and 181 four times.  The 3032 participants also took the \code{\link{sai}} state anxiety inventory at the same time.  Some studies manipulated arousal by caffeine, others manipulations included affect inducing movies. 
@@ -224,7 +225,7 @@ Joviality =c("happy","delighted", "cheerful", "excited", "enthusiastic", "lively
 Self.Assurance=c( "proud","strong" , "confident" , "-fearful" ),
 Attentiveness = c("alert" , "determined" , "attentive" ))
 
-#acquiscence = c("sleepy" ,  "wakeful" ,  "relaxed","tense")
+#acquiscence = c("sleepy" ,  "wakeful" ,  "relaxed","tense"))
 #Yik Russell and Steiger list the following items
 Yik.keys <- list(
 pleasure =psych::cs(happy,content,satisfied, pleased),

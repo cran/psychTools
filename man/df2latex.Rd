@@ -24,7 +24,7 @@ fa2latex(f,digits=2,rowlabels=TRUE,apa=TRUE,short.names=FALSE,cumvar=FALSE,
        heading="A factor analysis table from the psych package in R",
        caption="fa2latex",label="default",silent=FALSE,file=NULL,append=FALSE) 
 omega2latex(f,digits=2,rowlabels=TRUE,apa=TRUE,short.names=FALSE,cumvar=FALSE,cut=.2,
-        font.size ="scriptsize", 
+        big=.3,font.size ="scriptsize", 
         heading="An omega analysis table from the psych package in R",
         caption="omega2latex",label="default",silent=FALSE,file=NULL,append=FALSE)
 
@@ -68,12 +68,19 @@ ICC2latex(icc,digits=2,rowlabels=TRUE,apa=TRUE,ci=TRUE,
   \item{append}{If file is specified, then should we append (append=TRUE) or just write to the file}
   \item{long}{if TRUE, then do long tables.  (requires the longtables package in latex)}}
 \value{A LaTeX table.  Note that if showing "stars" for correlations, then one needs to use the siunitx  package in LaTex. 
-  The entire LaTeX output is also returned invisibly.  If using Sweave to create tables, then the silent option should be set to TRUE and the returned object saved as a file.  See the last example.}
+  The entire LaTeX output is also returned invisibly.  If using Sweave to create tables, then the silent option should be set to TRUE and the returned object saved as a file.  See the last example.
+  
+  Finally, some users have asked for the ability to convert these output tables into HTML.  This may be done using the tth package.  
+  }
 
 \author{William Revelle with suggestions from Jason French and David Condon and Davide Morselli}
 
 \seealso{
 The many LaTeX conversion routines in Hmisc.
+
+To convert these LaTex objects to HTML, you should install the tth package.
+
+Consider the last example 
 }
 \examples{
 df2latex(psych::Thurstone,rowlabels=FALSE,apa=FALSE,short.names=FALSE,
@@ -85,6 +92,16 @@ cor2latex(psych::Thurstone)
 cor2latex(psych::sat.act,short.names=FALSE)
 fa2latex(psych::fa(psych::Thurstone,3),heading="Factor analysis from R in quasi APA style")
 
+
+#To convert these latex tables to HTML
+
+#f3.lat <- fa2latex(psych::fa(psych::Thurstone,3),
+#    heading="Factor analysis from R in quasi APA style")
+#library(tth)
+#f3.ht <- tth(f3.lat)
+#print(as.data.frame(f3.ht),row.names=FALSE)
+
+###
 
  #If using Sweave to create a LateX table as a separate file then set silent=TRUE
 #e.g., 

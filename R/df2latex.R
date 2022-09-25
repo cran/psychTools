@@ -6,6 +6,7 @@
 #added the absolute value in the big comparison for cor2latex and df2latex
 #added the ability to round numbers even though other columns are character  (01/24/20)
 #modified May 29, 2021 to addthe ability to do long tables
+#modified May 30, 2022 to add the ability to handle labels from fa.lookup
 #
 
 "df2latex" <- 
@@ -176,14 +177,21 @@ if (!is.na(class(x)[2]) & class(x)[2]=="corr.test") {  #we already did the analy
 
 "fa2latex" <- 
 function(f,digits=2,rowlabels=TRUE,apa=TRUE,short.names=FALSE,cumvar=FALSE,cut=0,big=.3,alpha=.05,font.size ="scriptsize",long=FALSE, heading="A factor analysis table from the psych package in R",caption="fa2latex",label="default",silent=FALSE,file=NULL,append=FALSE) {
-if(class(f)[2] == "fa.ci") {
+if(inherits(f,"fa.ci")) {
 if(is.null(f$cip)) {px <- f$cis$p} else {px <- f$cip}} else {px <- NULL}  #get the probabilities if we did fa.ci
 #if(class(f)[2] !="fa") f <- f$fa
-x <- unclass(f$loadings)
+if(inherits(f,"fa")) {x <- unclass(f$loadings)
 if(!is.null(f$Phi)) {Phi <- f$Phi} else {Phi <- NULL}
 nfactors <- ncol(x)
+items <- NULL} else {#we are processing fa.lookup output
+ nfactors <- which(names(f)=="h2") -1
+ Phi <- NULL
+ items <- f[,"Item"]
+ x <- f[,1:nfactors]
 
-if(nfactors > 1) {if(is.null(Phi)) {h2 <- rowSums(x^2)} else {h2 <- diag(x %*% Phi %*% t(x)) }} else {h2 <-x^2}
+}
+
+if(nfactors > 1) {if(is.null(Phi)) {h2 <- rowSums(x^2)} else {h2 <- diag(x %*% Phi %*% t(x)) }} else {h2 <- x^2}
 u2 <- 1- h2
 vtotal <- sum(h2 + u2)
 if(cut > 0) x[abs(x) < cut] <- NA    #modified May 13 following a suggestion from Daniel Zingaro
@@ -225,8 +233,8 @@ footer <- paste0("\\end{longtable}
 \\begin{",font.size,"} 
 \\begin{tabular}",sep="")
 
-
-header <- c(header,"{l",rep("r",nvar),"}\n")
+if(!is.null(items)) {header <- c(header,"{l",rep("r",nvar+1),"}\n")} else {
+header <- c(header,"{l",rep("r",nvar),"}\n")}
 if(apa) header <- c(header,
 "\\multicolumn{",nvar,"}{l}{",heading,"}",
 '\\cr \n \\hline ')
@@ -257,6 +265,7 @@ footer <- paste(footer,"
  
  if(apa)  {allnames <- c("Variable  &  ",names1,lastname," \\hline \n")} else {allnames <- c("  &  ",names1,lastname,"\\cr \n")}
  fx <- format(x,drop0trailing=FALSE)  #to keep the digits the same
+
  {if(!is.null(px) && (cut == 0)) { temp <- fx[1:nfactors]
  temp[px < alpha] <- paste("\\bf{",temp[px < alpha],"}",sep="")
  fx[1:nfactors] <- temp
@@ -266,8 +275,12 @@ footer <- paste(footer,"
   temp[!is.na(x) & (abs(x) > big)] <- paste("\\bf{",temp[!is.na(x) & (abs(x) > big)],"}",sep="")
    fx[1:nfactors] <- temp
    }
+
  value <- apply(fx,1,paste,collapse="  &  ") #insert & between columns
+  value.names <- names(value)
  value <- gsub("NA", "  ", value, fixed = TRUE)
+ value <- paste0(value,"&",items)
+ names(value) <- value.names  #weird, but seemingly necessary
  if(rowlabels) value <- {paste(sanitize.latex(names(value)),"  & ",value)} else {paste("  &  ",value)}
  values <- paste(value, "\\cr", "\n")  #add \\cr at the end of each row
 
@@ -280,8 +293,10 @@ footer <- paste(footer,"
  }
  
  #now find and show the variance accounted for
- x <- f$loadings     #use the original values not the rounded ones
+ if(is.null(items)) {x <- f$loadings } else {x <- x[,1:nfactors]} 
+    #use the original values not the rounded ones
  nvar <- nrow(x)
+ 
   if(is.null(Phi)) {if(nfactors > 1)  {vx <- colSums(x^2) } else {
                                       vx <- diag(t(x) %*% x)
                                       vx <- vx*nvar/vtotal 
@@ -426,8 +441,8 @@ return(result)
  
  #added December 28, 2013
  "omega2latex" <- 
-function(f,digits=2,rowlabels=TRUE,apa=TRUE,short.names=FALSE,cumvar=FALSE,cut=.2,font.size ="scriptsize", heading="An omega analysis table from the psych package in R",caption="omega2latex",label="default",silent=FALSE,file=NULL,append=FALSE) {
-if(class(f)[2] == "omega" ) f$loadings <- f$schmid$sl
+function(f,digits=2,rowlabels=TRUE,apa=TRUE,short.names=FALSE,cumvar=FALSE,cut=.2,big=.3,font.size ="scriptsize", heading="An omega analysis table from the psych package in R",caption="omega2latex",label="default",silent=FALSE,file=NULL,append=FALSE) {
+if(inherits(f,"omega")) {  f$loadings <- f$schmid$sl
 x <- unclass(f$loadings)
 
 nfactors <- ncol(x)
@@ -438,6 +453,14 @@ vtotal <- sum(h2 + u2)
 
 #first set up the table
  nvar <- dim(x)[2]
+ 
+ items <- NULL} else {#we are processing fa.lookup output
+ nfactors <- which(names(f)=="h2") -1
+ Phi <- NULL
+
+  items <- f[,"Item"]
+ x <- f[,1:nfactors]
+}
 comment <- paste("% Called in the psych package ", match.call())
 header <- paste("\\begin{",font.size,"} \\begin{table}[htpb]",
 "\\caption{",caption," with cut = ",cut,"\n $\\omega_h  = ",round(f$omega_h,digits), "\\;\\;\\;\\alpha (\\lambda_3) = ",round(f$alpha,digits), "\\;\\;\\;\\lambda_6^* = ",round(f$G6,digits),"\\;\\;\\; \\omega_t = ",round(f$omega.tot,digits),"$ }
@@ -471,6 +494,8 @@ footer <- paste(footer,"
   
  value <- apply(x,1,paste,collapse="  &  ") #insert & between columns
  value <- gsub("NA", "  ", value, fixed = TRUE)
+ 
+ 
  if(rowlabels) value <- {paste(sanitize.latex(names(value)),"  & ",value)} else {paste("  &  ",value)}
  values <- paste(value, "\\cr", "\n")  #add \\cr at the end of each row
 
@@ -479,6 +504,7 @@ footer <- paste(footer,"
  
  #now find and show the variance accounted for
  x <- f$loadings     #use the original values
+
  nvar <- nrow(x)
 vx <- colSums(x^2)[1:(ncol(x)-3)]
 vx <- round(vx,digits) 

@@ -8,7 +8,7 @@
 
 \title{Data from Gruber et al, 2020, Study 2: Gender Related Attributes Survey}
 \description{
-Gruber et al. (2020) report on the psychometric properties of a multifaceted Gender Related Attributes Survey. Here are the data from their 3 domains (Personality, Cognition and Activities and Interests from their study 2. Eagly and Revelle (in press) include these data in their review of the power of aggregation. The data  are included here as demonstrations of the \code{\link{cohen.d}} and \code{\link{scatterHist}} functions in the psych package and may be used to show the power of aggregation.
+Gruber et al. (2020) report on the psychometric properties of a multifaceted Gender Related Attributes Survey. Here are the data from their 3 domains (Personality, Cognition and Activities and Interests from their study 2. Eagly and Revelle (2022) include these data in their review of the power of aggregation. The data  are included here as demonstrations of the \code{\link{cohen.d}} and \code{\link{scatterHist}} functions in the psych package and may be used to show the power of aggregation.
 }
 \usage{data("GERAS")
 #These other objects are included in the file
@@ -81,6 +81,7 @@ The first 10 items are Male Personality, the next 10  are  Female Personality, t
 "M.pers" "F.pers" "M.cog"  "F.cog"  "M.act"  "F.act"  "Pers"   "Cog"    "Act"    "M"     
  "F"      "MF.all" "gender"
 
+See the \code{\link{Athenstaedt}} data set for a related data set.
 
 }
 \source{Study 2 data  downloaded from the Open Science Framework https://osf.io/42jhr/ 
@@ -88,7 +89,7 @@ Used by kind permission of Freya M. Gruber, Tullia Ortner, and Belinda A. Pletze
 
 \references{
 
-Alice H. Eagly and William Revelle, Understanding the Magnitude of Psychological Differences Between Women and Men Requires Seeing the Forest and the Tree. Perspectives in Psychological Science (in press)
+Alice H. Eagly and William Revelle (2022), Understanding the Magnitude of Psychological Differences Between Women and Men Requires Seeing the Forest and the Tree. Perspectives in Psychological Science doi:10.1177/17456916211046006
 
 Gruber, Freya M. and Distlberger, Eva and Scherndl, Thomas and Ortner, Tuulia M. and Pletzer, Belinda (2020)   Psychometric properties of the multifaceted Gender-Related Attributes Survey {(GERAS)}  European Journal of Psychological Assessment, 36, (4) 612-623.
 

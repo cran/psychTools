@@ -130,6 +130,42 @@ Many articles will report lower triangular matrices with variable labels in the 
 
 Other articles will report upper triangular matrices with variable labels in the first row.  read.clipboard.upper will handle this.  Note that labels in the first column will not work for read.clipboard.upper.  The names, if present, must be in the first row.
 
+Consider the following lower triangular matrix.  To read it, copy it to the clipboard and read.clipboard.lower(names=TRUE)
+
+\tabular{lrrrrrr}{
+ A1 1.00 \cr
+A2 -0.34  1.00 \cr
+A3 -0.27 0.49  1.00 \cr
+A4 -0.15  0.34  0.36  1.00 \cr
+A5 -0.18  0.39  0.50  0.31  1.00 \cr
+C1 0.03   0.09  0.10  0.09  0.12  1.00\cr
+}
+
+
+However, if the data are strung out e.g.,
+\tabular{r}{
+-.34  \cr
+-.27  \cr
+-.15  \cr
+-.18  \cr
+.03\cr
+.49\cr
+.34 \cr
+.39 \cr
+.09 \cr
+.36\cr
+.50 \cr
+.10 \cr
+.31\cr
+.09 \cr
+.12\cr
+}
+  
+Then one needs to read it using the read.clipboard.upper(names=FALSE,diag=FALSE) option.  
+
+
+
+
 read.clipboard.fwf will read fixed format files from the clipboard.  It includes a patch to read.fwf which will not read from the clipboard or from remote file.  See read.fwf for documentation of how to specify the widths. }
 \value{the contents of the file to be read or of the clipboard.
 }

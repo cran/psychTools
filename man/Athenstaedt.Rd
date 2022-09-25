@@ -6,7 +6,7 @@
 \title{Gender Role Self Concept data from Athenstaedt (2003)}
 
 \description{
-Athenstaedt (2003) examined Gender Role Self-Concept. She reports two independent dimensions of Male and Female behaviors.  While there are large gender/sex differences on both of these dimensions, the two represent independent factorsl  Eagly and Revelle (in press) have used these data to explore the power of aggregation when examining sex differences.  This data set is also useful to show various graphical display procedures.
+Athenstaedt (2003) examined Gender Role Self-Concept. She reports two independent dimensions of Male and Female behaviors.  While there are large gender/sex differences on both of these dimensions, the two represent independent factorsl  Eagly and Revelle (2022) have used these data to explore the power of aggregation when examining sex differences.  This data set is also useful to show various graphical display procedures.
 }
 \usage{data("Athenstaedt")}
 \format{
@@ -107,13 +107,14 @@ Athenstaedt (2003) examined Gender Role Self-Concept. She reports two independen
 }
 \details{Ursala Athenstaedt (2003) reported several analyses of items and scales measuring  Gender Role Self-Concept.  Eagly and Revelle (2022) have used these data in an analysis of the power of aggregation.  Here are the original items as well as the three scales Eagly and Revelle (2022).  The accompanying Athenstaedt.dictionary may be used to see the items.
 
+See the \code{\link{GERAS}} data set for a related example.
 }
 \source{Ursala Athenstaedt, personal communication, 2022, provided a SPSS sav file with the original data from which the complete cases in this set were selected.
 }
 \references{
 Ursula Athenstaedt (2003) On the Content and Structure of the Gender Role Self-Concept: Including Gender-Stereotypical Behaviors in Addition to Traits.  Psychology of Women Quarterly, 27, 309-318. doi: 10.1111/1471-6402.00111.
 
-Alice Eagly and William Revelle (2022) Understanding the Magnitude of Psychological Differences Between Women and Men Requires Seeing the Forest and the Trees. Perspectives in Psychological Science (in press).
+Alice Eagly and William Revelle (2022) Understanding the Magnitude of Psychological Differences Between Women and Men Requires Seeing the Forest and the Trees. Perspectives in Psychological Science doi:10.1177/17456916211046006.
 }
 \examples{
 data(Athenstaedt)
@@ -122,5 +123,9 @@ cex.point=.4,smooth=FALSE, correl=FALSE,d.arrow=TRUE,col=c("red","blue"),
    lwd=4,  cex.main=1.5,main="Scatter Plot and Density",cex.axis=2)
    
 psych::cohen.d(Athenstaedt[2:76], group="gender", dictionary=Athenstaedt.dictionary)
+#show the top 5 items for each scale
+select <- c(psych::selectFromKeys(Athenstaedt.keys$MF10),"gender")
+psych::corPlot(Athenstaedt[,select], main="F and M items from Athenstaedt")
+
 }
 \keyword{datasets}
