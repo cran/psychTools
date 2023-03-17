@@ -82,7 +82,7 @@ footer <- paste(footer,"
 }
 #now put the data into it
 if(big) all.x <- x  #we need to keep the original format of the data to do the big operation
-if(!char) {if(!is.null(digits)) {if(is.numeric(x) ) {x <- round(x,digits=digits)} else {for(i in 1:ncol(x)) {if (is.numeric(x[,i])) x[,i] <- round(x[,i],2)} }
+if(!char) {if(!is.null(digits)) {if(is.numeric(x) ) {x <- round(x,digits=digits)} else {for(i in 1:ncol(x)) {if (is.numeric(x[,i])) x[,i] <- round(x[,i],digits)} }
        if(cut > 0) x[abs(x) < cut] <- NA }
       }
  
@@ -96,8 +96,9 @@ if(apa)  {allnames <- c("Variable  &  ",names1,lastname," \\hline \n")} else {if
              allnames <- c(names1,lastname,"\\cr \n")}}
 if(!char) {if(is.null(big.mark)) { x <- format(x,drop0trailing=FALSE)
      if(big > 0) {
-
+#browser()
      for(i in 1:ncol(x)) {if (is.numeric(all.x[,i])) x[abs(all.x[,i] ) > big,i] <- paste0("\\bf{",x[abs(all.x[,i]) > big,i],"}") }}
+    # {if (is.numeric(all.x[,i])) x[abs(all.x[,i] ) > big,i] <- paste0("\\bf{",x[abs(all.x[,i]) > big,i],"}") }}
     # if(is.numeric(tempx)) x[abs(tempx ) > big] <- paste0("\\bf{",x[abs(tempx) > big],"}") }
      
      

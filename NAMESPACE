@@ -18,7 +18,7 @@ importFrom(grDevices,colorRampPalette,topo.colors,devAskNewPage,dev.flush,dev.ho
 importFrom(tools,file_ext)
 
 importFrom(foreign,read.spss,read.xport,read.systat)
-importFrom(psych,statsBy,cs,setCor, mediate,corPlot, omega, scatterHist)
+#importFrom(psych,statsBy,cs,setCor, mediate,corPlot, omega, scatterHist)
 
 #S3method(print,psych)
 
