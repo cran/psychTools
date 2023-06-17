@@ -450,7 +450,7 @@ summary(model1)
 ### code chunk number 60: factor.Rnw:1746-1748
 ###################################################
 #compare with mat.regress
-setCor(c(4:6),c(1:3),C, n.obs=700)
+lmCor(c(4:6),c(1:3),C, n.obs=700)
 
 
 ###################################################

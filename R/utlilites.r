@@ -77,7 +77,7 @@ cat("Search for a file in the directory where you want to create a new file")
 dfOrder <- function(object,columns=NULL,absolute=FALSE,ascending=TRUE) {
   if(is.matrix(object)) {mat<- TRUE
              object <- as.data.frame(object)} else {mat<-FALSE}
-    if(is.null(ncol(object))) {return(object)} else {
+    if(is.null(ncol(object))| NROW(object) ==1) {return(object)} else {
    
    if(is.null(columns)) columns <- colnames(object)
     if(psych::isCorrelation(object)) {select <- columns} else {select<- NULL}
@@ -132,5 +132,5 @@ if(absolute) { t.m <- apply(abs(object[,select,drop=FALSE]) ,1,max)} else {
        }
        }
        
-       
+
 

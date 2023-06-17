@@ -10,26 +10,34 @@
 \format{
   A data frame with 815 observations on the following 7 variables.
   \describe{
-    \item{\code{govact}}{a numeric}
-    \item{\code{posemot}}{a numeric}
-    \item{\code{negemot}}{a numeric}
-    \item{\code{ideology}}{a numeric}
-    \item{\code{age}}{a numeric}
-    \item{\code{sex}}{a numeric}
-    \item{\code{partyid}}{a numeric}
+    \item{\code{govact}}{Support for govermment action}
+    \item{\code{posemot}}{Positive emotions about climate change}
+    \item{\code{negemot}}{Negative emotions about climate change} 
+    \item{\code{ideology}}{Political ideology (Liberal to conservative)}
+    \item{\code{age}}{age}
+    \item{\code{sex}}{female =0, male =1}
+    \item{\code{partyid}}{Democratic =1, Independent =2, Republican =3}
   }
+  }
+
+\details{This data set is discussed as an example of regression in Hayes (2013) p 24 - 30 and elsewhere.   It is a nice example of moderated regression.   It was collected by Erik Nisbet (no citation) who studies communication and the media. E. Nisbet is currently on the faculty at Northwestern School of Communication.  
 }
-\details{More details to follow
-}
-\source{  The raw data are available from the processR package (Keon-Woong Moon, 2020). as the glbwarm data set.  The data set is used by Hayes in several examples. Used here by kind permission of Erik Nisbet. 
+\source{The raw data are available from the processR package (Keon-Woong Moon, 2020) as the glbwarm data set as well as from Hayes' website.  The data set is used by Hayes in several examples. Used here by kind permission of Erik Nisbet. 
+
+Although the processR package has been removed from CRAN, an earlier version had the data. 
 }
 \references{
-Nisbet, E. (?) 
 
 Hayes, Andrew F. (2013) Introduction to mediation, moderation, and conditional process analysis: A regression-based approach. Guilford Press.
+
+Moon K (2023). processR: Implementation of the 'PROCESS' Macro_. R package version 0.2.8,
+
+
 }
 \examples{
 data(globalWarm)
 psych::lowerCor(globalWarm)
+#compare to Hayes p 254-258
+psych::lmCor(govact ~ negemot * age + posemot +ideology+sex,data=globalWarm,std=FALSE)
 }
 \keyword{datasets}

@@ -118,8 +118,8 @@ holzinger.dictionary  #to see the longer names for these data (taken from Thomps
 #Compare these to the lavaan correlation matrix
 psych::lowerCor(holzinger.swineford[ 7+ c(1, 2, 4, 6, 7, 9, 10, 12,  13)])
 
-psych::setCor(t01_visperc + t05_geninfo + t08_wordclas ~ grade + agemo,data = holzinger.raw)
-psych::setCor( t06_paracomp ~ grade + agemo, data=holzinger.swineford)
+psych::lmCor(t01_visperc + t05_geninfo + t08_wordclas ~ grade + agemo,data = holzinger.raw)
+psych::lmCor( t06_paracomp ~ grade + agemo, data=holzinger.swineford)
 psych::mediate(t06_paracomp  ~ grade + (agemo),data = holzinger.raw,std=TRUE)
 
 #show the omega structure of the 24 variables
@@ -129,7 +129,7 @@ psych::omega.diagram(om4,sl=FALSE,main="26 variables from Holzinger-Swineford")
 #these data also show an interesting suppression effect
 
 psych::lowerCor(holzinger.swineford[c(3,7,12:14)])
-psych::setCor( t06_paracomp ~ grade + agemo, data=holzinger.swineford)
+psych::lmCor( t06_paracomp ~ grade + agemo, data=holzinger.swineford)
 #or show as a mediation effect
 mod <- psych::mediate(t06_paracomp  ~ grade + (agemo),data = holzinger.raw,std=TRUE,n.iter=50)
 summary(mod)
@@ -139,8 +139,11 @@ plot(t07_sentcomp ~ agemo, col=c("red","blue")[holzinger.swineford$grade -6],
   pch=26-holzinger.swineford$grade,data=holzinger.swineford,
    ylab="Sentence Comprehension",xlab="Age in Months",
    main="Sentence Comprehension varies by age and grade")
+   #we use lmCor to figure out the lines 
+   #note that we need to not plot the default graph
 by(holzinger.swineford,holzinger.swineford$grade -6,function(x) abline(
-     lm(t07_sentcomp ~ agemo,data=x),lty=c("dashed","solid")[x$grade-6]))
+     psych::lmCor(t07_sentcomp ~ agemo, data=x, std=FALSE, plot=FALSE), 
+     lty=c("dashed","solid")[x$grade-6]))
 text(190,3.3,"grade = 8")
 text(190,2,"grade = 7") 
 }

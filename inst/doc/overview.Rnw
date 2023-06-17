@@ -21,7 +21,7 @@
 \usepackage{makeidx}        % allows index generation
 \usepackage[authoryear,round]{natbib} 
 \usepackage{gensymb}
-\usepackage{longtable}
+%\usepackage{longtable}
 %\usepackage{geometry}   
 \usepackage{amssymb}    
 \usepackage{amsmath}
@@ -201,14 +201,14 @@ corr.test(myData)
 Several functions are meant to do multiple regressions, either from the raw data or from a variance/covariance matrix, or a correlation matrix.
 
 \begin{itemize}
-\item \pfun{setCor} will take raw data or a correlation matrix and find (and graph the path diagram) for multiple y variables depending upon multiple x variables.
+\item \pfun{lmCor} will take raw data or a correlation matrix and find (and graph the path diagram) for multiple y variables depending upon multiple x variables.
 
 \begin{scriptsize}
 \begin{Schunk}
 \begin{Sinput}
 myData <- sat.act
 colnames(myData) <- c("mod1","med1","x1","x2","y1","y2")
-setCor(y1 + y2 ~ x1 + x2 , data = myData)
+lmCor(y1 + y2 ~ x1 + x2 , data = myData)
 \end{Sinput}
 \end{Schunk}
 \end{scriptsize}
@@ -322,7 +322,7 @@ In addition, there are a growing number of ``HowTo"s at the personality project.
 \item Using \R{} and the \Rpkg{psych} package to find \href{https://personality-project.org/r/psych/HowTo/omega.pdf}{$omega_h$} and $\omega_t$.
 \item Using  \R{} and the \Rpkg{psych} for \href{https://personality-project.org/r/psych/HowTo/factor.pdf}{factor analysis} and principal components analysis.
 \item Using the \pfun{scoreItems} function to find \href{https://personality-project.org/r/psych/HowTo/scoring.pdf}{scale scores and scale statistics}.
-\item Using \pfun{mediate} and \pfun{setCor} to do \href{https://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis}.
+\item Using \pfun{mediate} and \pfun{lmCor} to do \href{https://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis}.
 \end{enumerate}
 
 
@@ -356,7 +356,7 @@ Because of the difficulty of installing the  package \Rpkg{Rgraphviz}, alternati
 
 
 \section{Basic data analysis}
-A number of \Rpkg{psych} functions facilitate the entry of data and finding basic descriptive statistics.  These are described in more detail in the companion vignette: An introduction to the psych package: Part I which is also available from the personality-project site. \url{https://personality-project.org/r/psych/vignettes/intro.pdf}.  Please consult that vignette first for information on how to read data (particularly using the \pfun{read.file}  and \pfun{read.clipboard} commands), Also, the \pfun{describe} and \pfun{describeBy} functions are described in more detail in the introductory vignette. For even though you probably want to jump immediately to factor analyze your data, this is a mistake.  It is very important to first describe them and look for weird responses.   It is also useful to \pfun{scrub} your data when removing outliers, to graphically display them using \pfun{pairs.panesl} and \pfun{corPlot}.  Basic multiple regression and moderated or mediated regressions may be done from either the raw data or from correlation matrices using \pfun{setCor},  or \pfun{mediation}.
+A number of \Rpkg{psych} functions facilitate the entry of data and finding basic descriptive statistics.  These are described in more detail in the companion vignette: An introduction to the psych package: Part I which is also available from the personality-project site. \url{https://personality-project.org/r/psych/vignettes/intro.pdf}.  Please consult that vignette first for information on how to read data (particularly using the \pfun{read.file}  and \pfun{read.clipboard} commands), Also, the \pfun{describe} and \pfun{describeBy} functions are described in more detail in the introductory vignette. For even though you probably want to jump immediately to factor analyze your data, this is a mistake.  It is very important to first describe them and look for weird responses.   It is also useful to \pfun{scrub} your data when removing outliers, to graphically display them using \pfun{pairs.panesl} and \pfun{corPlot}.  Basic multiple regression and moderated or mediated regressions may be done from either the raw data or from correlation matrices using \pfun{lmCor},  or \pfun{mediation}.
 
 Remember, to run any of the \Rpkg{psych} functions, it is necessary to make the package active by using the \fun{library} command: 
 
@@ -494,7 +494,7 @@ f3o}
 
 \subsubsection{Alpha Factor Analysis}
 
-Introduced by \cite{kaiser:65} and discussed by \cite{loehlin:17}, \emph{alpha factor analysis} factors the correlation matrix of correlations or covariances corrected for their communalities. This has the effect of making all correlations corrected for reliabiity to reflect their true, latent correlations.   \emph{alpha factor analysis} was added in August, 2017 to increase the range of EFA options available.  This is added more completeness rather than an endorsement of the procedure. It is worth comparing solutions from minres, alpha, and MLE, for they are not the same.
+Introduced by \cite{kaiser:65} and discussed by \cite{loehlin:17}, \emph{alpha factor analysis} factors the matrix of correlations or covariances corrected for their communalities. This has the effect of making all correlations corrected for relability to reflect their true, latent correlations.   \emph{alpha factor analysis} was added in August, 2017 to increase the range of EFA options available.  This is added more for completeness rather than an endorsement of the procedure. It is worth comparing solutions from minres, alpha, and MLE, for they are not the same.
 
 
 
@@ -853,7 +853,7 @@ fa.diagram(f2,fe=fe)
 \end{center}
 \end{figure}
 
-Another way to examine the overlap between two sets is the use of \iemph{set correlation} found by \pfun{setCor} (discussed later). 
+Another way to examine the overlap between two sets is the use of \iemph{set correlation} found by \pfun{lmCor} (discussed later). 
 
 \subsection{Exploratory Structural Equation Modeling (ESEM)}
 
@@ -1164,7 +1164,7 @@ Once the items have been scored as true or false (assigned scores of 1 or 0), th
 
 \subsection{Item analysis}
 
-Basic item analysis starts with describing the data (\pfun{describe}, finding the number of dimensions using factor analysis (\pfun{fa}) and cluster analysis \pfun{iclust}  perhaps using the Very Simple Structure criterion  (\pfun{vss}), or perhaps parallel analysis \pfun{fa.parallel}.  Item whole correlations may then be found for scales scored on one dimension (\pfun{alpha} or many scales simultaneously (\pfun{scoreItems}).  Scales can be modified by changing the keys matrix (i.e., dropping particular items, changing the scale on which an item is to be scored).   This analysis can be done on the normal Pearson correlation matrix or by using polychoric correlations.  Validities of the scales can be found using multiple correlation of the raw data or based upon correlation matrices using the \pfun{setCor} function.  However, more powerful item analysis tools are now available by using Item Response Theory approaches.
+Basic item analysis starts with describing the data (\pfun{describe}, finding the number of dimensions using factor analysis (\pfun{fa}) and cluster analysis \pfun{iclust}  perhaps using the Very Simple Structure criterion  (\pfun{vss}), or perhaps parallel analysis \pfun{fa.parallel}.  Item whole correlations may then be found for scales scored on one dimension (\pfun{alpha} or many scales simultaneously (\pfun{scoreItems}).  Scales can be modified by changing the keys matrix (i.e., dropping particular items, changing the scale on which an item is to be scored).   This analysis can be done on the normal Pearson correlation matrix or by using polychoric correlations.  Validities of the scales can be found using multiple correlation of the raw data or based upon correlation matrices using the \pfun{lmCor} function.  However, more powerful item analysis tools are now available by using Item Response Theory approaches.
 
 
 Although the \pfun{response.frequencies} output from  \pfun{score.multiple.choice} is useful to examine in terms of the probability of various alternatives being endorsed, it is even better to examine the pattern of these responses as a function of the underlying latent trait or just the total score.  This may be done by using  \pfun{irt.responses}  (Figure~\ref{fig:irt.response}).
@@ -1470,11 +1470,11 @@ The \pfun{mlr} and \pfun{multilevelReliablity} functions follow the advice of \c
 
 
 \section{Set Correlation and Multiple Regression from the correlation matrix}
-An important generalization of multiple regression and multiple correlation is \iemph{set correlation} developed by \cite{cohen:set} and discussed by \cite{cohen:03}.     Set correlation is a multivariate generalization of multiple regression and estimates the amount of variance shared between two sets of variables.  Set correlation also allows for examining the relationship between two sets when controlling for a third set.  This is implemented in the \pfun{setCor} function.  Set correlation is $$R^{2} = 1 - \prod_{i=1}^n(1-\lambda_{i})$$ where $\lambda_{i}$ is the ith eigen value of the eigen value decomposition of the matrix $$R = R_{xx}^{-1}R_{xy}R_{xx}^{-1}R_{xy}^{-1}.$$  Unfortunately, there are several cases where set correlation will give results that are much too high.  This will happen if some variables from the first set are highly related to those in the second set, even though most are not.  In this case, although the set correlation can be very high, the degree of relationship between the sets is not as high.  In this case, an alternative statistic, based upon the average canonical correlation might be more appropriate.  
+An important generalization of multiple regression and multiple correlation is \iemph{set correlation} developed by \cite{cohen:set} and discussed by \cite{cohen:03}.     Set correlation is a multivariate generalization of multiple regression and estimates the amount of variance shared between two sets of variables.  Set correlation also allows for examining the relationship between two sets when controlling for a third set.  This is implemented in the \pfun{lmCor} function.  Set correlation is $$R^{2} = 1 - \prod_{i=1}^n(1-\lambda_{i})$$ where $\lambda_{i}$ is the ith eigen value of the eigen value decomposition of the matrix $$R = R_{xx}^{-1}R_{xy}R_{xx}^{-1}R_{xy}^{-1}.$$  Unfortunately, there are several cases where set correlation will give results that are much too high.  This will happen if some variables from the first set are highly related to those in the second set, even though most are not.  In this case, although the set correlation can be very high, the degree of relationship between the sets is not as high.  In this case, an alternative statistic, based upon the average canonical correlation might be more appropriate.  
 
- \pfun{setCor} has the additional feature that it will calculate multiple and partial correlations from the correlation or covariance matrix rather than the original data.
+ \pfun{lmCor} has the additional feature that it will calculate multiple and partial correlations from the correlation or covariance matrix rather than the original data.
 
-Consider the correlations of the 6 variables in the \pfun{sat.act} data set.  First do the normal multiple regression, and then compare it with the results using \pfun{setCor}. Two things to notice.  \pfun{setCor} works on the \emph{correlation} or  \emph{covariance}  or \emph{raw data} matrix, and thus if using the correlation matrix, will report standardized or raw $\hat{\beta}$ weights.  Secondly, it is possible to do several multiple regressions simultaneously.  If the number of observations is specified, or if the analysis is done on raw data, statistical tests of significance are applied.
+Consider the correlations of the 6 variables in the \pfun{sat.act} data set.  First do the normal multiple regression, and then compare it with the results using \pfun{lmCor}. Two things to notice.  \pfun{lmCor} works on the \emph{correlation} or  \emph{covariance}  or \emph{raw data} matrix, and thus if using the correlation matrix, will report standardized or raw $\hat{\beta}$ weights.  Secondly, it is possible to do several multiple regressions simultaneously.  If the number of observations is specified, or if the analysis is done on raw data, statistical tests of significance are applied.
 
 For this example, the analysis is done on the correlation matrix rather than the raw data.
 
@@ -1485,13 +1485,13 @@ C <- cov(sat.act,use="pairwise")
 model1 <- lm(ACT~ gender + education + age, data=sat.act)
 summary(model1)
 @
-Compare this with the output from \pfun{setCor}.
+Compare this with the output from \pfun{lmCor}.
 <<print=FALSE,echo=TRUE>>=
-#compare with setCor
-setCor(gender + education + age ~ ACT + SATV + SATQ, data = C, n.obs=700)
+#compare with lmCor
+lmCor(gender + education + age ~ ACT + SATV + SATQ, data = C, n.obs=700)
 @
 \end{scriptsize}
-Note that the \pfun{setCor} analysis also  reports the amount of shared variance between the predictor set and the criterion (dependent) set.  This set correlation is symmetric. That is, the $R^{2}$ is the same independent of the direction of the relationship.
+Note that the \pfun{lmCor} analysis also  reports the amount of shared variance between the predictor set and the criterion (dependent) set.  This set correlation is symmetric. That is, the $R^{2}$ is the same independent of the direction of the relationship.
 
 \section{Simulation functions}
 It is particularly helpful, when trying to understand psychometric concepts, to be able to generate sample data sets that meet certain specifications.   By knowing ``truth" it is possible to see how well various algorithms can capture it. Several of the \pfun{sim} functions create artificial data sets with known structures. 
@@ -1658,7 +1658,7 @@ A number of functions have been developed for some very specific problems that d
 \item [\pfun{topBottom}] Same as headtail.  Combines the \fun{head} and \fun{tail} functions to show the first and last lines of a data set or output, but does not add ellipsis between. 
 \item [\pfun{mardia}] calculates univariate or multivariate (Mardia's test) skew and kurtosis for a vector, matrix, or data.frame
 \item [\pfun{p.rep}] finds the probability of replication for an F, t, or r and estimate effect size.
-\item [\pfun{partial.r}] partials a y set of variables out of an x set and finds the resulting partial correlations.  (See also \pfun{setCor}.)
+\item [\pfun{partial.r}] partials a y set of variables out of an x set and finds the resulting partial correlations.  (See also \pfun{lmCor}.)
 \item [\pfun{rangeCorrection}] will correct correlations for restriction of range.
 \item [\pfun{reverse.code}] will reverse code specified items.  Done more conveniently in most \Rpkg{psych} functions, but supplied here as a helper function when using other packages.
 \item [\pfun{superMatrix}] Takes two or more matrices, e.g., A and B,  and combines them into a ``Super matrix'' with A on the top left, B on the lower right, and 0s for the other  two quadrants. A useful trick when forming complex keys, or when forming example problems.
@@ -1700,7 +1700,7 @@ News and a history of changes are available in the NEWS and CHANGES files in the
 
 \begin{Schunk}
 \begin{Sinput}
-> news(Version > "1.8.4", package="psych")
+> news(Version > "2.3.3", package="psych")
 \end{Sinput}
 \end{Schunk}
 
@@ -1909,12 +1909,12 @@ Revelle, W. (1979).
 \newblock Hierarchical cluster-analysis and the internal structure of tests.
 \newblock {\em Multivariate Behavioral Research}, 14(1):57--74.
 
-\bibitem[\protect\astroncite{Revelle}{2018}]{psych}
-Revelle, W. (2018).
+\bibitem[\protect\astroncite{Revelle}{2023}]{psych}
+Revelle, W. (2023).
 \newblock {\em psych: Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
   https://cran.r-project.org/web/packages=psych.
-\newblock R package version 1.8.6.
+\newblock R package version 2.3.5.
 
 \bibitem[\protect\astroncite{Revelle}{prep}]{revelle:intro}
 Revelle, W. ({in prep}).

@@ -22,7 +22,7 @@
 \usepackage{makeidx}        % allows index generation
 \usepackage[authoryear,round]{natbib} 
 \usepackage{gensymb}
-\usepackage{longtable}
+%\usepackage{longtable}
 %\usepackage{geometry}   
 \usepackage{amssymb}    
 \usepackage{amsmath}
@@ -125,7 +125,7 @@ The current list of How To's includes:
 \item Using \R{} and the \Rpkg{psych} package to find \href{http://personality-project.org/r/psych/HowTo/omega.pdf}{$omega_h$} and $\omega_t$  (this document)..
 \item Using  \R{} and the \Rpkg{psych} for \href{http://personality-project.org/r/psych/HowTo/factor.pdf}{factor analysis} and principal components analysis.
 \item Using the \pfun{scoreItems} function to find \href{http://personality-project.org/r/psych/HowTo/scoring.pdf}{scale scores and scale statistics}.
-\item Using \pfun{mediate} and \pfun{setCor} to do \href{http://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis}
+\item Using \pfun{mediate} and \pfun{lmCor} to do \href{http://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis}
 
 
 \end{enumerate}
@@ -1070,8 +1070,8 @@ McDonald, R.~P. (1999).
 \newblock {\em Test theory: {A} unified treatment}.
 \newblock L. Erlbaum Associates, Mahwah, N.J.
 
-\bibitem[\protect\astroncite{{R Core Team}}{2020}]{R}
-{R Core Team} (2020).
+\bibitem[\protect\astroncite{{R Core Team}}{2023}]{R}
+{R Core Team} (2023).
 \newblock {\em R: A Language and Environment for Statistical Computing}.
 \newblock R Foundation for Statistical Computing, Vienna, Austria.
 
@@ -1080,12 +1080,12 @@ Revelle, W. (1979).
 \newblock Hierarchical cluster-analysis and the internal structure of tests.
 \newblock {\em Multivariate Behavioral Research}, 14(1):57--74.
 
-\bibitem[\protect\astroncite{Revelle}{2020}]{psych}
-Revelle, W. (2020).
+\bibitem[\protect\astroncite{Revelle}{2023}]{psych}
+Revelle, W. (2023).
 \newblock {\em psych: Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
   https://CRAN.r-project.org/package=psych.
-\newblock R package version 2.0.8.
+\newblock R package version 2.3,6
 
 \bibitem[\protect\astroncite{Revelle and Condon}{2018}]{rc:reliability}
 Revelle, W. and Condon, D.~M. (2018).

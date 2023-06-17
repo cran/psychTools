@@ -453,8 +453,8 @@ summary(model1)
 ###################################################
 ### code chunk number 57: overview.Rnw:1489-1491
 ###################################################
-#compare with setCor
-setCor(gender + education + age ~ ACT + SATV + SATQ, data = C, n.obs=700)
+#compare with lmCor
+lmCor(gender + education + age ~ ACT + SATV + SATQ, data = C, n.obs=700)
 
 
 ###################################################

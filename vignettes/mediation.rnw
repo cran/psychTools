@@ -21,11 +21,12 @@
 \usepackage{makeidx}        % allows index generation
 \usepackage[authoryear,round]{natbib} 
 \usepackage{gensymb}
-\usepackage{longtable}
+%\usepackage{longtable}
 %\usepackage{geometry}   
 \usepackage{amssymb}    
 \usepackage{amsmath}
 %\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage[utf8]{inputenc}
 
 \usepackage{Sweave}  
 %\usepackage{/Volumes/'Macintosh HD'/Library/Frameworks/R.framework/Versions/2.13/Resources/share/texmf/tex/latex/Sweave}
@@ -105,7 +106,7 @@
 %\let\vec\vect
 \makeindex         % used for the subject index
 
-\title{How to use the psych package to display item and scale correlations}
+\title{How to use the psych package for regression and mediation analysis}
 \author{William Revelle}
 
 %the following works only with apaclass
@@ -135,7 +136,7 @@ The current list of How To's includes:
 \item Using \R{} and the \Rpkg{psych} package to find \href{http://personality-project.org/r/psych/HowTo/omega.pdf}{$omega_h$} and $\omega_t$.
 \item Using  \R{} and the \Rpkg{psych} for \href{http://personality-project.org/r/psych/HowTo/factor.pdf}{factor analysis} and principal components analysis.
 \item Using the \pfun{scoreItems} function to find \href{http://personality-project.org/r/psych/HowTo/scoring.pdf}{scale scores and scale statistics}.
-\item Using \pfun{mediate} and \pfun{setCor} to do \href{http://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis} (this document)
+\item Using \pfun{mediate} and \pfun{lmCor} to do \href{http://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis} (this document)
 
 
 \end{enumerate}
@@ -199,10 +200,10 @@ lowerCor(myData)
 
 
 \begin{Rinput}
-corPlot(myData)   #does not show the values of the correlations
-corPlot(myData, numbers=TRUE)  #show the numbers,\
+
+corPlot(myData)  #show the numbers,
                          #scales the character size by "significance"
-corPlot(myData, numbers=TRUE,scale=FALSE)  #show the numbers, 
+corPlot(myData,scale=FALSE)  #show the numbers, 
                             #  all characters the same size
 corPlot(lowerCor(myData), numbers =TRUE)   #print the correlations 
                         # and show them graphically
@@ -213,21 +214,21 @@ corPlot(lowerCor(myData), numbers =TRUE)   #print the correlations
 \end{enumerate}
 
 \subsection{For the not impatient}
-The following pages are meant to lead you through the use of the \pfun{setCor} and \pfun{mediate} functions.  The assumption is that you have already made \Rpkg{psych} active and want some example code. 
+The following pages are meant to lead you through the use of the \pfun{lmCor} and \pfun{mediate} functions.  The assumption is that you have already made \Rpkg{psych} active and want some example code. 
 
 \section{Multiple regression and mediation}
 
-Mediation and moderation are merely different uses of the linear model  $\hat{\vec{Y}}= \mu + \beta_{y.x} \vec{X } $ and are implemented in \Rpkg{psych} with two functions: \pfun{setCor} and \pfun{mediate}.  
+Mediation and moderation are merely different uses of the linear model  $\hat{\vec{Y}}= \mu + \beta_{y.x} \vec{X } + \vec{\epsilon} $ and are implemented in \Rpkg{psych} with two functions: \pfun{lmCor} and \pfun{mediate}.  
 
 Given a set of predictor variables, $\vec{X}$ and a set of criteria variables, $\vec{Y}$, multiple regression solves the equation $\hat{\vec{Y}} = \mu + \beta_{y.x} \vec{X } $ by finding $\beta_{y.x} = \vec{C_{xx}}^{-1} C_{yx} $ where $\vec{C_{xx}}$ is the covariances of the $\vec{X}$ variables and $\vec{C_{yx}}$ is the covariances of predictors and the criteria.  
 
-Although typically done using the raw data, clearly this can also be done by using the covariance or correlation matrices.  \pfun{setCor} was developed to handle the correlation matrix solution but has been generalized to the case of raw data.  In the later case, it assumes a Missing Completely at Random (MCAR) structure, and thus uses all the data and finds pair.wise complete correlations.   For complete data sets, the results are identical to using \pfun{lm}.  By default, \pfun{setCor} uses standardized variables, but to compare with \pfun{lm}, it can use unstandardized variables.
+Although typically done using the raw data, clearly this can also be done by using the covariance or correlation matrices.  \pfun{lmCor} was developed to handle the correlation matrix solution but has been generalized to the case of raw data.  In the later case, it assumes a Missing Completely at Random (MCAR) structure, and thus uses all the data and finds pair.wise complete correlations.   For complete data sets, the results are identical to using \pfun{lm}.  By default, \pfun{lmCor} uses standardized variables, but to compare with \pfun{lm}, it can use unstandardized variables.
 
 
 
-\section{Regression using \pfun{setCor}}
+\section{Regression using \pfun{lmCor}}
 
-Although typically done from a raw data matrix (using the \fun{lm} function), it is sometimes useful to do the regression from a correlation or covariance matrix. \pfun{setCor} was developed for this purpose.  From a correlation/covariance matrix, it will do normal regression as well as regression on partialled correlation matrices.  With the raw data, it will also do moderated regression (centered or non-centered). In particular, for the raw data, it will work with missing data.
+Although typically done from a raw data matrix (using the \fun{lm} function), it is sometimes useful to do the regression from a correlation or covariance matrix. \pfun{lmCor} was developed for this purpose.  From a correlation/covariance matrix, it will do normal regression as well as regression on partialled correlation matrices.  With the raw data, it will also do moderated regression (centered or non-centered). In particular, for the raw data, it will work with missing data.
 
 An interesting option, if using categorical or dichotomous data is first find the appropriate polychoric, tetrachoric, or poly-serial correlations using \pfun{mixedCor} and then use the resulting correlation matrix for analysis. The resulting correlations and multiple correlations will not match those of the \pfun{lm} analysis. 
 
@@ -244,7 +245,7 @@ psych::describe(attitude)
 
 <<attitude>>==
  #do not standardize
-mod1 <- setCor(rating ~ complaints + privileges, data=attitude,std=FALSE)
+mod1 <- lmCor(rating ~ complaints + privileges, data=attitude,std=FALSE)
 mod1
 @
 
@@ -261,7 +262,7 @@ The graphic for the standardized regression is shown in (Figure~\ref{fig:attitud
 <<attitude, echo=FALSE, print=FALSE>>==
 png('attitude.png')
 # standardize by default
-mod2 <- setCor(rating ~ complaints + privileges, data=attitude) 
+mod2 <- lmCor(rating ~ complaints + privileges, data=attitude) 
 mod2
 setCor.diagram(mod2, main="A simple regression model")
 dev.off()
@@ -279,17 +280,17 @@ dev.off()
 
 \subsection{From a correlation matrix}
 
-Perhaps most usefully, \pfun{setCor} will find the beta weights between a set of X variables, and a set of Y variables.  Consider seven variables in the \pfun{atttitude} data set.   We first find the correlation matrix (normally, this could just be supplied by the user).  Then we find the regressions from the correlation matrix.  Compare this regression to the (standardized) solution shown above.   By specifying the number of observations (n.obs), we are able to apply various inferential tests.
+Perhaps most usefully, \pfun{lmCor} will find the beta weights between a set of X variables, and a set of Y variables.  Consider seven variables in the \pfun{atttitude} data set.   We first find the correlation matrix (normally, this could just be supplied by the user).  Then we find the regressions from the correlation matrix.  Compare this regression to the (standardized) solution shown above.   By specifying the number of observations (n.obs), we are able to apply various inferential tests.
 
 <<attitudeR>>==
 R <- lowerCor(attitude) 
 
- setCor(rating ~ complaints + privileges, data=R, n.obs =30)
+ lmCor(rating ~ complaints + privileges, data=R, n.obs =30)
 @
 
 
 Compare this solution (from the correlation matrix) with the \emph{standardized} solution for the raw data. 
-\pfun{setCor} does several things: 
+\pfun{lmCor} does several things: 
 
 \begin{itemize}
 \item Finds the regression weights (betas) between the predictor variables and each of the criterion variables.
@@ -316,7 +317,7 @@ kelley <- structure(list(speed = c(1, 0.4248, 0.042, 0.0215, 0.0573), power = c(
 lowerMat(kelley)
 
 #now find and draw the regression
-sc <- setCor(power + speed ~ words + symbols + meaningless,data=kelley)  #formula mode
+sc <- lmCor(power + speed ~ words + symbols + meaningless,data=kelley)  #formula mode
 sc  #show it
 @
 
@@ -333,10 +334,10 @@ sc  #show it
 %meaningless  0.06  0.28  0.47  0.69  1.00
 %\end{Routput}
 %
-%Now, use the \pfun{setCor} function.
+%Now, use the \pfun{lmCor} function.
 %
 %\begin{Routput}
-%Call: setCor(y = power + speed ~ words + symbols + meaningless, data = kelley)
+%Call: lmCor(y = power + speed ~ words + symbols + meaningless, data = kelley)
 %
 %Multiple Regression from matrix input 
 %
@@ -382,7 +383,7 @@ dev.off()
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics{hotelling.png}
-\caption{The relationship between three predictors and two criteria from \pfun{setCor}.  The data are from the Kelley data set reported by \cite{hotelling:36}.}
+\caption{The relationship between three predictors and two criteria from \pfun{lmCor}.  The data are from the Kelley data set reported by \cite{hotelling:36}.}
 \label{fig:hotelling}
 \end{center}
 \end{figure}
@@ -439,9 +440,10 @@ dev.off()
 
 But, we can also do multiple predictors \emph{and} multiple criteria in the same call:
 
+
 <<satact,  echo=FALSE, print=FALSE>>==
 png('satact.png')
-mod3 <- setCor(SATV + SATQ + ACT ~ gender + education + age, data = sat.act)
+mod3 <- lmCor(SATV + SATQ + ACT ~ gender + education + age, data = sat.act)
 dev.off()
 @
 
@@ -508,21 +510,77 @@ dev.off()
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics{satact.png}
-\caption{The relationship between three predictors and three criteria from \pfun{setCor}.  The data are from the \pfun{sat.act} data set.}
+\caption{The relationship between three predictors and three criteria from \pfun{lmCor}.  The data are from the \pfun{sat.act} data set.}
 \label{fig:3x3}
 \end{center}
 \end{figure}
 
+\subsection{Graphic displays}
+
+When considering the within group relationships for multiple groups, (e.g., gender or grade level) it is useful to draw separate regression lines for each group.  Consider the case of the regression of age on  paragraph comprehension as a function of class grade (6 or 7) in the \pfun{holzinger.swineford} data set in \Rpkg{psychTools}.   
+  
+<<suppressor echo=TRUE, print=FALSE>>== 
+ lowerCor(holzinger.swineford[c(3,7,12:14)])
+@
+  It would seem as if both age and grade account for 4\% of the variance in paragraph comprehension.  But combining these two in a multiple regression increases the variance explained from 8\% (the sum of the two)  to 18\%, because age and grade suppress variance unrelated to cognitive performance.  
+  
+  We can show this finding in two different ways: as a plot of the separate regression lines Figure~\ref{fig:hs} or as a simple path model Figure~\ref{fig:hsp}  .
+  Note that because grade goes from 7 to 8, to index the colors in the plot we subtract 6 from both grades to get a 1, 2 variable.
+
+<<hsp  echo=FALSE, print=FALSE>>==
+png('hsp.png') 
+ lmCor(t07_sentcomp ~ agemo + grade,data=holzinger.swineford) 
+dev.off()
+@
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics{hsp.png}
+\caption{The regression of age and grade on paragraph comprehension.   The data are from the \pfun{holzinger:swineford} data set.  Although age and grade are highly correlated (.53) grade has a positive effect age a negative effect.  Here we show the standardized regressions.  In the subsequent figure we show the raw (understanderized) slopes. }
+\label{figp:hsp}
+\end{center}
+\end{figure}
+
+
+
+<<hs  echo=FALSE, print=FALSE>>==
+png('hs.png')
+plot(t07_sentcomp ~ agemo, col=c("red","blue")[holzinger.swineford$grade -6],
+  pch=26-holzinger.swineford$grade,data=holzinger.swineford,
+   ylab="Sentence Comprehension",xlab="Age in Months",
+   main="Sentence Comprehension varies by age and grade")
+by(holzinger.swineford, holzinger.swineford$grade -6,function(x) abline(
+     lmCor(t07_sentcomp ~ agemo,data=x, std=FALSE, plot=FALSE) ,lty=c("dashed","solid")[x$grade-6]))
+text(190,3.3,"grade = 8")
+text(190,2,"grade = 7") 
+dev.off()
+@
+
+To show the coefficients of this model, we  do the regressions without the plot.
+
+<<lm echo=FALSE, print=TRUE>>==
+by(holzinger.swineford,holzinger.swineford$grade,function(x) 
+     lmCor(t07_sentcomp ~ agemo,data=x, std=FALSE, plot=FALSE) )
+@
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics{hs.png}
+\caption{Showing a multiple regression using  \pfun{lmCor} with lines for each group.  The data are from the \pfun{holzinger:swineford} data set.  Although age and grade are highly correlated (.53) grade has a positive effect age a negative effect.}
+\label{fig:hs}
+\end{center}
+\end{figure}
 
 \subsection{Moderated multiple regression}
 
 If we have the raw data, we can also find interactions (known as moderated multiple regression).   This is done by zero centering the data \citep{cohen:03} and then multiplying the two terms of the interaction.  As an option, we can not zero center the data \citep{hayes:13} which results in different ``main effects" but the same interaction term.  To show the equivalence of the interaction terms, we also must not standardize the results. 
 
-
+We use the \pfun{globalWarm} data set taken from \citep{hayes:13}
 <<moderation>>==
-mod <- setCor(SATQ ~ SATV*gender + ACT, data=sat.act, std =FALSE, plot=FALSE)
+mod <-lmCor(govact ~ negemot * age + posemot +ideology+sex,data=globalWarm,
+          std=FALSE, zero=FALSE, plot=FALSE)
 mod
-mod0 <- setCor(SATQ ~ SATV*gender + ACT, data=sat.act, zero=FALSE, std=FALSE,plot=FALSE)
+mod0 <- lmCor(govact ~ negemot * age + posemot +ideology+sex,data=globalWarm,std=FALSE, plot=FALSE)
 mod0
 @
 
@@ -530,19 +588,17 @@ mod0
 png('moderation.png')
 setCor.diagram(mod, main="not zero centered")
 dev.off()
-
 @
-<<modplot, echo=FALSE, print=FALSE>>==
+<<modplot1, echo=FALSE, print=FALSE>>==
 png('moderation0.png')
-setCor.diagram(mod0, main="zero centered")
+diagram(mod0, main="zero centered")
 dev.off()
-
 @
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics{moderation.png}
-\caption{Showing a moderated multiple regression using  \pfun{setCor}.  The data are from the \pfun{sat.act} data set.}
+\caption{Showing a moderated multiple regression using  \pfun{lmCor}.  The data are from the \pfun{globalWarm} data set.}
 \label{fig:mod}
 \end{center}
 \end{figure}
@@ -588,19 +644,19 @@ dev.off()
 \includegraphics[width=7cm]{moderation0.png}
 
 
-\caption{The difference between 0 and not 0 centering \pfun{setCor}.  The data are from the \pfun{sat.act} data set. In both cases, the data are not standarized.}
+\caption{The difference between 0 and not 0 centering \pfun{lmCor}.  The data are from the \pfun{globalWarm} data set. In both cases, the data are not standarized.}
 \label{default}
 \end{center}
 \end{figure}
 
 \subsection{Plotting the interactions}
 
-To visualize the effect of zero (mean) centering, it is useful to plot the various elements that go into the linear model.  \pfun{setCor} returns the product terms as well as the original data.  I combine  the two datasets to make it clearer. Note that the correlations of the centered SATQ, SATV, and gender with the uncentered are 1.0, but that the correlations with the product terms depend upon centering versus not. I drop the ACT variables from the figure for clarity (Figure~\ref{fig:splom}).
+To visualize the effect of zero (mean) centering, it is useful to plot the various elements that go into the linear model.  \pfun{lmCor} returns the product terms as well as the original data.  I combine  the two datasets to make it clearer. Note that the correlations of the centered age, negemot  with the uncentered are 1.0, but that the correlations with the product terms depend upon centering versus not. I drop the some of the other  variables from the figure for clarity (Figure~\ref{fig:splom}).
 
 <<plotting,  echo=FALSE, print=FALSE>>==
-both <- cbind(mod$data[-1],mod0$data[-1])
+both <- cbind(mod$data[,-1],mod0$data[,-1])
 png('splom.png')
-pairs.panels(both[,-c(4,9)],gap=0)  #show the mean centered data
+pairs.panels(both[,-c(4,5,6,8,11:13)])  #show the mean centered data
 dev.off()
 @
 
@@ -614,13 +670,13 @@ dev.off()
 
 \subsection{Comparisons to \fun{lm}}
 
-The \pfun{setCor} function duplicates the functionality of the \fun{lm} function  for complete data, although \fun{lm} does not zero center and \pfun{setCor} will (by default). In addition, \pfun{setCor} finds correlations based upon pair.wise deletion of missing data, while \fun{lm} does case.wise deletion.  We compare the \fun{lm} and \pfun{setCor} results for complete data by setting the \texttt{ use = "complete"} option.
+The \pfun{lmCor} function duplicates the functionality of the \fun{lm} function  for complete data, although \fun{lm} does not zero center and \pfun{lmCor} will (by default). In addition, \pfun{lmCor} finds correlations based upon pair.wise deletion of missing data, while \fun{lm} does case.wise deletion.  We compare the \fun{lm} and \pfun{lmCor} results for complete data by setting the \texttt{ use = "complete"} option.  We use the \pfun{sat.act} data set which has some missing values.
 
 
 
 <<setcorvslm>>==
 
-lm(SATQ ~ SATV*gender + ACT, data=sat.act)
+summary(lm(SATQ ~ SATV*gender + ACT, data=sat.act))
 mod <- setCor(SATQ ~ SATV*gender + ACT, data=(sat.act), zero=FALSE, std=FALSE,use="complete")
 print(mod,digits=5)
 @
@@ -679,13 +735,13 @@ Mediation analysis is just linear regression reorganized slightly to show the di
 \end{center}
 \end{figure}
 
- A number of papers discuss how to test for the effect of mediation and there are some very popular `macros' for SPSS and SAS to do so \citep{hayes:13,preacher:04,preacher:07,preacher:15}.  A useful discussion of mediation and moderation with sample data sets is found in \cite{hayes:13}. More recently, the \Rpkg{processR} package \citep{processR} has been released with these data sets.  Although these data used to be be available from   \href{"http://www.afhayes.com/public/hayes2018data.zip"}{http://www.afhayes.com/public/hayes2018data.zip}  this now longer seems to be case.\footnote{The Hayes data sets (2018) do not correspond exactly with those from the 2013 book. Those data files were at  \href{"http://www.afhayes.com/public/hayes2013data.zip"}{http://www.afhayes.com/public/hayes2013data.zip}.}.  I use these for comparisons with the results in \cite{hayes:13}.  Four of these data sets are now included in the \Rpkg{psych} package with the kind permission of their authors: \pfun{Garcia} is from \cite{garcia:10}, and \pfun{Tal\_Or} is from \cite{talor:10},  The \pfun{Pollack} correlation matrix is taken from an article by \cite{pollack}.   The \pfun{globalWarm} data set is the \pfun{glbwarm} data set in the  \Rpkg{processR} package and added to \Rpkg{psychTools} with the kind permission of the original author, Erik Nisbet.   
+ A number of papers discuss how to test for the effect of mediation and there are some very popular `macros' for SPSS and SAS to do so \citep{hayes:13,preacher:04,preacher:07,preacher:15}.  A useful discussion of mediation and moderation with sample data sets is found in \cite{hayes:13}. More recently, the \Rpkg{processR} package \citep{processR} has been released with these data sets.  Although these data used to be be available from   \href{"http://www.afhayes.com/public/hayes2018data.zip"}{http://www.afhayes.com/public/hayes2018data.zip}  this now longer seems to be case.\footnote{The Hayes data sets (2018) do not correspond exactly with those from the 2013 book. Those data files were at  \href{"http://www.afhayes.com/public/hayes2013data.zip"}{http://www.afhayes.com/public/hayes2013data.zip}.}.  I use these for comparisons with the results in \cite{hayes:13}.  Four of these data sets are now included in the \Rpkg{psych} package with the kind permission of their authors: \pfun{Garcia} is from \cite{garcia:10}, and \pfun{Tal\_Or} is from \cite{talor:10},  The \pfun{Pollack} correlation matrix is taken from an article by \cite{pollack:12}.   The \pfun{globalWarm} data set is the \pfun{glbwarm} data set in the  \Rpkg{processR} package and added to \Rpkg{psychTools} with the kind permission of the original author, Erik Nisbet.   
 
 
 
 To find the confidence intervals of the effect  of mediation (the reduction between the c and c' paths, where c' = c - ab), I bootstrap the results by randomly sampling from the data with replacement (n.iter = 5000) times.
 
-For these examples, the data files \pfun{Garcia}  \citep{garcia:10} and  \pfun{Tal\_Or} \citep{talor:10} are included in the \pfun{psych} package.  The \pfun{estrss} data set  and \pfun{glbwarm} were originally downloaded from the    \cite{hayes:13} data seta and stored in a local directory on my computer. They are now available from the \Rpkg{processR} package \cite{processR}. 
+For these examples, the data files \pfun{Garcia}  \citep{garcia:10} and  \pfun{Tal\_Or} \citep{talor:10} are included in the \pfun{psych} package.  The \pfun{estrss} data set  and \pfun{globalWarm} were originally downloaded from the    \cite{hayes:13} data seta and stored in a local directory on my computer. They are now available from the \Rpkg{processR} package \cite{processR}. 
 
 The syntax is that $ y \sim  x + (m) $ where m is the mediating variable.  By default the output is to two decimals, as is the graphic output.  This can be increased by returning the output to an object and then printing that object with the desired number of decimals.
 
@@ -1272,7 +1328,7 @@ With the global warming data from \cite{hayes:13}, the default (uncentered) regr
 lm(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm)
 # but  zero center and try again
 glbwarmc <-data.frame(scale(globalWarm,scale=FALSE))
-lm(govact ~ age * negemot + posemot + ideology + sex, data=glbwarmc)
+lm(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm)
 mod.glb <- setCor(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm,zero=FALSE,std=FALSE)
 print(mod.glb,digits=6)
 mod.glb0 <- setCor(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm,std=FALSE)
@@ -1461,13 +1517,13 @@ summary(mod7.4)
 %\end{Routput}
 
 <<modertionplot,  echo=FALSE, print=FALSE>>==
-png('moderation.png')
+png('mod74.png')
 mediate.diagram(mod7.4, main= "Another example of moderated mediation")
 dev.off()
 @
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics{moderation.png}
+\includegraphics{mod74.png}
 \caption{A simple moderated regression analysis of the \fun{protest} data set.  The data were not zero centered. This shows the strength of the three regressions.  Figure~\ref{fig:garcia}  shows the actual data and the three regression lines. }
 \label{fig:moderation}
 \end{center}
@@ -1478,7 +1534,7 @@ dev.off()
 
 In order to graphically display interactions, particularly if one of the variable is categorical, we can plot separate regression lines for each value of the categorical variable.  We do this for the \pfun{Garcia} data set to show the interaction of protest with sexism. (see Figure~\ref{fig:garcia}).  This is just an example of how to use Core-R to do graphics and is not a feature of \Rpkg{psych}.
 
-<<modertionplot,  echo=FALSE, print=FALSE>>==
+<<modertionplot,  echo=TRUE, print=FALSE>>==
 png('garciainteraction.png')
 plot(respappr ~ sexism, pch = 23- protest, bg = c("black","red", "blue")[protest], 
 data=Garcia, main = "Response to sexism varies as type of protest")
@@ -1501,8 +1557,7 @@ dev.off()
 
 \section{Partial Correlations}
 Although not strickly speaking part of mediation or moderation, the use of \emph{partial correlations} can be addressed here.
-
-\subsection{Partial some variables from the rest of the variables}
+s\subsection{Partial some variables from the rest of the variables}
 
 Given a set of X variables and a set of Y variables, we can control for an additional set of Z variables when we find the correlations between X and Y.  This is effectively what happens when we want to add covariates into a model.  We see this when we compare the regression model for government action as a function of the iteraction of ideology and age with some covariates, or when we partial them out first.
 
@@ -1731,19 +1786,19 @@ Preacher, K.~J., Rucker, D.~D., and Hayes, A.~F. (2007).
   prescriptions.
 \newblock {\em Multivariate behavioral research}, 42(1):185--227.
 
-\bibitem[\protect\astroncite{{R Core Team}}{2020}]{R}
-{R Core Team} (2020).
+\bibitem[\protect\astroncite{{R Core Team}}{2023}]{R}
+{R Core Team} (2023).
 \newblock {\em R: A Language and Environment for Statistical Computing}.
 \newblock R Foundation for Statistical Computing, Vienna, Austria.
 
-\bibitem[\protect\astroncite{Revelle}{2020}]{psych}
-Revelle, W. (2020).
+\bibitem[\protect\astroncite{Revelle}{2023}]{psych}
+Revelle, W. (2023).
 \newblock {\em
   \href{https://cran.r-project.org/web/packages/psych/index.html}{psych}:
   Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
   https://CRAN.r-project.org/package=psych.
-\newblock R package version 2.0.9.
+\newblock R package version 2.3.6
 
 \bibitem[\protect\astroncite{Revelle}{prep}]{revelle:intro}
 Revelle, W. ({in prep}).
@@ -1834,8 +1889,8 @@ Preacher, K.~J., Rucker, D.~D., and Hayes, A.~F. (2007).
   prescriptions.
 \newblock {\em Multivariate behavioral research}, 42(1):185--227.
 
-\bibitem[\protect\astroncite{{R Core Team}}{2020}]{R}
-{R Core Team} (2020).
+\bibitem[\protect\astroncite{{R Core Team}}{2023}]{R}
+{R Core Team} (2023).
 \newblock {\em R: A Language and Environment for Statistical Computing}.
 \newblock R Foundation for Statistical Computing, Vienna, Austria.
 
@@ -1845,14 +1900,14 @@ Preacher, K.~J., Rucker, D.~D., and Hayes, A.~F. (2007).
 \newblock {\em processR: Implementation of the 'PROCESS' Macro}.
 \newblock https://CRAN.R-project.org/package=processR
 
-\bibitem[\protect\astroncite{Revelle}{2020}]{psych}
-Revelle, W. (2020).
+\bibitem[\protect\astroncite{Revelle}{2023}]{psych}
+Revelle, W. (2023).
 \newblock {\em
   \href{https://cran.r-project.org/web/packages/psych/index.html}{psych}:
   Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
   https://CRAN.r-project.org/package=psych.
-\newblock R package version 2.0.12.
+\newblock R package version 2.3.5
 
 \bibitem[\protect\astroncite{Revelle}{prep}]{revelle:intro}
 Revelle, W. ({in prep}).
