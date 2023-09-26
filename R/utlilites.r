@@ -132,5 +132,51 @@ if(absolute) { t.m <- apply(abs(object[,select,drop=FALSE]) ,1,max)} else {
        }
        }
        
+#two unpublished functions 
+"bullseye" <- function(x,y,n) {
+for(i in 1:n) {psych::dia.ellipse(x,y,e.size=i)}
+}
+
+
+"dartBoard" <- function(n,sdx=.2,sdj=.3) {
+plot(NA,xlim=c(0,10),ylim=c(0,10),axes=FALSE,xlab="",ylab="",main="Reliability and Validity as dart throwing")
+if(n>20) {pc <- "."} else {pc <- 16}
+if(missing(sdj)) sdj=sdx*1.5
+
+#Reliable and valid
+x=3
+y=3
+
+
+bullseye(x,y,4)
+points(x+rnorm(n,0,sdx),y+rnorm(n,0,sdx),pch=pc)
+text(x,y-2,"Reliable and Valid")
+
+#reliable and invalid
+x=7
+y=8
+bullseye(x,y,4)
+points(x+rnorm(n,1,sdx),y+rnorm(n,1,sdx),pch=pc)
+text(x,y-2,"Reliable and Invalid")
+
+
+#unreliable and invalid
+x=3
+y=8
+bullseye(x,y,4)
+points(x+rnorm(n,1,sdj),y+rnorm(n,1,sdj),pch=pc)
+text(x,y-2,"Unreliable and Invalid")
+
+#unreliable, but valid
+x=7
+y=3
+sdx=1
+bullseye(x,y,4)
+points(x+rnorm(n,0,sdj),y+rnorm(n,0,sdj),pch=pc)
+text(x,y-2,"Unreliable but Valid")
+}
+
+
+#dartBoardl(6,.3,.5)
 
 

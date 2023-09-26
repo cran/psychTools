@@ -106,8 +106,8 @@ psych::lookupFromKeys(GERAS.keys, GERAS.dictionary[,4,drop=FALSE])
 
 psych::scatterHist(F ~ M + gender, data=GERAS.scales, cex.point=.3,smooth=FALSE, 
 xlab="Masculine Scale",ylab="Feminine Scale",correl=FALSE, 
-d.arrow=TRUE,col=c("red","blue"), bg=c("red","blue"), lwd=4, title="Combined  M and F 
-scales",cex.cor=2,cex.arrow=1.25, cex.main=2)
+d.arrow=TRUE,col=c("red","blue"), bg=c("red","blue"), lwd=4, 
+title="Combined  M and F scales",cex.cor=2,cex.arrow=1.25, cex.main=2)
 
 
 

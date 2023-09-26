@@ -107,13 +107,33 @@ y <- y +0
 if(new){return(y)} else {return(cbind(x,y))}
 }
 
-
-"wide2long" <- function(x,y, newnames=NULL) {
-   colnames(x) <- rep(newnames,y)
+#revised 8/26/23 
+"wide2long" <- function(x,width, cname=NULL, idname = NULL, idvalues=NULL ,pattern=NULL) {
+   if(!is.null(pattern)) x <- rearrange(x,pattern) #this organizes the data before converting to long
    nvar <- NCOL(x)
-   nrep <- nvar/y
+   n.obs <- NROW(x)
+    nrep <- nvar/width
+    if(is.null(cname)){ cname <- paste0("V",1:width)}
+    if(is.null(idname) ) idname="C"
+   if(is.null(idvalues)) {idvalues <- 1:nrep}
+    idvalues <- rep(idvalues,each=n.obs)
+ 
+   if(round(nrep)!=nrep) stop("x must be an even multiple of width")
    new <- NULL
-   for(i in 0:(nrep-1)){
-       new <- rbind(new,x[((y*i)+1):(y*(i+1))])
+   for(i in 0:(nrep-1)){  #create long data set
+       new <- rbind(new,x[,((width*i)+1):(width*(i+1))])
        }
-   return(new)}
+   new.df <-data.frame(idname=idvalues,new)
+   colnames(new.df )<- c(idname, cname)
+   return(new.df)}
+
+"rearrange" <- function(x, pattern ) {
+   nvar <- ncol(x)
+   y <- length(pattern)
+   if(round(nvar/y)!=nvar/y) stop("length of pattern must be a multiple of the number of variables")
+   ord <- NULL 
+   for (i in (0: (y-2))) {
+   ord <- c(ord,pattern+i)}
+   x[,]  <- x[,ord]
+ return(x)}
+   

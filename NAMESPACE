@@ -15,10 +15,10 @@ importFrom(grDevices,colorRampPalette,topo.colors,devAskNewPage,dev.flush,dev.ho
 
 #importFrom(methods,new)
 
-importFrom(tools,file_ext)
+importFrom(tools,file_ext,Rd2HTML)
 
 importFrom(foreign,read.spss,read.xport,read.systat)
-#importFrom(psych,statsBy,cs,setCor, mediate,corPlot, omega, scatterHist)
+#importFrom(psych,statsBy,cs,setCor, mediate,corPlot, omega, scatterHist,dia.ellipse)
 
 #S3method(print,psych)
 
@@ -53,9 +53,11 @@ importFrom(foreign,read.spss,read.xport,read.systat)
  read.file.csv,
  read.https,
  recode,
+ rearrange,
 vJoin,
 selectBy,
 splitBy,
  write.file,
- write.file.csv
+ write.file.csv,
+ wide2long
  )

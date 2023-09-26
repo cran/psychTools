@@ -5,10 +5,10 @@
 \title{Combine two matrices or data frames into one based upon variable labels
 
 }
-\description{A typical problem in data analysis is to combine two data sets into one. vJoin will combine two matrices or data.frames into one data.frame.  Unique column names from set 1 and set 2 are combined as are unique rows. Column names can differ, as can row names.  Basically an extension of rbind and cbind without the requirement of matching column and row names. combineMatrices solves a similar problem for correlation matrices.
+\description{A typical problem in data analysis is to combine two data sets into one. vJoin will combine two matrices or data.frames into one data.frame.  Unique column names from set 1 and set 2 are combined as are unique rows. Column names can differ, as can row names. Will match on rownames or a unique key vector. Basically an extension of rbind and cbind without the requirement of matching column and row names. combineMatrices solves a similar problem for correlation matrices.
 }
 \usage{
-vJoin(x, y, rnames = TRUE, cnames=TRUE)
+vJoin(x, y, rnames = TRUE, cnames=TRUE, key.name= NULL)
 combineMatrices(x,y, r=NULL)
 }
 
@@ -17,10 +17,11 @@ combineMatrices(x,y, r=NULL)
   \item{y}{a matrix or data frame with column and row names}
   \item{rnames}{If TRUE, the default, match on row names, extend to new names.  If FALSE then add the y data following the x data.}
   \item{cnames}{If TRUE colnames are NULL then create unique colnames for x and y}
+  \item{key.name}{if NULL, match on rownames, otherwise, match on the values of the key.name column -- must be unique}
   \item{r}{shoule we add the diagonal of y?}
   }
 \details{
-For an X and Y matrices/data.frames with column and row names, combine the two data sets.  Match  on column and row names  if they exist, extend to unique names if they do not match. 
+For an X and Y matrices/data.frames with column and row names, combine the two data sets.  Match  on column and row names  if they exist, extend to unique names if they do not match.  Can also match on a column in each set (key.name)
 
 Matrices by default do not have column or rownames.  They will be created for  x and for y  (depending upon the rnames and cnames options).
 

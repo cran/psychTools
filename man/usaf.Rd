@@ -15,11 +15,11 @@
   ..$ : chr [1:17] "age" "weight" "grip" "height" ...
 }
 \details{
-The original data were collected by the USAF and reported in Churchill et al, 1977.  They are included as a data file of 2420 participants and 202 variables (the first being an id) in the Anthropometry package.  The list of variable names may be found in Churchill et al, on pages 96-99.
+The original data were collected by the USAF and reported in Churchill et al, 1977.  They are included as a data file of 2420 participants and 202 variables (the first being an id) in the Anthropometry package.  The list of variable names may be found in Churchill et al, on pages 99-103.
 
 The three (correlated) factor structure shows a clear height, bulk, and head size structure with an overall general factor (g)  which may be interpreted as body size. 
 
-The variables included (and their variable numbers in Antropometry) are:
+The variables included (and their variable numbers in Anthropometry) are:
 
 \tabular{ll}{
 age \tab  V1\cr
@@ -47,7 +47,7 @@ Note that these numbers are equivalant to the numbers in Churchill et al. The nu
 
 }
 \source{
-Guillermo Vinue, Anthropometry: An R Package for Analysis of Anthropometric Data, Journal of Statistical Software, (2017), 77, 6.}
+Guillermo Vinue, Anthropometry: An R Package for Analysis of Anthropometric Data, Journal of Statistical Software, (2017), 77, 6.  data set = USAFsurvey}
 
 \references{
 Edmund Churchill, Thomas Churchill, Paul Kikta (1977) The AMRL anthropmetric data bank library, volumes I-V.  (Technical report AMRL-TR-77-1)  ) https://apps.dtic.mil/dtic/tr/fulltext/u2/a047314.pdf

@@ -13,12 +13,17 @@ See the various helpfiles listed in the index or as links from here.  Also see t
 Data sets from the SAPA/ICAR project:
 
 \tabular{ll}{
+
 \code{\link{ability}} \tab 16 ICAR ability items scored as correct or incorrect for 1525 participants.  \cr
 \code{\link{iqitems}} \tab multiple choice IQ items (raw responses) \cr
 \code{\link{affect}}   \tab  Two data sets of affect and arousal scores as a function of personality and movie conditions \cr
 
 \code{\link{bfi}}  \tab 25 Personality items representing 5 factors from the SAPA project for 2800 participants \cr
 bfi.dictionary \tab Dictionary of the bfi \cr
+\code{\link{big5.100.adjectives}} 100 adjectives describing the "big 5" for 502 subjects (from Goldberg)
+\code{\link{colom}} \tab Correlations from the Spanish WAIS (14 scales) \cr
+\code{\link{eminence}} \tab Eminence of 69 American Psychologists  \cr
+
 
 \code{\link{epi}}  \tab Eysenck Personality Inventory (EPI) data for 3570 participants \cr
 epi.dictionary \tab The items for the epi \cr
@@ -33,7 +38,7 @@ epi.dictionary \tab The items for the epi \cr
 \code{\link{sai}}  \tab  State Anxiety data from the PMC lab over multiple occasions. 3032 unique subjects. \cr
 sai.dictionary \tab  items used in the sai \cr
 
-\code{\link{spi}}  \tab 4000 cases  from the SAPA Personality Inventory including an item dictionary and scoring keys. \cr
+\code{\link{spi}}  \tab 4000 cases  from the SAPA Personality Inventory (135 items, 10 demographics) including an item dictionary and scoring keys. \cr
 spi.dictionary \tab The items for the spi \cr
 spi.keys \tab  Scoring keys for the spi \cr
 
@@ -79,7 +84,7 @@ Functions to convert various objects to latex
 \code{\link{ICC2latex}} \tab Convert an ICC analyssis output to a LaTeX table \cr
 \code{\link{irt2latex}} \tab Convert an irt analysis output to a LaTeX table \cr
 \code{\link{cor2latex}} \tab Convert a  correlation matrix output to a LaTeX table \cr
-omega2latex \tab Convert a data frame, correlation matrix, or factor analysis output to a LaTeX table \cr
+\code{\link{omega2latex}} \tab Convert a data frame, correlation matrix, or factor analysis output to a LaTeX table \cr
 }
 
 File manipulation functions
@@ -90,7 +95,10 @@ filesInfo \tab  Show the information for all files in a directory \cr
 filesList \tab Show the names of all files in a directory \cr
 }
 
+
 \code{\link{dfOrder}}  Sorts a data frame
+\code{\link{vJoin}} Combine two matrices or data frames into one based upon variable labels
+\code{\link{combineMatrices}}Takes a square matrix (x) and combines with a rectangular matrix y to produce a larger xy matrix.
 
 File input/output functions 
 

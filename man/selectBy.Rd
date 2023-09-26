@@ -1,6 +1,7 @@
 \name{selectBy}
 \alias{selectBy}
 \alias{splitBy}
+
 \title{Select a subset of rows (subjects) meeting one or more criteria for columns
 }
 \description{Select a subset of a data.frame or matrix for columns meeting specific criteria.  Can do logical AND (default) or OR  of the resulting search.  Columns (variables) are specified by name and the conditions to meet include equality, less than, more than or inequality to a specified set of values.  SplitBy creates new dichotomous variables based on the splitting criteria.
