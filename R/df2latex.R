@@ -136,7 +136,7 @@ if (!is.na(class(x)[2]) & class(x)[2]=="corr.test") {  #we already did the analy
       p <- x$p} else {
  
       if (nrow(x) > ncol(x)) {   #find the correlations 
-        x <- psych::corr.test(x, use=use,method=method,adjust=adjust)
+        x <- psych::corr.test(x, use=use,method=method,adjust=adjust)  #change to corTest 
         r <- x$r
         p <- x$p   } else {   #take the correlations as given
         r <- x

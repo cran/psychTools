@@ -264,7 +264,7 @@ png('attitude.png')
 # standardize by default
 mod2 <- lmCor(rating ~ complaints + privileges, data=attitude) 
 mod2
-setCor.diagram(mod2, main="A simple regression model")
+diagram(mod2, main="A simple regression model")
 dev.off()
 @
 
@@ -376,7 +376,7 @@ A plot of the regression model is shown as well (Figure~\ref{fig:hotelling}).
 
 <<kelly, echo=FALSE, print=FALSE>>==
 png('hotelling.png')
-setCor.diagram(sc, main="The  Kelley data set")
+lmDiagram(sc, main="The  Kelley data set")
 dev.off()
 @
 
@@ -385,6 +385,56 @@ dev.off()
 \includegraphics{hotelling.png}
 \caption{The relationship between three predictors and two criteria from \pfun{lmCor}.  The data are from the Kelley data set reported by \cite{hotelling:36}.}
 \label{fig:hotelling}
+\end{center}
+\end{figure}
+
+\subsection{Canonical Correlation using \pfun{lmCor}}
+
+A  generalization of multiple regression to multiple predictors and multiple criteria is \iemph{canonical correlation} \citep{hotelling:36}. Given a partitioning of a correlation matrix, R, into Rxx, Ryy and Rxy, canonical correlation  finds orthogonal components of the correlations between the Rx and Ry sets (the Rxy correlations).    Consider the Kelley data set discussed by \cite{hotelling:36} who introduced the canonical correlation.  This analysis is shown in help menu for \pfun{lmCor}.  Another data set is the  ``Belly Dancer" data set discussed by \cite{Tabachnick:01} (Chapter 12).   Here I show the data, the correlations, the regressions, and the canonical correlations. 
+
+\begin{scriptsize}
+<<echo=TRUE>>=
+
+dancer  <- structure(list(TS = c(1, 7, 4.6, 1, 7, 7, 7, 7), TC = c(1, 1, 
+5.6, 6.6, 4.9, 7, 1, 1), BS = c(1, 7, 7, 1, 7, 6.4, 7, 2.4), 
+    BC = c(1, 1, 7, 5.9, 2.9, 3.8, 1, 1)), class = "data.frame", row.names = c(NA, 
+-8L))
+dancer   #show the data
+
+model <- psych::lmCor(TC + TS ~ BC + BS, data = dancer)
+summary(model)  #show the summary statistics
+cancorDiagram(model) #and the associated canonical figure
+
+@
+\end{scriptsize}
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{scriptsize}
+<<dancer>>=
+png('dancerlm.png')
+model <- psych::lmCor(TC + TS ~ BC + BS, data = dancer)
+  dev.off()
+@
+\end{scriptsize}
+\includegraphics{dancerlm.png}
+\caption{Multiple regression of the Belly Dancer data set.  Compare with the canonical correlation figure \ref{fig:cancor}  }
+\label{fig:lm}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{scriptsize}
+<<dancer>>=
+png('dancer.png')
+cancorDiagram(model)
+  dev.off()
+@
+\end{scriptsize}
+\includegraphics{dancer.png}
+\caption{Canonical Correlation of the  Belly Dancer data set.  Compare with the linear regression figure  \ref{fig:lm}   }
+\label{fig:cancor}
 \end{center}
 \end{figure}
 
@@ -586,7 +636,7 @@ mod0
 
 <<modplot, echo=FALSE, print=FALSE>>==
 png('moderation.png')
-setCor.diagram(mod, main="not zero centered")
+lmDiagram(mod, main="not zero centered")
 dev.off()
 @
 <<modplot1, echo=FALSE, print=FALSE>>==
@@ -677,7 +727,7 @@ The \pfun{lmCor} function duplicates the functionality of the \fun{lm} function 
 <<setcorvslm>>==
 
 summary(lm(SATQ ~ SATV*gender + ACT, data=sat.act))
-mod <- setCor(SATQ ~ SATV*gender + ACT, data=(sat.act), zero=FALSE, std=FALSE,use="complete")
+mod <- lmCor(SATQ ~ SATV*gender + ACT, data=(sat.act), zero=FALSE, std=FALSE,use="complete")
 print(mod,digits=5)
 @
 
@@ -1215,19 +1265,19 @@ It is straightforward to use multiple predictors see \cite[p196]{hayes:13} and i
 
 \section{Mediation and moderation}
 
-We already saw how to do moderation in the discussion of \pfun{setCor}.  Combining the concepts of mediation with moderation is done in \pfun{mediate}. That is, I can find the linear model of product terms as they are associated with dependent variables and regressed on the mediating variables.
+We already saw how to do moderation in the discussion of \pfun{lmCor}.  Combining the concepts of mediation with moderation is done in \pfun{mediate}. That is, I can find the linear model of product terms as they are associated with dependent variables and regressed on the mediating variables.
 
-The \fun{Garcia} data set \citep{garcia:10}  can be used for an example of moderation.  (This was taken from \citep{hayes:13} but is used with kind permission of Donna M. Garcia, Michael T. Schmitt, Nyla R. Branscombe, and Naomi Ellemers.) Just as \pfun{setCor} and \fun{lm} will find the interaction term by forming a product, so will \pfun{mediate}.  Notice that by default, \pfun{setCor} reports zero centered and standardized regressions, \pfun{mediate} reports zero centered but not standardized regressions, and some of the examples from \cite{hayes:13} do  not zero center the data.  Thus, I specify zero=FALSE to get the \cite{hayes:13} results.  
+The \fun{Garcia} data set \citep{garcia:10}  can be used for an example of moderation.  (This was taken from \citep{hayes:13} but is used with kind permission of Donna M. Garcia, Michael T. Schmitt, Nyla R. Branscombe, and Naomi Ellemers.) Just as \pfun{setCor} and \fun{lm} will find the interaction term by forming a product, so will \pfun{mediate}.  Notice that by default, \pfun{lmCor} reports zero centered and standardized regressions, \pfun{mediate} reports zero centered but not standardized regressions, and some of the examples from \cite{hayes:13} do  not zero center the data.  Thus, I specify zero=FALSE to get the \cite{hayes:13} results.  
 
 It is important to note that the \fun{protest} data set discussed  here is from the 2013 examples and not the more recent 2018 examples available from \href{http://afhayes.com}{afhayes.com}.  The 2013 data have a dichotomous protest variable, while the 2018 data set has three levels for the protest variable.  The \pfun{Garcia} data set is composed of the 2018 data set with the addition of a dichotomous variable (prot2) to match  the 2013 exampes.
 
-We  consider how the interaction of sexism with protest  affects the mediation effect of sexism  \citep[p 362]{hayes:13}, I contrast the \fun{lm}, \pfun{setCor} and \pfun{mediate} approaches.  For reasons to be discussed in the next section, I do not zero center the variables.  The graphic output is in Figure~\ref{fig:modmed} and the output is below.  For comparison purposes, I show the results from the \fun{lm} as well as \pfun{setCor} and \pfun{mediate}.
+We  consider how the interaction of sexism with protest  affects the mediation effect of sexism  \citep[p 362]{hayes:13}, I contrast the \fun{lm}, \pfun{lmCor} and \pfun{mediate} approaches.  For reasons to be discussed in the next section, I do not zero center the variables.  The graphic output is in Figure~\ref{fig:modmed} and the output is below.  For comparison purposes, I show the results from the \fun{lm} as well as \pfun{lmCor} and \pfun{mediate}.
 
 
 <<interacions>>==
 summary(lm(respappr ~ prot2 * sexism,data = Garcia))  #show the lm results for comparison
-#show the setCor analysis
-setCor(respappr ~ prot2* sexism ,data=Garcia,zero=FALSE,main="Moderation",std=FALSE)
+#show the lmCor analysis
+lmCor(respappr ~ prot2* sexism ,data=Garcia,zero=FALSE,main="Moderation",std=FALSE)
 
 #then show the mediate results
 
@@ -1321,7 +1371,7 @@ dev.off()
 \subsection{To center or not to center, that is the question}
 We have discussed the difference between zero centering and not zero centering.  Although \cite{hayes:13} seems to prefer not centering, some of his examples are in fact centered.   So, when we examine Table 8.2 and try to replicate the regression, we need to zero center the data.
 
-With the global warming data from \cite{hayes:13}, the default (uncentered) regression does not reproduce his  Table, but zero centering does.  To this in \fun{lm} requires two steps, but we can do this in \pfun{setCor} with the zero=TRUE or zero=FALSE option.
+With the global warming data from \cite{hayes:13}, the default (uncentered) regression does not reproduce his  Table, but zero centering does.  To this in \fun{lm} requires two steps, but we can do this in \pfun{lmCor} with the zero=TRUE or zero=FALSE option.
 
 <<zeri>>==
 
@@ -1329,9 +1379,9 @@ lm(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm)
 # but  zero center and try again
 glbwarmc <-data.frame(scale(globalWarm,scale=FALSE))
 lm(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm)
-mod.glb <- setCor(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm,zero=FALSE,std=FALSE)
+mod.glb <- lmCor(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm,zero=FALSE,std=FALSE)
 print(mod.glb,digits=6)
-mod.glb0 <- setCor(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm,std=FALSE)
+mod.glb0 <- lmCor(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm,std=FALSE)
 print(mod.glb0,digits=6)
 @
 
@@ -1453,13 +1503,13 @@ Compare this output to that of Table 8.2 and Figure 8.5 (p 258 - 259).
 %
 
 \subsection{Another example of moderated medation}
-The \pfun{Garcia} data set (\pfun{protest} in \cite{hayes:13}) is another example of a moderated analysis.  We can use either \pfun{setCor} or \pfun{mediate} to examine this data set.  The defaults for these two differ, in that \pfun{setCor} assumes we want to zero center \emph{and} standardize, while \pfun{mediate} defaults to not standardizing but also defaults to zero (mean) centering.  Note that in the next examples we specify we do not want to standardize nor to mean center.
+The \pfun{Garcia} data set (\pfun{protest} in \cite{hayes:13}) is another example of a moderated analysis.  We can use either \pfun{lmCor} or \pfun{mediate} to examine this data set.  The defaults for these two differ, in that \pfun{lmCor} assumes we want to zero center \emph{and} standardize, while \pfun{mediate} defaults to not standardizing but also defaults to zero (mean) centering.  Note that in the next examples we specify we do not want to standardize nor to mean center.
 
 <<garcia2t>>==
 
 psych::describe(Garcia)
 lm(liking ~ prot2* sexism + respappr, data=Garcia)
-setCor(liking ~ prot2* sexism + respappr, data = Garcia, zero=FALSE,std=FALSE)
+lmCor(liking ~ prot2* sexism + respappr, data = Garcia, zero=FALSE,std=FALSE)
 mod7.4 <- mediate(liking ~ prot2 * sexism +respappr, data = Garcia, zero=FALSE)
 summary(mod7.4)
 @
@@ -1566,13 +1616,13 @@ Given a set of X variables and a set of Y variables, we can control for an addit
 <<oartial>>==
 
  #first,  the more complicated model
- mod.glb <- setCor(govact ~ age * negemot + posemot + ideology + sex, 
+ mod.glb <- lmCor(govact ~ age * negemot + posemot + ideology + sex, 
                    data=globalWarm,std=FALSE)
 print(mod.glb,digits=3)
 
 # compare this to the partialled model
 
-mod.glb.partialled <- setCor(govact ~ age * negemot - posemot - ideology - sex,data = globalWarm)
+mod.glb.partialled <- lmCor(govact ~ age * negemot - posemot - ideology - sex,data = globalWarm)
  
 @
 
@@ -1674,7 +1724,7 @@ dev.off()
 
 \section{Related packages}
 
-\pfun{mediate} and \pfun{setCor} are just two functions in the \Rpkg{psych} package.  There are several additional packages available in \R{} to do mediation. The  \Rpkg{mediation} package   \citep{mediation} seems the most powerful, in that is tailor made for mediation.  \Rpkg{MBESS} \citep{MBESS} has a mediation function.   Steven Short has a nice tutorial on mediation analysis available for download  \href{http://docs.wixstatic.com/ugd/bb3887\_73181065d7c744c4a0925844302cf813.pdf}{that discusses how to use R for mediation.}  And, of course, the \Rpkg{lavaan} package \citep{lavaan} is the recommended package to do SEM and path models.
+\pfun{mediate} and \pfun{lmCor} are just two functions in the \Rpkg{psych} package.  There are several additional packages available in \R{} to do mediation. The  \Rpkg{mediation} package   \citep{mediation} seems the most powerful, in that is tailor made for mediation.  \Rpkg{MBESS} \citep{MBESS} has a mediation function.   Steven Short has a nice tutorial on mediation analysis available for download  \href{http://docs.wixstatic.com/ugd/bb3887\_73181065d7c744c4a0925844302cf813.pdf}{that discusses how to use R for mediation.}  And, of course, the \Rpkg{lavaan} package \citep{lavaan} is the recommended package to do SEM and path models.
 \newpage
 
 \section{Development version and a users guide} 
@@ -1919,6 +1969,11 @@ Revelle, W. ({in prep}).
 Rosseel, Y. (2012).
 \newblock {lavaan}: An {R} package for structural equation modeling.
 \newblock {\em Journal of Statistical Software}, 48(2):1--36.
+
+\bibitem[\protect\astroncite{Tabachnick and Fidell}{2001}]{Tabachnick:01}
+Tabacnik, B.G and Fidell, L.S. (2001)
+\newblock Using multivariate statistics.
+\newblock  Allyn and Bacon.
 
 \bibitem[\protect\astroncite{Tal-Or et~al.}{2010}]{talor:10}
 Tal-Or, N., Cohen, J., Tsfati, Y., and Gunther, A.~C. (2010).

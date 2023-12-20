@@ -242,56 +242,56 @@ baf <- bassAckward.diagram(ba5)
 set.seed(17)
 r9 <- sim.hierarchical(n=500,raw=TRUE)$observed
 round(cor(r9),2)
-alpha(r9)
+alpha(r9, discrete=FALSE)
 
 
 ###################################################
-### code chunk number 35: factor.Rnw:1318-1320
+### code chunk number 35: factor.Rnw:1319-1321
 ###################################################
 keys <- c(1,-1,1,1,1,1,1)
-alpha(attitude,keys)
+alpha(attitude,keys, discrete=FALSE)
 
 
 ###################################################
-### code chunk number 36: factor.Rnw:1327-1329
+### code chunk number 36: factor.Rnw:1328-1330
 ###################################################
 keys <- c(1,1,1,1,1,1,1)
-alpha(attitude,keys)
+alpha(attitude,keys, discrete=FALSE)
 
 
 ###################################################
-### code chunk number 37: factor.Rnw:1336-1338
+### code chunk number 37: factor.Rnw:1337-1339
 ###################################################
 items <- sim.congeneric(N=500,short=FALSE,low=-2,high=2,categorical=TRUE) #500 responses to 4 discrete items
 alpha(items$observed)  #item response analysis of congeneric measures
 
 
 ###################################################
-### code chunk number 38: factor.Rnw:1391-1392
+### code chunk number 38: factor.Rnw:1392-1393
 ###################################################
 om.9 <- omega(r9,title="9 simulated variables")
 
 
 ###################################################
-### code chunk number 39: factor.Rnw:1403-1404
+### code chunk number 39: factor.Rnw:1404-1405
 ###################################################
 om.9
 
 
 ###################################################
-### code chunk number 40: factor.Rnw:1412-1413
+### code chunk number 40: factor.Rnw:1413-1414
 ###################################################
 omegaSem(r9,n.obs=500)
 
 
 ###################################################
-### code chunk number 41: factor.Rnw:1422-1423
+### code chunk number 41: factor.Rnw:1423-1424
 ###################################################
 splitHalf(r9)
 
 
 ###################################################
-### code chunk number 42: factor.Rnw:1445-1450
+### code chunk number 42: factor.Rnw:1446-1451
 ###################################################
  keys <- make.keys(nvars=28,list(Agree=c(-1,2:5),Conscientious=c(6:8,-9,-10),
  Extraversion=c(-11,-12,13:15),Neuroticism=c(16:20),
@@ -301,7 +301,7 @@ splitHalf(r9)
 
 
 ###################################################
-### code chunk number 43: factor.Rnw:1457-1461
+### code chunk number 43: factor.Rnw:1458-1462
 ###################################################
  keys.1<- make.keys(10,list(Agree=c(-1,2:5),Conscientious=c(6:8,-9,-10)))
 keys.2 <- make.keys(15,list(Extraversion=c(-1,-2,3:5),Neuroticism=c(6:10),
@@ -310,7 +310,7 @@ keys.2 <- make.keys(15,list(Extraversion=c(-1,-2,3:5),Neuroticism=c(6:10),
 
 
 ###################################################
-### code chunk number 44: factor.Rnw:1471-1473
+### code chunk number 44: factor.Rnw:1472-1474
 ###################################################
  scores <- scoreItems(keys,bfi)
  scores
@@ -325,7 +325,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 46: factor.Rnw:1499-1502
+### code chunk number 46: factor.Rnw:1500-1503
 ###################################################
 r.bfi <- cor(bfi,use="pairwise")
 scales <- cluster.cor(keys,r.bfi)
@@ -333,7 +333,7 @@ summary(scales)
 
 
 ###################################################
-### code chunk number 47: factor.Rnw:1512-1518
+### code chunk number 47: factor.Rnw:1513-1519
 ###################################################
 data(iqitems)
 iq.keys <- c(4,4,4, 6,6,3,4,4,  5,2,2,4,  3,2,6,7)
@@ -344,7 +344,7 @@ describe(iq.tf)  #compare to previous results
 
 
 ###################################################
-### code chunk number 48: factor.Rnw:1536-1542
+### code chunk number 48: factor.Rnw:1537-1543
 ###################################################
 data(iqitems)
 iq.keys <- c(4,4,4, 6,6,3,4,4,  5,2,2,4,  3,2,6,7)
@@ -355,7 +355,7 @@ irt.responses(scores$scores,iqitems[1:4],breaks=11)
 
 
 ###################################################
-### code chunk number 49: factor.Rnw:1568-1572
+### code chunk number 49: factor.Rnw:1569-1573
 ###################################################
 set.seed(17)
 d9 <- sim.irt(9,1000,-2.,2.,mod="normal") #dichotomous items
@@ -364,7 +364,7 @@ test
 
 
 ###################################################
-### code chunk number 50: factor.Rnw:1579-1584
+### code chunk number 50: factor.Rnw:1580-1585
 ###################################################
 op <- par(mfrow=c(3,1))
 plot(test,type="ICC")
@@ -374,7 +374,7 @@ op <- par(mfrow=c(1,1))
 
 
 ###################################################
-### code chunk number 51: factor.Rnw:1595-1598
+### code chunk number 51: factor.Rnw:1596-1599
 ###################################################
 data(bfi)
 e.irt <- irt.fa(bfi[11:15])
@@ -382,37 +382,37 @@ e.irt
 
 
 ###################################################
-### code chunk number 52: factor.Rnw:1605-1606
+### code chunk number 52: factor.Rnw:1606-1607
 ###################################################
 e.info  <- plot(e.irt,type="IIC")
 
 
 ###################################################
-### code chunk number 53: factor.Rnw:1617-1618
+### code chunk number 53: factor.Rnw:1618-1619
 ###################################################
 print(e.info,sort=TRUE)
 
 
 ###################################################
-### code chunk number 54: factor.Rnw:1632-1633
+### code chunk number 54: factor.Rnw:1633-1634
 ###################################################
 iq.irt <- irt.fa(iq.tf)
 
 
 ###################################################
-### code chunk number 55: factor.Rnw:1643-1644
+### code chunk number 55: factor.Rnw:1644-1645
 ###################################################
 iq.irt 
 
 
 ###################################################
-### code chunk number 56: factor.Rnw:1650-1651
+### code chunk number 56: factor.Rnw:1651-1652
 ###################################################
 om <- omega(iq.irt$rho,4)
 
 
 ###################################################
-### code chunk number 57: factor.Rnw:1665-1679
+### code chunk number 57: factor.Rnw:1666-1680
 ###################################################
 v9 <- sim.irt(9,1000,-2.,2.,mod="normal") #dichotomous items
 items <- v9$items
@@ -431,14 +431,14 @@ colnames(scores.df) <- c("True theta","irt theta","total","fit","rasch","total",
 
 
 ###################################################
-### code chunk number 58: factor.Rnw:1688-1690
+### code chunk number 58: factor.Rnw:1689-1691
 ###################################################
  pairs.panels(scores.df,pch='.',gap=0)
  title('Comparing true theta for IRT, Rasch and  classically based scoring',line=3)
 
 
 ###################################################
-### code chunk number 59: factor.Rnw:1739-1743
+### code chunk number 59: factor.Rnw:1740-1744
 ###################################################
 
 C <- cov(sat.act,use="pairwise")
@@ -447,14 +447,14 @@ summary(model1)
 
 
 ###################################################
-### code chunk number 60: factor.Rnw:1746-1748
+### code chunk number 60: factor.Rnw:1747-1749
 ###################################################
 #compare with mat.regress
 lmCor(c(4:6),c(1:3),C, n.obs=700)
 
 
 ###################################################
-### code chunk number 61: factor.Rnw:1833-1857
+### code chunk number 61: factor.Rnw:1834-1858
 ###################################################
 xlim=c(0,10)
 ylim=c(0,10)
@@ -483,7 +483,7 @@ dia.curved.arrow(mr,lr$top)
 
 
 ###################################################
-### code chunk number 62: factor.Rnw:1933-1934
+### code chunk number 62: factor.Rnw:1934-1935
 ###################################################
 sessionInfo()
 

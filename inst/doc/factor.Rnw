@@ -120,7 +120,7 @@ The current list of How To's includes:
 \item Using the \pfun{score.items} function to find \href{http://personality-project.org/r/psych/HowTo/scoring.pdf}{scale scores and scale statistics}.
 \item An \href{http://personality-project.org/r/psych/overview.pdf}{overview} (vignette) of the \Rpkg{psych} package 
 
-Several functions are meant to do multiple regressions, either from the raw data or from a variance/covariance matrix, or a correlation matrix.  This is discussed in more detail in \item How to do mediation and moderation analysis using \pfun{mediate} and \pfun{lmCor} is discuseded in the \href{https://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis} tutorial. 
+Several functions are meant to do multiple regressions, either from the raw data or from a variance/covariance matrix, or a correlation matrix.  This is discussed in more detail in \item How to do mediation and moderation analysis using \pfun{mediate} and \pfun{lmCor} is discussed in the \href{https://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis} tutorial. 
 
 
 \end{enumerate}
@@ -1308,16 +1308,17 @@ A conventional (but non-optimal) estimate of the internal consistency reliabilit
 set.seed(17)
 r9 <- sim.hierarchical(n=500,raw=TRUE)$observed
 round(cor(r9),2)
-alpha(r9)
+alpha(r9, discrete=FALSE)
 @
 \end{scriptsize}
 
 Some scales have items that need to be reversed before being scored. Rather than reversing the items in the raw data, it is more convenient to just specify which items need to be reversed scored.  This may be done in \pfun{alpha} by specifying a \iemph{keys} vector of 1s and -1s.  (This concept of keys vector is more useful when scoring multiple scale inventories, see below.) As an example, consider scoring the 7 attitude items in the attitude data set.  Assume a conceptual mistake in that item 2 is to be scored (incorrectly) negatively.
 
+Setting the discrete=FALSE option turns off the default warning that you have too many levels for a variable.
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
 keys <- c(1,-1,1,1,1,1,1)
-alpha(attitude,keys)
+alpha(attitude,keys, discrete=FALSE)
 @
 \end{scriptsize}
 
@@ -1326,7 +1327,7 @@ Note how the reliability of the 7 item scales with an incorrectly reversed item 
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
 keys <- c(1,1,1,1,1,1,1)
-alpha(attitude,keys)
+alpha(attitude,keys, discrete=FALSE)
 @
 \end{scriptsize}
 

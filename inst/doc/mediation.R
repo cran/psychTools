@@ -34,7 +34,7 @@ png('attitude.png')
 # standardize by default
 mod2 <- lmCor(rating ~ complaints + privileges, data=attitude) 
 mod2
-setCor.diagram(mod2, main="A simple regression model")
+diagram(mod2, main="A simple regression model")
 dev.off()
 
 
@@ -70,12 +70,44 @@ sc  #show it
 ### code chunk number 8: kelly
 ###################################################
 png('hotelling.png')
-setCor.diagram(sc, main="The  Kelley data set")
+lmDiagram(sc, main="The  Kelley data set")
 dev.off()
 
 
 ###################################################
-### code chunk number 9: satact
+### code chunk number 9: mediation.rnw:396-407
+###################################################
+
+dancer  <- structure(list(TS = c(1, 7, 4.6, 1, 7, 7, 7, 7), TC = c(1, 1, 
+5.6, 6.6, 4.9, 7, 1, 1), BS = c(1, 7, 7, 1, 7, 6.4, 7, 2.4), 
+    BC = c(1, 1, 7, 5.9, 2.9, 3.8, 1, 1)), class = "data.frame", row.names = c(NA, 
+-8L))
+dancer   #show the data
+
+model <- psych::lmCor(TC + TS ~ BC + BS, data = dancer)
+summary(model)  #show the summary statistics
+cancorDiagram(model) #and the associated canonical figure
+
+
+
+###################################################
+### code chunk number 10: dancer
+###################################################
+png('dancerlm.png')
+model <- psych::lmCor(TC + TS ~ BC + BS, data = dancer)
+  dev.off()
+
+
+###################################################
+### code chunk number 11: dancer
+###################################################
+png('dancer.png')
+cancorDiagram(model)
+  dev.off()
+
+
+###################################################
+### code chunk number 12: satact
 ###################################################
 png('satact.png')
 mod3 <- lmCor(SATV + SATQ + ACT ~ gender + education + age, data = sat.act)
@@ -83,13 +115,13 @@ dev.off()
 
 
 ###################################################
-### code chunk number 10: mediation.rnw:522-523
+### code chunk number 13: mediation.rnw:572-573
 ###################################################
  lowerCor(holzinger.swineford[c(3,7,12:14)])
 
 
 ###################################################
-### code chunk number 11: mediation.rnw:530-533
+### code chunk number 14: mediation.rnw:580-583
 ###################################################
 png('hsp.png') 
  lmCor(t07_sentcomp ~ agemo + grade,data=holzinger.swineford) 
@@ -97,7 +129,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 12: mediation.rnw:546-556
+### code chunk number 15: mediation.rnw:596-606
 ###################################################
 png('hs.png')
 plot(t07_sentcomp ~ agemo, col=c("red","blue")[holzinger.swineford$grade -6],
@@ -112,14 +144,14 @@ dev.off()
 
 
 ###################################################
-### code chunk number 13: mediation.rnw:561-563
+### code chunk number 16: mediation.rnw:611-613
 ###################################################
 by(holzinger.swineford,holzinger.swineford$grade,function(x) 
      lmCor(t07_sentcomp ~ agemo,data=x, std=FALSE, plot=FALSE) )
 
 
 ###################################################
-### code chunk number 14: moderation
+### code chunk number 17: moderation
 ###################################################
 mod <-lmCor(govact ~ negemot * age + posemot +ideology+sex,data=globalWarm,
           std=FALSE, zero=FALSE, plot=FALSE)
@@ -129,15 +161,15 @@ mod0
 
 
 ###################################################
-### code chunk number 15: modplot
+### code chunk number 18: modplot
 ###################################################
 png('moderation.png')
-setCor.diagram(mod, main="not zero centered")
+lmDiagram(mod, main="not zero centered")
 dev.off()
 
 
 ###################################################
-### code chunk number 16: modplot1
+### code chunk number 19: modplot1
 ###################################################
 png('moderation0.png')
 diagram(mod0, main="zero centered")
@@ -145,7 +177,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 17: plotting
+### code chunk number 20: plotting
 ###################################################
 both <- cbind(mod$data[,-1],mod0$data[,-1])
 png('splom.png')
@@ -154,16 +186,16 @@ dev.off()
 
 
 ###################################################
-### code chunk number 18: setcorvslm
+### code chunk number 21: setcorvslm
 ###################################################
 
 summary(lm(SATQ ~ SATV*gender + ACT, data=sat.act))
-mod <- setCor(SATQ ~ SATV*gender + ACT, data=(sat.act), zero=FALSE, std=FALSE,use="complete")
+mod <- lmCor(SATQ ~ SATV*gender + ACT, data=(sat.act), zero=FALSE, std=FALSE,use="complete")
 print(mod,digits=5)
 
 
 ###################################################
-### code chunk number 19: Tak_Or
+### code chunk number 22: Tak_Or
 ###################################################
 data(Tal.Or) 
 psych::describe(Tal_Or)  #descriptive statistics
@@ -174,7 +206,7 @@ mod4.4
 
 
 ###################################################
-### code chunk number 20: ned99
+### code chunk number 23: ned99
 ###################################################
 png('mediate99.png')
 mediate.diagram(mod4.4)
@@ -182,7 +214,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 21: garcia
+### code chunk number 24: garcia
 ###################################################
 data(GSBE)  #alias to Garcia data set
 #compare two models  (bootstrapping n.iter set to 50 for speed
@@ -197,7 +229,7 @@ summary(mod2)
 
 
 ###################################################
-### code chunk number 22: Tal.or
+### code chunk number 25: Tal.or
 ###################################################
 
 mod5.4 <- mediate(reaction ~ cond  + (import) + (pmi), data = Tal_Or)
@@ -206,7 +238,7 @@ print(mod5.4, digits=4)  #to compare with Hayes
 
 
 ###################################################
-### code chunk number 23: ned131
+### code chunk number 26: ned131
 ###################################################
 png('mediate131.png')
 mediate.diagram(mod5.4, digits=3, main="Hayes example 5.3")
@@ -214,7 +246,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 24: ned131
+### code chunk number 27: ned131
 ###################################################
 png('mediate131.png')
 mediate.diagram(mod5.4, digits=3, main="Hayes example 5.3")
@@ -222,7 +254,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 25: Tal.or54
+### code chunk number 28: Tal.or54
 ###################################################
 
 
@@ -233,7 +265,7 @@ summary(mod5.7, digits=4)
 
 
 ###################################################
-### code chunk number 26: Pollack
+### code chunk number 29: Pollack
 ###################################################
 lowerMat(Pollack)
 mod6.2 <- mediate(withdrawal ~ economic.stress + self.efficacy + sex + tenure + (depression), 
@@ -242,7 +274,7 @@ summary(mod6.2)
 
 
 ###################################################
-### code chunk number 27: Pollackgraph
+### code chunk number 30: Pollackgraph
 ###################################################
 png('mediate177.png')
 mediate.diagram(mod6.2, digits=3, main = "Simple mediation, 3 covariates")
@@ -250,7 +282,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 28: Pollack
+### code chunk number 31: Pollack
 ###################################################
 mod6.2a <- mediate(withdrawal ~ economic.stress -self.efficacy - sex - tenure + (depression),
       data=Pollack, n.obs=262)
@@ -258,7 +290,7 @@ summary(mod6.2a)
 
 
 ###################################################
-### code chunk number 29: Pollackgraph
+### code chunk number 32: Pollackgraph
 ###################################################
 png('mod62partial.png')
 mediate.diagram(mod6.2a, digits=3, main = "Simple mediation, 3 covariates (partialled out)")
@@ -266,11 +298,11 @@ dev.off()
 
 
 ###################################################
-### code chunk number 30: interacions
+### code chunk number 33: interacions
 ###################################################
 summary(lm(respappr ~ prot2 * sexism,data = Garcia))  #show the lm results for comparison
-#show the setCor analysis
-setCor(respappr ~ prot2* sexism ,data=Garcia,zero=FALSE,main="Moderation",std=FALSE)
+#show the lmCor analysis
+lmCor(respappr ~ prot2* sexism ,data=Garcia,zero=FALSE,main="Moderation",std=FALSE)
 
 #then show the mediate results
 
@@ -280,7 +312,7 @@ summary(modgarcia)
 
 
 ###################################################
-### code chunk number 31: interacionsplot
+### code chunk number 34: interacionsplot
 ###################################################
 png('moderatedmediation.png')
 mediate.diagram(modgarcia, main= "An example of moderated mediation")
@@ -288,21 +320,21 @@ dev.off()
 
 
 ###################################################
-### code chunk number 32: zeri
+### code chunk number 35: zeri
 ###################################################
 
 lm(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm)
 # but  zero center and try again
 glbwarmc <-data.frame(scale(globalWarm,scale=FALSE))
 lm(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm)
-mod.glb <- setCor(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm,zero=FALSE,std=FALSE)
+mod.glb <- lmCor(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm,zero=FALSE,std=FALSE)
 print(mod.glb,digits=6)
-mod.glb0 <- setCor(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm,std=FALSE)
+mod.glb0 <- lmCor(govact ~ age * negemot + posemot + ideology + sex, data=globalWarm,std=FALSE)
 print(mod.glb0,digits=6)
 
 
 ###################################################
-### code chunk number 33: izero2
+### code chunk number 36: izero2
 ###################################################
 #by default, mediate zero centers before finding the products
  mod.glb <- mediate(govact ~ age * negemot + posemot + ideology + sex + (age), data=globalWarm,zero=TRUE)
@@ -310,18 +342,18 @@ summary(mod.glb,digits=4)
 
 
 ###################################################
-### code chunk number 34: garcia2t
+### code chunk number 37: garcia2t
 ###################################################
 
 psych::describe(Garcia)
 lm(liking ~ prot2* sexism + respappr, data=Garcia)
-setCor(liking ~ prot2* sexism + respappr, data = Garcia, zero=FALSE,std=FALSE)
+lmCor(liking ~ prot2* sexism + respappr, data = Garcia, zero=FALSE,std=FALSE)
 mod7.4 <- mediate(liking ~ prot2 * sexism +respappr, data = Garcia, zero=FALSE)
 summary(mod7.4)
 
 
 ###################################################
-### code chunk number 35: modertionplot
+### code chunk number 38: modertionplot
 ###################################################
 png('mod74.png')
 mediate.diagram(mod7.4, main= "Another example of moderated mediation")
@@ -329,7 +361,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 36: modertionplot
+### code chunk number 39: modertionplot
 ###################################################
 png('garciainteraction.png')
 plot(respappr ~ sexism, pch = 23- protest, bg = c("black","red", "blue")[protest], 
@@ -344,22 +376,22 @@ dev.off()
 
 
 ###################################################
-### code chunk number 37: oartial
+### code chunk number 40: oartial
 ###################################################
 
  #first,  the more complicated model
- mod.glb <- setCor(govact ~ age * negemot + posemot + ideology + sex, 
+ mod.glb <- lmCor(govact ~ age * negemot + posemot + ideology + sex, 
                    data=globalWarm,std=FALSE)
 print(mod.glb,digits=3)
 
 # compare this to the partialled model
 
-mod.glb.partialled <- setCor(govact ~ age * negemot - posemot - ideology - sex,data = globalWarm)
+mod.glb.partialled <- lmCor(govact ~ age * negemot - posemot - ideology - sex,data = globalWarm)
  
 
 
 ###################################################
-### code chunk number 38: partial.all
+### code chunk number 41: partial.all
 ###################################################
 
 upper <-partial.r(globalWarm) 
@@ -370,7 +402,7 @@ lowup <- lowerUpper(lower,upper)
 
 
 ###################################################
-### code chunk number 39: partial.plot
+### code chunk number 42: partial.plot
 ###################################################
 png('partials.png')
 psych::corPlot(lowup,numbers = TRUE)
@@ -378,7 +410,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 40: sessionInfo
+### code chunk number 43: sessionInfo
 ###################################################
 
 sessionInfo()
