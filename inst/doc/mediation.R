@@ -75,7 +75,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 9: mediation.rnw:396-407
+### code chunk number 9: mediation.rnw:396-409
 ###################################################
 
 dancer  <- structure(list(TS = c(1, 7, 4.6, 1, 7, 7, 7, 7), TC = c(1, 1, 
@@ -86,7 +86,9 @@ dancer   #show the data
 
 model <- psych::lmCor(TC + TS ~ BC + BS, data = dancer)
 summary(model)  #show the summary statistics
-cancorDiagram(model) #and the associated canonical figure
+round(model$Xmat,2) #the X canonical loadings
+round(model$Ymat,2) #the Y canonical loadings
+cancorDiagram(model, main="Canonical correlations for the 'Belly Dancer' example") #and the associated canonical figure
 
 
 
@@ -115,21 +117,13 @@ dev.off()
 
 
 ###################################################
-### code chunk number 13: mediation.rnw:572-573
+### code chunk number 13: mediation.rnw:574-575
 ###################################################
  lowerCor(holzinger.swineford[c(3,7,12:14)])
 
 
 ###################################################
-### code chunk number 14: mediation.rnw:580-583
-###################################################
-png('hsp.png') 
- lmCor(t07_sentcomp ~ agemo + grade,data=holzinger.swineford) 
-dev.off()
-
-
-###################################################
-### code chunk number 15: mediation.rnw:596-606
+### code chunk number 14: mediation.rnw:583-593
 ###################################################
 png('hs.png')
 plot(t07_sentcomp ~ agemo, col=c("red","blue")[holzinger.swineford$grade -6],
@@ -144,10 +138,18 @@ dev.off()
 
 
 ###################################################
-### code chunk number 16: mediation.rnw:611-613
+### code chunk number 15: mediation.rnw:598-600
 ###################################################
 by(holzinger.swineford,holzinger.swineford$grade,function(x) 
      lmCor(t07_sentcomp ~ agemo,data=x, std=FALSE, plot=FALSE) )
+
+
+###################################################
+### code chunk number 16: mediation.rnw:610-613
+###################################################
+png('hsp.png') 
+ lmCor(t07_sentcomp ~ agemo + grade,data=holzinger.swineford) 
+dev.off()
 
 
 ###################################################

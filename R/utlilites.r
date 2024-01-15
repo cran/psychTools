@@ -1,5 +1,6 @@
 #Various useful utility functions
 
+
  # list the files in a directory holding a particular file, or a particular directory
 "filesList" <- function(f=NULL) {
  if(is.null(f)) { f <- file.choose()} 

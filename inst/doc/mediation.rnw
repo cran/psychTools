@@ -234,7 +234,7 @@ An interesting option, if using categorical or dichotomous data is first find th
 
 \subsection{Comparison with \pfun{lm} on complete data}
 
-We use the \pfun{attitude} data set for our first example.
+Use the \pfun{attitude} data set for our first example.
 
 \subsubsection{It is important to know your data by describing it first}
 
@@ -294,9 +294,9 @@ Compare this solution (from the correlation matrix) with the \emph{standardized}
 
 \begin{itemize}
 \item Finds the regression weights (betas) between the predictor variables and each of the criterion variables.
-\item If the number of subjects is specified, or if the raw data are used, it also compares each of these betas to its standard error, finds a $t$ statistic, and reports the probability of the $t > 0$.  
+\item If the number of subjects is specified, or if the raw data are used, it also compares each of these betas to its standard error, finds a $t$ statistic, and reports the probability of the $|t| > 0$.  
 \item It reports the Multiple R and $R^2$  based upon these beta weights.  In addition, following the tradition of the robust beauty of the improper linear models \citep{dawes:79} it also reports the unit weighted multiple correlations.
-\item The canonical correlations between the two sets \citep{hotelling:36} is reported.
+\item If there are more than 1 Y variables, the canonical correlations between the two sets (X and Y)  \citep{hotelling:36} arereported.  The canonical loadings are reported in the Xmat and Ymat objects.
 \item Cohen's set correlation \citep{cohen:82} as well as the unweighted correlation between the two sets of variables are reported.
 
 \end{itemize}
@@ -403,7 +403,9 @@ dancer   #show the data
 
 model <- psych::lmCor(TC + TS ~ BC + BS, data = dancer)
 summary(model)  #show the summary statistics
-cancorDiagram(model) #and the associated canonical figure
+round(model$Xmat,2) #the X canonical loadings
+round(model$Ymat,2) #the Y canonical loadings
+cancorDiagram(model, main="Canonical correlations for the 'Belly Dancer' example") #and the associated canonical figure
 
 @
 \end{scriptsize}
@@ -574,23 +576,8 @@ When considering the within group relationships for multiple groups, (e.g., gend
 @
   It would seem as if both age and grade account for 4\% of the variance in paragraph comprehension.  But combining these two in a multiple regression increases the variance explained from 8\% (the sum of the two)  to 18\%, because age and grade suppress variance unrelated to cognitive performance.  
   
-  We can show this finding in two different ways: as a plot of the separate regression lines Figure~\ref{fig:hs} or as a simple path model Figure~\ref{fig:hsp}  .
+  Show this finding in two different ways: as a plot of the separate regression lines Figure~\ref{fig:hs} for each grade or as a simple path model Figure~\ref{fig:hsp}  .
   Note that because grade goes from 7 to 8, to index the colors in the plot we subtract 6 from both grades to get a 1, 2 variable.
-
-<<hsp  echo=FALSE, print=FALSE>>==
-png('hsp.png') 
- lmCor(t07_sentcomp ~ agemo + grade,data=holzinger.swineford) 
-dev.off()
-@
-
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics{hsp.png}
-\caption{The regression of age and grade on paragraph comprehension.   The data are from the \pfun{holzinger:swineford} data set.  Although age and grade are highly correlated (.53) grade has a positive effect age a negative effect.  Here we show the standardized regressions.  In the subsequent figure we show the raw (understanderized) slopes. }
-\label{figp:hsp}
-\end{center}
-\end{figure}
-
 
 
 <<hs  echo=FALSE, print=FALSE>>==
@@ -606,7 +593,7 @@ text(190,2,"grade = 7")
 dev.off()
 @
 
-To show the coefficients of this model, we  do the regressions without the plot.
+To show just the coefficients of this model, do the regressions without the plot, turn off the plot option:
 
 <<lm echo=FALSE, print=TRUE>>==
 by(holzinger.swineford,holzinger.swineford$grade,function(x) 
@@ -620,12 +607,29 @@ by(holzinger.swineford,holzinger.swineford$grade,function(x)
 \label{fig:hs}
 \end{center}
 \end{figure}
+<<hsp  echo=FALSE, print=FALSE>>==
+png('hsp.png') 
+ lmCor(t07_sentcomp ~ agemo + grade,data=holzinger.swineford) 
+dev.off()
+@
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics{hsp.png}
+\caption{The regression of age and grade on paragraph comprehension.   The data are from the \pfun{holzinger:swineford} data set.  Although age and grade are highly correlated (.53) grade has a positive effect age a negative effect.  Here we show the standardized regressions.  In the subsequent figure we show the raw (understanderized) slopes. }
+\label{fig:hsp}
+\end{center}
+\end{figure}
+
+
+
+
 
 \subsection{Moderated multiple regression}
 
-If we have the raw data, we can also find interactions (known as moderated multiple regression).   This is done by zero centering the data \citep{cohen:03} and then multiplying the two terms of the interaction.  As an option, we can not zero center the data \citep{hayes:13} which results in different ``main effects" but the same interaction term.  To show the equivalence of the interaction terms, we also must not standardize the results. 
+With the raw data, find interactions (known as moderated multiple regression).   This is done by zero centering the data \citep{cohen:03} and then multiplying the two terms of the interaction.  As an option, do not zero center the data \citep{hayes:13} which results in different ``main effects" but the same interaction term.  To show the equivalence of the interaction terms, we also must not standardize the results. 
 
-We use the \pfun{globalWarm} data set taken from \citep{hayes:13}
+Use the \pfun{globalWarm} data set taken from \citep{hayes:13}
 <<moderation>>==
 mod <-lmCor(govact ~ negemot * age + posemot +ideology+sex,data=globalWarm,
           std=FALSE, zero=FALSE, plot=FALSE)
@@ -701,7 +705,7 @@ dev.off()
 
 \subsection{Plotting the interactions}
 
-To visualize the effect of zero (mean) centering, it is useful to plot the various elements that go into the linear model.  \pfun{lmCor} returns the product terms as well as the original data.  I combine  the two datasets to make it clearer. Note that the correlations of the centered age, negemot  with the uncentered are 1.0, but that the correlations with the product terms depend upon centering versus not. I drop the some of the other  variables from the figure for clarity (Figure~\ref{fig:splom}).
+To visualize the effect of zero (mean) centering, it is useful to plot the various elements that go into the linear model.  \pfun{lmCor} returns the product terms as well as the original data.  Combine  the two datasets to make it clearer. Note that the correlations of the centered age, negemot  with the uncentered are 1.0, but that the correlations with the product terms depend upon centering versus not. Drop some of the other  variables from the figure for clarity (Figure~\ref{fig:splom}).
 
 <<plotting,  echo=FALSE, print=FALSE>>==
 both <- cbind(mod$data[,-1],mod0$data[,-1])
@@ -720,7 +724,7 @@ dev.off()
 
 \subsection{Comparisons to \fun{lm}}
 
-The \pfun{lmCor} function duplicates the functionality of the \fun{lm} function  for complete data, although \fun{lm} does not zero center and \pfun{lmCor} will (by default). In addition, \pfun{lmCor} finds correlations based upon pair.wise deletion of missing data, while \fun{lm} does case.wise deletion.  We compare the \fun{lm} and \pfun{lmCor} results for complete data by setting the \texttt{ use = "complete"} option.  We use the \pfun{sat.act} data set which has some missing values.
+The \pfun{lmCor} function duplicates the functionality of the \fun{lm} function  for complete data, although \fun{lm} does not zero center and \pfun{lmCor} will (by default). In addition, \pfun{lmCor} finds correlations based upon pair.wise deletion of missing data, while \fun{lm} does case.wise deletion.  We compare the \fun{lm} and \pfun{lmCor} results for complete data by setting the \texttt{ use = "complete"} option.  Use the \pfun{sat.act} data set which has some missing values.
 
 
 
@@ -789,9 +793,9 @@ Mediation analysis is just linear regression reorganized slightly to show the di
 
 
 
-To find the confidence intervals of the effect  of mediation (the reduction between the c and c' paths, where c' = c - ab), I bootstrap the results by randomly sampling from the data with replacement (n.iter = 5000) times.
+To find the confidence intervals of the effect  of mediation (the reduction between the c and c' paths, where c' = c - ab), bootstrap the results by randomly sampling from the data with replacement  (e.g n.iter = 5000) times.
 
-For these examples, the data files \pfun{Garcia}  \citep{garcia:10} and  \pfun{Tal\_Or} \citep{talor:10} are included in the \pfun{psych} package.  The \pfun{estrss} data set  and \pfun{globalWarm} were originally downloaded from the    \cite{hayes:13} data seta and stored in a local directory on my computer. They are now available from the \Rpkg{processR} package \cite{processR}. 
+For these examples, the data files \pfun{Garcia}  \citep{garcia:10} and  \pfun{Tal\_Or} \citep{talor:10} are included in the \pfun{psych} package.  The \pfun{estrss} data set  and \pfun{globalWarm} were originally downloaded from the    \cite{hayes:13} data sets.  The correlation matrix for the \pfun{estress} data set is stored as \pfun{Pollack} in the \pfun{psychTools} package as is the \pfun{Globalwarm} data set. They are also available from the \Rpkg{processR} package \cite{processR}. 
 
 The syntax is that $ y \sim  x + (m) $ where m is the mediating variable.  By default the output is to two decimals, as is the graphic output.  This can be increased by returning the output to an object and then printing that object with the desired number of decimals.
 
@@ -975,7 +979,7 @@ summary(mod2)
 
 \subsection{Multiple mediators}
 
-It is trivial to show the effect of multiple mediators. I do this by adding the second (or third) mediator into our equation.  I use the \fun{Tal\_Or} data set \citep{talor:10} again.  I show the graphical representation in Figure~\ref{fig:2m}.
+It is trivial to show the effect of multiple mediators. Do this by adding the second (or third) mediator into the equation.  Use the \fun{Tal\_Or} data set \citep{talor:10} again.  Show the graphical representation in Figure~\ref{fig:2m}.
 
 
 <<Tal.or>>==
@@ -1113,7 +1117,7 @@ mediate.diagram(mod6.2, digits=3, main = "Simple mediation, 3 covariates")
 dev.off()
 @
 
-The graphical output  (Figure~\ref{fig:3cov}) looks a bit more complicated than the figure in \cite[p 177]{hayes:13} because I are showing the covariates as causal paths.  
+The graphical output  (Figure~\ref{fig:3cov}) looks a bit more complicated than the figure in \cite[p 177]{hayes:13} because I am showing the covariates as causal paths.  
 %\begin{Toutput}
 %Call: mediate(y = withdraw ~ estress + ese + sex + tenure + (affect), 
 %    data = estress)
@@ -1191,7 +1195,7 @@ The graphical output  (Figure~\ref{fig:3cov}) looks a bit more complicated than 
 
 \subsection{Single predictor, single criterion, multiple covariates}
 
-An alternative way to display the previous results is to remove the three covariates from the mediation model.  I do this by partialling out the covariates.  This is represented in the \pfun{mediate} code by a negative sign.  (Figure~\ref{fig:mod6.2a})
+An alternative way to display the previous results is to remove the three covariates from the mediation model. Do this by partialling out the covariates.  This is represented in the \pfun{mediate} code by a negative sign  (Figure~\ref{fig:mod6.2a})
 
 
 <<Pollack>>==
@@ -1261,15 +1265,15 @@ dev.off()
 
 \subsection{Multiple predictors, single criterion}
 
-It is straightforward to use multiple predictors see \cite[p196]{hayes:13} and in fact I did so in the previous example where the predictors were treated as \emph{covariates}.  \pfun{mediate} also allows for multiple criteria.  
+It is straightforward to use multiple predictors see \cite[p196]{hayes:13} and in fact  did so in the previous example where the predictors were treated as \emph{covariates}.  \pfun{mediate} also allows for multiple criteria.  
 
 \section{Mediation and moderation}
 
-We already saw how to do moderation in the discussion of \pfun{lmCor}.  Combining the concepts of mediation with moderation is done in \pfun{mediate}. That is, I can find the linear model of product terms as they are associated with dependent variables and regressed on the mediating variables.
+We already saw how to do moderation in the discussion of \pfun{lmCor}.  Combining the concepts of mediation with moderation is done in \pfun{mediate}. That is, find the linear model of product terms as they are associated with dependent variables and regressed on the mediating variables.
 
 The \fun{Garcia} data set \citep{garcia:10}  can be used for an example of moderation.  (This was taken from \citep{hayes:13} but is used with kind permission of Donna M. Garcia, Michael T. Schmitt, Nyla R. Branscombe, and Naomi Ellemers.) Just as \pfun{setCor} and \fun{lm} will find the interaction term by forming a product, so will \pfun{mediate}.  Notice that by default, \pfun{lmCor} reports zero centered and standardized regressions, \pfun{mediate} reports zero centered but not standardized regressions, and some of the examples from \cite{hayes:13} do  not zero center the data.  Thus, I specify zero=FALSE to get the \cite{hayes:13} results.  
 
-It is important to note that the \fun{protest} data set discussed  here is from the 2013 examples and not the more recent 2018 examples available from \href{http://afhayes.com}{afhayes.com}.  The 2013 data have a dichotomous protest variable, while the 2018 data set has three levels for the protest variable.  The \pfun{Garcia} data set is composed of the 2018 data set with the addition of a dichotomous variable (prot2) to match  the 2013 exampes.
+It is important to note that the \fun{protest} data set discussed  here is from the 2013 examples and not the more recent 2018 examples available from \href{http://afhayes.com}{afhayes.com}.  The 2013 data have a dichotomous protest variable, while the 2018 data set has three levels for the protest variable.  The \pfun{Garcia} data set is composed of the 2018 data set with the addition of a dichotomous variable (prot2) to match  the 2013 examples.
 
 We  consider how the interaction of sexism with protest  affects the mediation effect of sexism  \citep[p 362]{hayes:13}, I contrast the \fun{lm}, \pfun{lmCor} and \pfun{mediate} approaches.  For reasons to be discussed in the next section, I do not zero center the variables.  The graphic output is in Figure~\ref{fig:modmed} and the output is below.  For comparison purposes, I show the results from the \fun{lm} as well as \pfun{lmCor} and \pfun{mediate}.
 
@@ -1502,8 +1506,8 @@ Compare this output to that of Table 8.2 and Figure 8.5 (p 258 - 259).
 % \end{Routput}
 %
 
-\subsection{Another example of moderated medation}
-The \pfun{Garcia} data set (\pfun{protest} in \cite{hayes:13}) is another example of a moderated analysis.  We can use either \pfun{lmCor} or \pfun{mediate} to examine this data set.  The defaults for these two differ, in that \pfun{lmCor} assumes we want to zero center \emph{and} standardize, while \pfun{mediate} defaults to not standardizing but also defaults to zero (mean) centering.  Note that in the next examples we specify we do not want to standardize nor to mean center.
+\subsection{Another example of moderated mediation}
+The \pfun{Garcia} data set (\pfun{protest} in \cite{hayes:13}) is another example of a moderated analysis.  Use either \pfun{lmCor} or \pfun{mediate} to examine this data set.  The defaults for these two differ, in that \pfun{lmCor} assumes we want to zero center \emph{and} standardize, while \pfun{mediate} defaults to not standardizing but also defaults to zero (mean) centering.  Note that in the next examples we specify we do not want to standardize nor to mean center.
 
 <<garcia2t>>==
 
@@ -1582,7 +1586,7 @@ dev.off()
 
 \subsection{Graphic Displays of Interactions}
 
-In order to graphically display interactions, particularly if one of the variable is categorical, we can plot separate regression lines for each value of the categorical variable.  We do this for the \pfun{Garcia} data set to show the interaction of protest with sexism. (see Figure~\ref{fig:garcia}).  This is just an example of how to use Core-R to do graphics and is not a feature of \Rpkg{psych}.
+In order to graphically display interactions, particularly if one of the variable is categorical, pllot separate regression lines for each value of the categorical variable.  Do this for the \pfun{Garcia} data set to show the interaction of protest with sexism. (see Figure~\ref{fig:garcia}).  This is just an example of how to use Core-R to do graphics and is not a feature of \Rpkg{psych}.
 
 <<modertionplot,  echo=TRUE, print=FALSE>>==
 png('garciainteraction.png')
@@ -1745,14 +1749,14 @@ News and a history of changes are available in the NEWS and CHANGES files in the
 
 \begin{Schunk}
 \begin{Sinput}
-> news(Version >-= "2.0.12",package="psych")
+> news(Version >= "2.3.12",package="psych")
 \end{Sinput}
 \end{Schunk}
 
 
 
 \section{Psychometric Theory}
-The \Rpkg{psych} package has been developed to help psychologists do basic research.  Many of the functions were developed to supplement a book (\url{http://personality-project.org/r/book} An introduction to Psychometric Theory with Applications in \R{} \citep{revelle:intro}  More information about the use of some of the functions may be found in the book . 
+The \Rpkg{psych} package has been developed to help psychologists (and other quantitative scientists) do basic research.  Many of the functions were developed to supplement a book (\url{http://personality-project.org/r/book} An introduction to Psychometric Theory with Applications in \R{} \citep{revelle:intro}  More information about the use of some of the functions may be found in the book . 
 
 
 For more extensive discussion of the use of \Rpkg{psych} in particular and \R{} in general, consult  \url{http://personality-project.org/r/r.guide.html} A short guide to R.

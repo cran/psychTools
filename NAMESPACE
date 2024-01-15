@@ -42,7 +42,7 @@ importFrom(foreign,read.spss,read.xport,read.systat)
  irt2latex,
 
  omega2latex,
-
+rd2html,
  read.clipboard,
  read.clipboard.csv,
  read.clipboard.fwf,
