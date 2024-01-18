@@ -311,7 +311,7 @@ irt.responses(scores$scores,iqitems[1:4],breaks=11)
 ###################################################
 ### code chunk number 41: overview.Rnw:1194-1196
 ###################################################
- m <- colMeans(bfi,na.rm=TRUE)
+ m <- colMeans(bfi[,1:25],na.rm=TRUE)
   item.lookup(scales$item.corrected[,1:3],m,dictionary=bfi.dictionary[1:2])
 
 
