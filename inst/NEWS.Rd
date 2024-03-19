@@ -1,10 +1,10 @@
 \name{NEWS}
 \title{News for Package 'psychTools'}
 
-\section{Changes in psychTools version 2.4.1 (2024-01-14)}{ 
+\section{Changes in psychTools version 2.4.3 (2024-03-17)}{ 
   \subsection{Introduction}{
     \itemize{
-      \item Version 2.4.2 is the development release of the psychTools package. It is available as a source file for Macs or PCs in the repository at \url{https://personality-project.org/r/}. The released version on CRAN is 2.4.1  The second digit reflects the year (i.e., 2024), the third set the month (i.e., 2.3.12 was released in December of 2023, the last two digits of development versions reflect  either an minor change or the day of any modifications, e.g. 1.8.3.3 was the third attempt to get 1.8.3 released.  1.7.8 was  released in August, 2017.
+      \item Version 2.4.3 is the development release of the psychTools package. It is available as a source file for Macs or PCs in the repository at \url{https://personality-project.org/r/}. The released version on CRAN is 2.4.3  The second digit reflects the year (i.e., 2024), the third set the month (i.e., 2.3.12 was released in December of 2023, the last two digits of development versions reflect  either an minor change or the day of any modifications, e.g. 1.8.3.3 was the third attempt to get 1.8.3 released.  1.7.8 was  released in August, 2017.
     \item To install the development version, use the command: install.packages("psychTools", repos="https://personality-project.org/r/", type="source"). Remember to restart R and library(psych) and library(psychTools) to make the new version active.
     \item To see the date of the new version, use packageDate("psychTools").  (I sometimes update the packages on my server without changing the version number.)
 
@@ -20,7 +20,7 @@
   \itemize{
       \item Added rd2html to allow for conversion of Rd files to HTML.  This allows for single files or complete directories (e.g. the help files )
       \item Various improvements to vignettes to make them clearer and updated the links
-    
+    \item added 3 functions to convert to rtf format for those who like WORD.  df2rtf, cor2rtf, fa2rtf.
     }
     }
   }  

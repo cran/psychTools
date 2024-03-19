@@ -12,7 +12,7 @@ importFrom(stats,aov,cov,cor,var,sd,median,mad,cov2cor,biplot,loess,predict,pred
 importFrom(utils,head,tail,read.table,write.table,read.fwf,stack,example,download.file,getFromNamespace,untar,unzip,View)
 
 importFrom(grDevices,colorRampPalette,topo.colors,devAskNewPage,dev.flush,dev.hold, palette, grey,rainbow,rgb,col2rgb,trans3d,adjustcolor)
-
+importFrom(rtf, RTF, addHeader,addTable, addText,addPageBreak,addNewLine, done)
 #importFrom(methods,new)
 
 importFrom(tools,file_ext,Rd2HTML)
@@ -26,12 +26,15 @@ importFrom(foreign,read.spss,read.xport,read.systat)
  export(
  combineMatrices,
  cor2latex,
+ cor2rtf,
  df2latex,
+ df2rtf,
 
  dfOrder,
 
-
  fa2latex,
+ fa2rtf,
+ 
  fileCreate,
  filesInfo,
  filesList,

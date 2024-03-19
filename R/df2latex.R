@@ -94,9 +94,127 @@ if(!char) {if(!is.null(digits)) {if(is.numeric(x) ) {x <- round(x,digits=digits)
  
 if(apa)  {allnames <- c("Variable  &  ",names1,lastname," \\hline \n")} else {if(rowlabels) {allnames <- c("  &  ",names1,lastname,"\\cr \n")} else {
              allnames <- c(names1,lastname,"\\cr \n")}}
+             
+"df2latex" <- 
+function(x,digits=2,rowlabels=TRUE,apa=TRUE,short.names=TRUE,
+font.size ="scriptsize",big.mark=NULL, drop.na=TRUE, heading="A table from the psych package in R",
+caption="df2latex",label="default",char=FALSE,stars=FALSE,silent=FALSE,file=NULL,append=FALSE,cut=0,big=.0,abbrev=NULL,long=FALSE) {
+#first set up the table
+if(is.null(abbrev)) abbrev<- digits + 3
+ nvar <- dim(x)[2]
+ rname<- rownames(x)
+ tempx <- x
+comment <- paste("%", match.call())
+if(long) {
+ header <- paste0("\\begin{center}
+ \\begin{",font.size,"} 
+ \\begin{longtable}")
+header <- c(header,"{l",rep("r",(nvar)),"}\n")
+header <- c(header,paste0("
+\\caption{",caption,"}
+\\label{",label,"}
+\\endfirsthead
+\\multicolumn{",nvar+1,"}{c}
+{{\\bfseries \\tablename\\ \\thetable{} -- continued from previous page}} \\\\
+\\endhead 
+\\hline \\multicolumn{",nvar+1,"}{|c|}{{Continued on next page}} \\\\ 
+\\hline
+\\endfoot
+\\hline \\hline
+\\endlastfoot
+"))
+ #this wraps up the long table
+footer <- paste0("
+\\end{longtable}   
+\\end{",font.size,"}
+\\end{center}")
+# \\label{",label,"}")
+} else {
+header <- paste("\\begin{table}[htpb]",
+"\\caption{",caption,"}
+\\begin{center}
+\\begin{",font.size,"} 
+\\begin{tabular}",sep="")
+
+
+ if(stars) {if(rowlabels) {
+               header <- c(header,"{l",rep("S",(nvar)),"}\n")} else {header <- c(header,"{",rep("S",(nvar+1)),"}\n")}  } else {
+              if(rowlabels) { header <- c(header,"{l",rep("r",(nvar)),"}\n")} else {header <- c(header,"{",rep("r",(nvar+1)),"}\n")}
+               }
+
+if(apa) {header <- c(header,
+"\\multicolumn{",nvar,"}{l}{",heading,"}",
+'\\cr \n \\hline ')
+footer <- paste(" \\hline ")} else {footer <- NULL}
+ 
+
+if (stars){
+      footer <- paste(" \\hline 
+                      \n \\multicolumn{7}{l}{\\scriptsize{\\emph{Note: }\\textsuperscript{***}$p<.001$; 
+                      \\textsuperscript{**}$p<.01$; 
+                      \\textsuperscript{*}$p<.05$",".}}" ,sep = "")
+    }else{
+      footer <- paste(" \\hline ")}
+footer <- paste(footer,"
+\\end{tabular}
+\\end{",font.size,"}
+\\end{center}
+\\label{",label,"}
+\\end{table} 
+
+",sep=""
+)
+#end of not long 
+}
+#now put the data into it
+if(big) all.x <- x  #we need to keep the original format of the data to do the big operation
+if(!char) {if(!is.null(digits)) {if(is.numeric(x) ) {x <- round(x,digits=digits)} else {for(i in 1:ncol(x)) {if (is.numeric(x[,i])) x[,i] <- round(x[,i],digits)} }
+       if(cut > 0) x[abs(x) < cut] <- NA }
+      }
+ 
+ cname <- colnames(x)
+ if (short.names) cname <- abbreviate(cname,minlength=abbrev)  #cname <- 1:nvar
+
+ names1 <- paste0("{",cname[1:(nvar-1)], "} & ")
+ lastname <- paste0("{",cname[nvar],"}\\cr \n")
+ 
+if(apa)  {allnames <- c("Variable  &  ",names1,lastname," \\hline \n")} else {if(rowlabels) {allnames <- c("  &  ",names1,lastname,"\\cr \n")} else {
+             allnames <- c(names1,lastname,"\\cr \n")}}
+             browser()
 if(!char) {if(is.null(big.mark)) { x <- format(x,drop0trailing=FALSE)
      if(big > 0) {
-#browser()
+
+     for(i in 1:ncol(x)) {if (is.numeric(all.x[,i])) x[abs(all.x[,i] ) > big,i] <- paste0("\\bf{",x[abs(all.x[,i]) > big,i],"}") }}
+    # {if (is.numeric(all.x[,i])) x[abs(all.x[,i] ) > big,i] <- paste0("\\bf{",x[abs(all.x[,i]) > big,i],"}") }}
+    # if(is.numeric(tempx)) x[abs(tempx ) > big] <- paste0("\\bf{",x[abs(tempx) > big],"}") }
+     
+     
+     } else   #to keep the digits the same
+                      {x <- prettyNum(x,big.mark=",",drop0trailing=FALSE)} 
+   }  else {if(big > 0) { x[!is.na(abs(as.numeric(all.x))>big) & abs(as.numeric(all.x))>big ] <-    paste0("\\bf{", x[!is.na(abs(as.numeric(all.x))>big) & abs(as.numeric(all.x))>big ],"}")  } }
+   # x[!is.na(abs(as.numeric(x)) > big)]<-  paste0("\\bf{", x[!is.na(abs(as.numeric(x)) > big)],"}")  }}
+ value <- apply(x,1,paste,collapse="  &  ") #insert & between columns
+
+ if(rowlabels) {value <- paste(sanitize.latex(rname),"  & ",value)} else {value <- paste("  & ",value)}
+ values <- paste(value, "\\cr", "\n")  #add \\cr at the end of each row
+ if(drop.na) values <- gsub("NA","  ",values,fixed=TRUE)
+
+ #now put it all together
+ if(!silent) {cat(comment,"\n")  #a comment field saying where the data came from
+ cat(header)   #the header information
+ cat(allnames) #the variable names
+ cat(values)  #the data
+ cat(footer)   #close it up with a footer
+ } 
+result <- c(header,allnames,values,footer)
+if(!is.null(file)) write.table(result,file=file,row.names=FALSE,col.names=FALSE,quote=FALSE,append=append)
+
+invisible(result)
+ }  #end df2latex
+ 
+if(!char) {if(is.null(big.mark)) { x <- format(x,drop0trailing=FALSE)
+     if(big > 0) {
+
      for(i in 1:ncol(x)) {if (is.numeric(all.x[,i])) x[abs(all.x[,i] ) > big,i] <- paste0("\\bf{",x[abs(all.x[,i]) > big,i],"}") }}
     # {if (is.numeric(all.x[,i])) x[abs(all.x[,i] ) > big,i] <- paste0("\\bf{",x[abs(all.x[,i]) > big,i],"}") }}
     # if(is.numeric(tempx)) x[abs(tempx ) > big] <- paste0("\\bf{",x[abs(tempx) > big],"}") }
@@ -131,11 +249,12 @@ invisible(result)
                        caption = "cor2latex", label = "default",silent=FALSE,file=NULL,append=FALSE,cut=0,big=.0)
 {
 if(stars) heading  <- paste(heading, "Adjust for multiple tests = ",adjust )
-if (!is.na(class(x)[2]) & class(x)[2]=="corr.test") {  #we already did the analysis, just report it
+if (inherits(x, "corr.test")) {  #we already did the analysis, just report it
       r <- x$r
       p <- x$p} else {
+      
  
-      if (nrow(x) > ncol(x)) {   #find the correlations 
+      if (!psych::isCorrelation(x)) {   #find the correlations 
         x <- psych::corr.test(x, use=use,method=method,adjust=adjust)  #change to corTest 
         r <- x$r
         p <- x$p   } else {   #take the correlations as given
@@ -591,4 +710,161 @@ invisible(result)
 
  }
  
+
+#the next set of functions were added in January, 2024 to allow for output to Word documents
+#convert df to a doc file for word  
+#developed 1/18/24
+#uses the rtf package
+#adapted from df2latex,  not all the options of that package are yet added
+
+df2rtf <- function(x,file=NULL, digits=2,rowlabels=TRUE,width=8.5,old=NULL, apa=TRUE,short.names=TRUE,
+	font.size =10,big.mark=NULL, drop.na=TRUE, heading="A table from the psych package in R",
+	caption="Created with df2rtf",label="default",char=FALSE,stars=FALSE,silent=FALSE,
+	append=FALSE,cut=0,big=.0,abbrev=NULL,long=FALSE) {
+if(is.null(file)) file<- "test_RTF.doc"
+if(is.null(old)) {rtf<-RTF(file,width=width,height=11,font.size=font.size,omi=c(1,1,1,1)) } else {
+  	rtf=old
+	addPageBreak(rtf, width=width)} 
+
+addHeader(rtf,title=heading,subtitle=caption)  # put in a header with a subheader
+
+x <- round(x,digits=digits)
+addTable(rtf,x,row.names=rowlabels)  #put the table in  (with row.names if desired)
+
+
+if (stars){
+      footer <- paste("*** p<.001; ** p<.01$; * p<.05")
+    }else{
+      footer <- paste(" \\hline ")}
+addText(rtf,footer)
+
+if(!append) {done(rtf)} else {return(rtf)}    #send to output device
+}
+
+#adapted from cor2latex
+cor2rtf <- function(x,file=NULL, use = "pairwise", method="pearson", adjust="holm", digits=2,
+	rowlabels=TRUE,width=8.5,lower=TRUE,old=NULL, apa=TRUE,short.names=TRUE,
+	font.size =10,big.mark=NULL, drop.na=TRUE, heading="A correlation matrix from the psych package in R",
+	caption="Created with cor2rtf.   left justify output if stars",label="default",char=FALSE,stars=FALSE,silent=FALSE,
+	append=FALSE,cut=0,big=.0,abbrev=NULL,long=FALSE) {
+if(is.null(file)) file <- "cor_rtf.doc"
+
+#this allows us to append to previous output
+if(is.null(old)) {rtf<-RTF(file,width=width,height=11,font.size=font.size,omi=c(1,1,1,1)) } else {
+   rtf=old
+  	addPageBreak(rtf, width=width, subtitle=caption)}   #set up the page
+  	
+addHeader(rtf,title=heading, subtitle=caption)                # put in a header
+
+if (inherits(x, "corr.test")) {  #we already did the analysis, just report it
+      r <- x$r
+      p <- x$p} else {
+      
+ 
+      if (!psych::isCorrelation(x)) {   #find the correlations 
+        x <- psych::corTest(x, use=use,method=method,adjust=adjust)  #change to corTest 
+        r <- x$r
+        p <- x$p   } else {   #take the correlations as given
+        r <- x
+        p <- NULL
+      }
+      }
+      
+   if(isTRUE(stars && is.null(p)))  stop("To print significance levels, x must be be either a data frame of observations or a correlation matrix created with the corr.test function of the package psych. If you are not interested in displaying signicance level set stars = FALSE")
+       
+r <- round(r,digits)
+
+ r <- format(r, nsmall = digits,drop0trailing=FALSE)
+  mystars <- ifelse(p < .001, "{***}", ifelse(p < .01, "{** }", ifelse(p < .05, "{*  }", "  ")))
+    mystars <- t(mystars)
+   if(stars) { R <- matrix(paste0(r,mystars),ncol=ncol(r))} else {R <- r}
+  
+  #  r <- format(r, nsmall = digits,drop0trailing=FALSE)  #this converts to character but keeps the right number of digits)
+    if (lower) {
+      R[upper.tri(R)] <- " "
+    } else {
+      R[lower.tri(R)] <- " "
+    }
+        
+    addTable(rtf,R,row.names=rowlabels)  #put the table in  (with row.names if desired)
+    
+    if (stars){
+      footer <- paste("*** p<.001; ** p<.01$; * p<.05")
+    }else{
+      footer <- paste(" \\hline ")}
+           
+addText(rtf,footer)
+if(!append) {done(rtf)} else {return(rtf)}    #send to output device
+    #send to output device
+}
+###
+
+fa2rtf <- function(f,file=NULL, use = "pairwise", method="pearson", adjust="holm", digits=2,
+	rowlabels=TRUE,width=8.5,lower=TRUE,old=NULL, apa=TRUE,short.names=TRUE,
+	font.size =10,big.mark=NULL, drop.na=TRUE, heading="A Factor analysis   from the psych package in R",
+	caption="Created with fa2rtf. ",label="default",char=FALSE,silent=FALSE,
+	append=FALSE,cut=0,big=.0,abbrev=NULL) {
+if(is.null(file)) file <- "FA_rtf.doc"
+
+#this allows us to append to previous output
+if(is.null(old)) {rtf<-RTF(file,width=width,height=11,font.size=font.size,omi=c(1,1,1,1)) } else {
+   rtf=old
+  	addPageBreak(rtf, width=width, subtitle=caption)}   #set up the page
+  	
+addHeader(rtf,title=heading, subtitle=caption)                # put in a header
+
+if(inherits(f,"fa")) {x <- unclass(f$loadings)
+if(!is.null(f$Phi)) {Phi <- f$Phi} else {Phi <- NULL}
+
+nfactors <- ncol(x)
+items <- NULL} else {#we are processing fa.lookup output
+	 nfactors <- which(names(f)=="h2") -1
+	 Phi <- NULL
+ 	items <- f[,"Item"]
+ 	x <- f[,1:nfactors]
+	}
+
+if(nfactors > 1) {if(is.null(Phi)) {h2 <- rowSums(x^2)} else {h2 <- diag(x %*% Phi %*% t(x)) }} else {h2 <- x^2}
+u2 <- 1- h2
+vtotal <- sum(h2 + u2)
+if(cut > 0) f[abs(x) < cut] <- NA    #modified May 13 following a suggestion from Daniel Zingaro
+if(!is.null(f$complexity)) {x <- data.frame(x,h2=h2,u2=u2,com=f$complexity) } else {x <- data.frame(x,h2=h2,u2=u2)}
+#colnames(x)[which(colnames(x)=='h2')] <- '$h^2$'     #added following a request from Alex Weiss 11/28/19
+#colnames(x)[which(colnames(x)=='u2')] <- '$u^2$'
+
+#first set up the table
+ nvar <- NCOL(x)
+comment <- paste("% Called in the psych package ", match.call())
+ x <- round(x,digits=digits)   
+if(!is.null(items)) x <- cbind(x,items)
+ addTable(rtf,x,row.names=rowlabels)  #put the factor loadings  in 
+
+ #now add the correlation matrix and the sums of squares
+ 
+  if(is.null(items)) {x <- f$loadings } else {x <- x[,1:nfactors]} 
+    #use the original values not the rounded ones
+ nvar <- nrow(f)
+ 
+  if(is.null(Phi)) {if(nfactors > 1)  {vx <- colSums(x^2) } else {
+                                      vx <- diag(t(x) %*% x)
+                                      vx <- vx*nvar/vtotal 
+      	                             }} else {vx <- diag(Phi %*% t(x) %*% x)
+      	                                      vx <- vx*nvar/vtotal }
+      	  # names(vx) <- colnames(x)[1:nvar]
+      	  
+      	  if(!is.null(f$Vaccounted)) {vx.df <- round(f$Vaccounted,digits=digits)
+      	  
+      	  addNewLine(rtf)
+      	  addTable(rtf,vx.df,row.names=TRUE)}
+      	 
+      	#   cn <- c("&",allnames[2:(NCOL(x)+1)],"\\cr \n")      
+         # loads <- c("\\hline \\cr",cn,"SS loadings &",paste(vx1," & ",sep=""),"\\cr  \n")
+          addNewLine(rtf)
+          if(!is.null(Phi)) {  Phi <- round(Phi,digits)
+           phi <- format(Phi,nsmall=digits)
+           
+        addTable(rtf,phi,row.names=TRUE)}
+if(!append) {done(rtf)} else {return(rtf)}    #send to output device
+    #send to output device
+}
 
