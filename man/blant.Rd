@@ -13,13 +13,17 @@
   ..$ : chr [1:29] "V1" "V2" "V3" "V4" ...
 }
 \details{
-This data matrix was sent by Alexandra Blant as an example of a problem with the minres solution in the \code{\link{fa}} function.  The default solution, using fm="minres" issues a warning that the solution has improper factor score weights.  This is not the case for the fm="old.min" and fm="mle" options, but is for fm="pa", fm="ols".
+This data matrix was sent by Alexandra Blant as an example of a problem with the minres solution in the \code{\link[psych]{fa}} function.  
+The default solution, using fm="minres" issues a warning that the solution has improper factor score weights. 
+ This is not the case for the fm="old.min" and fm="mle" options, but is for fm="pa", fm="ols".
 
 The residuals are indeed smaller for fm="minres" than for fm="old.min" or fm="mle".
 
-"old.min" attempts to find the minimum residual but uses the gradient for mle. This was the approach until version 1.7.5 but was changed (see the help page for fa) following extensive communication with Hao Wu.
+"old.min" attempts to find the minimum residual but uses the gradient for mle. This was the approach
+ until version 1.7.5 but was changed (see the help page for fa) following extensive communication with Hao Wu.
 
-The problem with this matrix is probably that it is almost singular, with some smcs approaching 1 and the smallest three eigenvalues of .006, .004 and .001.
+The problem with this matrix is probably that it is almost singular, with some smcs approaching 1 and 
+the smallest three eigenvalues of .006, .004 and .001.
 
 This problem matrix was provided by Alexandra Blant.  
 }

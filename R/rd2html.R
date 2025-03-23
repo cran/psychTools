@@ -15,14 +15,18 @@ if(!is.null(file)) {  #case 1
                    
                 } else { #case 2
 if(is.null(inDir)) {
-				cat("select the input directory")
+				cat("Select the input directory (not a file)")
                 fn <- file.choose()
+                if(!dir.exists(fn)) {dir <- dirname(fn) 
+                    inlist <- fn
+                    nfiles <- 1 
+                    inDir <- dir
                 } else {fn<- inDir
-                #check if this is directory or a file
-                 if(grep("Rd",fn)>0) {dir <- dirname(fn)} else {dir<- fn}
+                    inDir <- filesList(dir) #find the input directory
+                 }
                  }
 				
-       			inDir <- filesList(dir) #find the input directory
+       			
        
 if(is.null(outDir)) {cat("select the output directory")
 		outDir <- file.choose(TRUE) 

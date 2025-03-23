@@ -4,13 +4,7 @@ bibentry(
     author = person("William Revelle"),
     organization = "Northwestern University",
     address = "Evanston, Illinois",
-    year = 2024,
-    note = "R package version 2.4.3",
+    year = 2025,
+    note = "R package version 2.5.3",
     url = "https://CRAN.R-project.org/package=psychTools"
  )
-
-
-
-
-
-

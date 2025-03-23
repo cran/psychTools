@@ -549,9 +549,9 @@ SATQ        6 687 610.22 115.64    620  617.25 118.61 200 800   600 -0.59    -0.
 There are, of course, all kinds of things you could do with your data at this point, but read about them in the  \href{http://cran.r-project.org/web/packages/psych/vignettes/intro.pdf}{introductory vignette}  and \href{http://cran.r-project.org/web/packages/psychTools/vignettes/overview.pdf}{more advanced vignette} for the \Rpkg{psych} package, 
 
 
-\section{Using the \pfun{omega} function to find $\omega$}
+\section{Using the \pfun{omega} function to find the $\omega$ statistics}
 
-Two alternative estimates of reliability that take into account the hierarchical structure of the inventory are McDonald's $\omega_h$ and $\omega_t$ \citep{mcdonald:tt,rz:09}. These may be found using the \pfun{omega} function for an exploratory analysis (See Figure~\ref{fig:omega.9}) or \pfun{omegaSem} for a confirmatory analysis using the \Rpkg{sem} based upon the exploratory solution from \pfun{omega}.
+Two alternative estimates of reliability that take into account the hierarchical structure of the inventory are McDonald's $\omega_h$ and $\omega_t$ \citep{mcdonald:tt,rz:09}. These may be found using the \pfun{omega} function for an exploratory analysis (See Figure~\ref{fig:omega.9}) or \pfun{omegaSem} for a confirmatory analysis using the \Rpkg{lavaan} package based upon the exploratory solution from \pfun{omega}.
 
 \subsection{Background on the $\omega$ statistics}
 
@@ -600,11 +600,13 @@ $$\omega_{\inf} = \frac{ \vec{1}\vec{cc'}\vec{1}}{\vec{1}\vec{cc'}\vec{1} + \vec
 
 
 
-It can be shown In the case of  simulated  variables,  that the amount of variance attributable to a general factor ($\omega_h$) is quite large, and the reliability of the set of  items is somewhat greater than that estimated by $\alpha$ or $\lambda_6$.  
+It can be shown in the case of  simulated  variables,  that the amount of variance attributable to a general factor ($\omega_h$) is quite large, and the reliability of the set of  items is somewhat greater than that estimated by $\alpha$ or $\lambda_6$.  
 
 
-\subsection{Yet another alternative: Coefficient $\beta$}
-$\beta$, an alternative to $\omega_h$, is defined as the worst split half reliability \citep{revelle:iclust}.  It can be estimated by using \pfun{iclust} (Item Cluster analysis: a hierarchical clustering algorithm). For a very complimentary review of why the iclust algorithm is useful in scale construction, see \cite{cooksey:06}.   For a discussion of how use \pfun{iclust} see the  \href{http://cran.r-project.org/web/packages/psychTools/vignettes/factor.pdf}{factor analysis vignette}.
+\subsection{Yet more alternatives: Coefficient $\beta$ and the unidim statistic}
+$\beta$, an alternative to $\omega_h$, is defined as the worst split half reliability \citep{revelle:iclust}.  It can be estimated by using \pfun{iclust} (Item Cluster analysis: a hierarchical clustering algorithm). For  very complimentary reviews of why the iclust algorithm is useful in scale construction, see \cite{cooksey:06} or \cite{reise:24}.   For a discussion of how to use \pfun{iclust} see the  \href{http://cran.r-project.org/web/packages/psychTools/vignettes/factor.pdf}{factor analysis vignette}.
+
+The \pfun{unidim} and \pfun{reliability} functions return the \emph{unidim} statistic which is an estimate of the unidimensionality of a scale.  In a recent paper \citep{rc:uni} we compare \emph{unidim}, $\beta$, and $\omega_h$ as indices of general factor saturation. 
 
 
 \subsection{Using the \pfun{omega} function}
@@ -695,6 +697,36 @@ dev.off()
 \includegraphics{anxiety}
 \caption{An \pfun{omega} solution for 10 anxiety items with two group factors. See \cite{rc:pa:19} for more measures of reliability for this data set.}
 \label{fig.anxiety}
+\end{center}
+\end{figure}
+
+
+\subsection{Finding reliabilities for scales and subscales}
+
+The previous example suggests that there are two group factors.  We can find their reliabilities as well as the overall reliability and the \emph{u} statistic using the \pfun{unidim}  and \pfun{reliability} functions.  
+
+We first make up a keys list to score the overall scale as well as the subsets.  Using these keys, we then call the \pfun{reliability} function.
+
+<<unidim>>=
+anxiety.keys <- list(all =cs(anxious, jittery, nervous, tense, upset, 
+            at.ease, calm, confident, content, relaxed),
+              negative = cs(anxious, jittery, nervous, tense, upset),
+              positive = cs(at.ease, calm, confident, content, relaxed))
+rel <- reliability(anxiety.keys,anxiety)
+rel
+
+@
+
+<<relplot,echo=FALSE,print=FALSE>>==
+png('rel.png')
+plot(rel)
+dev.off()
+@
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics{rel}
+\caption{Various estimates of internal consistency for 10 anxiety items and two subscales found using the \pfun{reliability function.}}
+\label{fig.rel}
 \end{center}
 \end{figure}
 
@@ -933,15 +965,15 @@ fx <- matrix(c(.7,.6,.5,.7,.6,.5,.8,.7,.6,
     .6,.6,.6,rep(0,9),c(.6,.5,.6),rep(0,9),.6,.6,.6),ncol=4)
  simx <-sim.structure(fx)
 
-om <- omega(simx$model)
-dsl <- omegaDirect(simx$model)
+om <- omega(simx$model)  #defaults to population model
+dsl <- omegaDirect(simx$model) #the direct SL approach
 @
 \begin{scriptsize}
 <<Simulate.2>>=
  lowerMat(simx$model)
 summary(om)
 summary(dsl)
-fa.congruence(list(om,dsl,fx))
+fa.congruence(list(om,dsl,fx))  #compare the two solutions
 @
 \end{scriptsize}
 %\begin{Routput}
@@ -1008,7 +1040,13 @@ In the modern era of computation, there is little justification for continuing w
 
 \section{System Info}
 
-When running any \R{} package, it is useful to find out the session information to see if you have the most recent releases.
+When running any \R{} package, it is useful to find out the session information to see if you have the most recent releases.  It is also important to remember to cite \R{} and any packages you use.  As the authors and maintainers  of \R{} say:
+
+\begin{quote}
+We have invested a lot of time and effort in creating R, please cite it when
+using it for data analysis. See also pfun(citation())  for citing R
+packages.
+\end{quote}
 
 \begin{scriptsize}
 <<print=TRUE>>=
@@ -1080,12 +1118,18 @@ Revelle, W. (1979).
 \newblock Hierarchical cluster-analysis and the internal structure of tests.
 \newblock {\em Multivariate Behavioral Research}, 14(1):57--74.
 
-\bibitem[\protect\astroncite{Revelle}{2023}]{psych}
-Revelle, W. (2023).
+\bibitem[\protect\astroncite{Reiss and Haviland}{2024}]{reise:24}
+ Reise, S.P  and Haviland, M.G.
+\newblock Understanding Alpha and Beta and Sources of Common Variance: Theoretical Underpinnings and a Practical Example
+\newblock {\em Journal of Personality Assessment}, 1-16.
+
+
+\bibitem[\protect\astroncite{Revelle}{2025}]{psych}
+Revelle, W. (2025).
 \newblock {\em psych: Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
   https://CRAN.r-project.org/package=psych.
-\newblock R package version 2.3,6
+\newblock R package version 2.5.3
 
 \bibitem[\protect\astroncite{Revelle and Condon}{2018}]{rc:reliability}
 Revelle, W. and Condon, D.~M. (2018).
@@ -1098,6 +1142,12 @@ Revelle, W. and Condon, D.~M. (2018).
 Revelle, W. and Condon, D.~M. (2019).
 \newblock Reliability from $\alpha$ to $\omega$: A tutorial.
 \newblock {\em Psychological Assessment} 31 (12) p 1395-1411.
+
+\bibitem[Revelle and Condon, 2025]{rc:uni}
+Revelle, W. and Condon, D.~M. (2025).
+\newblock unidim: An Index of Scale Homogeneity and Unidimensionality 
+\newblock  {\em Psychological Methods}  Advance online publication. https://doi.org/10.1037/met0000729 (open access)
+
 
 \bibitem[\protect\astroncite{Revelle et al.}{2020}]{reh:20}
 Revelle, W. and Elleman, L.G. and Hall, A. (2020).

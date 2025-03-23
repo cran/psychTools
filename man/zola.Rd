@@ -17,7 +17,7 @@ Zola et al.,  (2021) reported the validity of self report personality items from
   ..$ : chr [1:165] "q_253" "q_4296" "q_1855" "q_90" ...
 }
 \details{
-The polychoric correlation matrix of the spi and peer report data. To see the item labels, use the \code{\link{lookupFromKeys}} .
+The polychoric correlation matrix of the spi and peer report data. To see the item labels, use the \code{\link[psych]{lookupFromKeys}} .
 
 This data set is a nice example of a multi-trait, multi-method correlation matrix. (see the scoring  example).  Five dimensions of self report show high correlations with the corresonding peer report scales.    
 }

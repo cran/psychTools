@@ -20,7 +20,7 @@ Data sets from the SAPA/ICAR project:
 
 \code{\link{bfi}}  \tab 25 Personality items representing 5 factors from the SAPA project for 2800 participants \cr
 bfi.dictionary \tab Dictionary of the bfi \cr
-\code{\link{big5.100.adjectives}} 100 adjectives describing the "big 5" for 502 subjects (from Goldberg)
+\code{\link{big5.100.adjectives}} 100 adjectives describing the "big 5" for 502 subjects (from Goldberg) \cr
 \code{\link{colom}} \tab Correlations from the Spanish WAIS (14 scales) \cr
 \code{\link{eminence}} \tab Eminence of 69 American Psychologists  \cr
 

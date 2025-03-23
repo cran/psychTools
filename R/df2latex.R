@@ -294,9 +294,10 @@ if (inherits(x, "corr.test")) {  #we already did the analysis, just report it
                   apa = apa, short.names = short.names, font.size = font.size, 
                   heading = heading, caption = caption, label = label, char=TRUE,stars = stars,silent=silent,file=file,append=append,cut=cut,big=big))
 }
-
+#slight modifications on 4/28/24 to improve formatting for long tables
 "fa2latex" <- 
-function(f,digits=2,rowlabels=TRUE,apa=TRUE,short.names=FALSE,cumvar=FALSE,cut=0,big=.3,alpha=.05,font.size ="scriptsize",long=FALSE, heading="A factor analysis table from the psych package in R",caption="fa2latex",label="default",silent=FALSE,file=NULL,append=FALSE) {
+function(f,digits=2,rowlabels=TRUE,apa=TRUE,short.names=FALSE,cumvar=FALSE,cut=0,big=.3,alpha=.05,font.size ="scriptsize",long=FALSE,
+       heading="A factor analysis table from the psych package in R",caption="fa2latex",label="default",silent=FALSE,file=NULL,append=FALSE) {
 if(inherits(f,"fa.ci")) {
 if(is.null(f$cip)) {px <- f$cis$p} else {px <- f$cip}} else {px <- NULL}  #get the probabilities if we did fa.ci
 #if(class(f)[2] !="fa") f <- f$fa
@@ -310,6 +311,7 @@ items <- NULL} else {#we are processing fa.lookup output
  x <- f[,1:nfactors]
 
 }
+ nvar <- ncol(x)
 
 if(nfactors > 1) {if(is.null(Phi)) {h2 <- rowSums(x^2)} else {h2 <- diag(x %*% Phi %*% t(x)) }} else {h2 <- x^2}
 u2 <- 1- h2
@@ -319,28 +321,42 @@ if(!is.null(f$complexity)) {x <- data.frame(x,h2=h2,u2=u2,com=f$complexity) } el
 colnames(x)[which(colnames(x)=='h2')] <- '$h^2$'     #added following a request from Alex Weiss 11/28/19
 colnames(x)[which(colnames(x)=='u2')] <- '$u^2$'
 
+cname <- colnames(x)
+ nc <- ncol(x)
+ if (short.names) cname[1:nvar] <- 1:nvar    #05/10/24
+ names1 <- paste(cname[1:(nc-1)], " & ")
+ lastname <- paste(cname[nc],"\\cr \n")
+ if(apa)  {allnames <- c("Variable  &  ",names1,lastname," \\hline \n")} else {allnames <- c("  &  ",names1,lastname,"\\cr \n")}
 #first set up the table
- nvar <- dim(x)[2]
+ 
 comment <- paste("% Called in the psych package ", match.call())
 
 if(long) {
+
  header <- paste0("\\begin{center}
- \\begin{",font.size,"} 
- \\begin{longtable}")
-header <- c(header,"{l",rep("r",(nvar)),"}\n")
+ 
+	 \\begin{",font.size,"} 
+	 \\begin{longtable}")
+	 
+	header <- c(header,"{l",rep("r",(nc+1)),"}\n")
 header <- c(header,paste0("
-\\caption{",caption,"}
-\\label{",label,"}
-\\endfirsthead
-\\multicolumn{",nvar+1,"}{c}
+	\\caption{",caption,"}
+	\\label{",label,"}
+	\\endfirsthead
+	\\multicolumn{",nc,"}{c}
 {{\\bfseries \\tablename\\ \\thetable{} -- continued from previous page}} \\\\
+"))
+header <- c(header,allnames,
+paste("
 \\endhead 
-\\hline \\multicolumn{",nvar+1,"}{|c|}{{Continued on next page}} \\\\ 
+\\cr 
+\\hline \\multicolumn{",nc,"}{c}{{Continued on next page}} \\\\ 
 \\hline
 \\endfoot
-\\hline \\hline
+
 \\endlastfoot
 "))
+
  #this wraps up the long table
 footer <- paste0("\\end{longtable}   
 \\end{",font.size,"}
@@ -353,8 +369,8 @@ footer <- paste0("\\end{longtable}
 \\begin{",font.size,"} 
 \\begin{tabular}",sep="")
 
-if(!is.null(items)) {header <- c(header,"{l",rep("r",nvar+1),"}\n")} else {
-header <- c(header,"{l",rep("r",nvar),"}\n")}
+if(!is.null(items)) {header <- c(header,"{l",rep("r",nvar+4),"}\n")} else {
+header <- c(header,"{l",rep("r",nvar+4),"}\n")}
 if(apa) header <- c(header,
 "\\multicolumn{",nvar,"}{l}{",heading,"}",
 '\\cr \n \\hline ')
@@ -374,16 +390,16 @@ footer <- paste(footer,"
 
 }  #end of not long
 #now put the data into it
+
  
  x <- round(x,digits=digits)   
  
+# cname <- colnames(x)
+# if (short.names) cname <- 1:nvar
+# names1 <- paste(cname[1:(nvar-1)], " & ")
+# lastname <- paste(cname[nvar],"\\cr \n")
  
- cname <- colnames(x)
- if (short.names) cname <- 1:nvar
- names1 <- paste(cname[1:(nvar-1)], " & ")
- lastname <- paste(cname[nvar],"\\cr \n")
- 
- if(apa)  {allnames <- c("Variable  &  ",names1,lastname," \\hline \n")} else {allnames <- c("  &  ",names1,lastname,"\\cr \n")}
+# if(apa)  {allnames <- c("Variable  &  ",names1,lastname," \\hline \n")} else {allnames <- c("  &  ",names1,lastname,"\\cr \n")}
  fx <- format(x,drop0trailing=FALSE)  #to keep the digits the same
 
  {if(!is.null(px) && (cut == 0)) { temp <- fx[1:nfactors]

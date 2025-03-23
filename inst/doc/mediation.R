@@ -138,18 +138,18 @@ dev.off()
 
 
 ###################################################
-### code chunk number 15: mediation.rnw:598-600
-###################################################
-by(holzinger.swineford,holzinger.swineford$grade,function(x) 
-     lmCor(t07_sentcomp ~ agemo,data=x, std=FALSE, plot=FALSE) )
-
-
-###################################################
-### code chunk number 16: mediation.rnw:610-613
+### code chunk number 15: mediation.rnw:596-599
 ###################################################
 png('hsp.png') 
  lmCor(t07_sentcomp ~ agemo + grade,data=holzinger.swineford) 
 dev.off()
+
+
+###################################################
+### code chunk number 16: mediation.rnw:613-615
+###################################################
+by(holzinger.swineford,holzinger.swineford$grade,function(x) 
+     lmCor(t07_sentcomp ~ agemo,data=x, std=FALSE, plot=FALSE) )
 
 
 ###################################################

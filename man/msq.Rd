@@ -3,7 +3,10 @@
 \alias{msq}
 \docType{data}
 \title{75 mood items from the Motivational State Questionnaire for 3896 participants}
-\description{Emotions may be described either as discrete emotions or in dimensional terms.  The Motivational State Questionnaire (MSQ) was developed to study emotions in laboratory and field settings.  The data can be well described in terms of a two dimensional solution of energy vs tiredness and tension versus calmness.  Additional items include what time of day the data were collected and a few personality questionnaire scores.
+\description{Emotions may be described either as discrete emotions or in dimensional terms.  
+The Motivational State Questionnaire (MSQ) was developed to study emotions in laboratory and field settings.  
+The data can be well described in terms of a two dimensional solution of energy vs tiredness and tension versus calmness.  
+Additional items include what time of day the data were collected and a few personality questionnaire scores.
 }
 \usage{data(msq)}
 \format{
@@ -111,9 +114,16 @@
 \cr
 Not at all		A little		Moderately     	Very much \cr
 
-The original version of the MSQ included 70 items. Intermediate analyses (done with 1840 subjects) demonstrated a concentration of items in some sections of the two dimensional space, and a paucity of items in others. To begin correcting this, 3 items from redundantly measured sections (alone, kindly, scornful) were removed, and 5 new ones (anxious, cheerful, idle, inactive, and tranquil) were added.  Thus, the correlation matrix is missing the correlations between items anxious, cheerful, idle, inactive, and tranquil with alone, kindly, and scornful. 
+The original version of the MSQ included 70 items. Intermediate analyses (done with 1840 subjects)
+ demonstrated a concentration of items in some sections of the two dimensional space, and a paucity of items in others.
+  To begin correcting this, 3 items from redundantly measured sections (alone, kindly, scornful) were removed,
+   and 5 new ones (anxious, cheerful, idle, inactive, and tranquil) were added.  T
+   hus, the correlation matrix is missing the correlations between items anxious, cheerful, idle, inactive, and tranquil with alone, kindly, and scornful. 
 
-Procedure. The data were collected over nine years, as part of a series of studies examining the effects of personality and situational factors on motivational state and subsequent cognitive performance. In each of 38 studies, prior to any manipulation of motivational state, participants signed a consent form and filled out the MSQ. (The procedures of the individual studies are irrelevant to this data set and could not affect the responses to the MSQ, since this instrument was completed before any further instructions or tasks).  Some MSQ post test (after manipulations) is available in \code{\link{affect}}.
+Procedure. The data were collected over nine years, as part of a series of studies examining 
+the effects of personality and situational factors on motivational state and subsequent cognitive performance.
+ In each of 38 studies, prior to any manipulation of motivational state, participants signed a consent form and filled out the MSQ.
+  (The procedures of the individual studies are irrelevant to this data set and could not affect the responses to the MSQ, since this instrument was completed before any further instructions or tasks).  Some MSQ post test (after manipulations) is available in \code{\link{affect}}.
 
 The EA and TA scales are from Thayer, the PA and NA scales are from Watson et al. (1988).
 Scales and items:
@@ -169,7 +179,8 @@ Watson,D., Clark,  L.A.  and Tellegen, A. (1988)  Development and validation of 
 
 \seealso{\code{\link{msqR}} for a larger data set with repeated measures for 3032 participants measured at least once, 2753 measured twice, 446 three times and 181 four times.  \code{\link{affect}} for an example of the use of some of these adjectives in a mood manipulation study.
 
-\code{\link{make.keys}}, \code{\link{scoreItems}} and \code{\link{scoreOverlap}} for instructions on how to score multiple scales with and without item overlap. Also see  \code{\link{fa}} and \code{\link{fa.extension}} for instructions on how to do factor analyses or factor extension.
+\code{\link[psych]{make.keys}}, \code{\link[psych]{scoreItems}} and \code{\link[psych]{scoreOverlap}} for instructions on how to score multiple scales with and without item overlap. Also see  
+\code{\link[psych]{fa}} and \code{\link[psych]{fa.extension}} for instructions on how to do factor analyses or factor extension.
 }
 
 \examples{

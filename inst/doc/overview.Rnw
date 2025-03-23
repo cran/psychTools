@@ -164,7 +164,7 @@ error.bars(myData)
 \item Find the correlations of all of your data.  \pfun{lowerCor} will by default find the pairwise correlations, round them to 2 decimals, and display the lower off diagonal matrix. 
   
 \begin{itemize}
-\item Descriptively (just the values) (section \ref{sect:lowerCor})
+\item Descriptively (just the values))
 \begin{scriptsize}
 \begin{Schunk}
 \begin{Sinput}
@@ -173,7 +173,7 @@ r  <-  lowerCor(myData) #The correlation matrix, rounded to 2 decimals
 \end{Schunk}
 \end{scriptsize}
 
-\item Graphically  (section \ref{sect:corplot}).  Another way is to show a heat map of the correlations with the correlation values included.
+\item Graphicall.   Another way is to show a heat map of the correlations with the correlation values included.
 
 \begin{scriptsize}
 \begin{Schunk}
@@ -184,7 +184,7 @@ corPlot(r)   #examine the many options for this function.
 \end{scriptsize}
 
 
-\item Inferentially (the values, the ns, and the p values) (section \ref{sect:corr.test})  
+\item Inferentially (the values, the ns, and the p values) )  
 \begin{scriptsize}
 \begin{Schunk}
 \begin{Sinput}
@@ -240,7 +240,7 @@ mediate(y1 + y2 ~ x1 + x2* mod1 +(med1), data = myData)
 \subsection{Psychometric functions are summarized in this vignette}
 
 Many additional functions, particularly designed for basic and advanced psychometrics are discussed more fully 
- in this Vignette. A brief review of the functions available is included here.  For basic data entry and descriptive statistics, see the Vignette Intro to Psych \url{https://personality-project.org/r}.  In addition, there are helpful tutorials for \emph{Finding omega}, \emph{How to score scales and find reliability}, and for \emph{Using psych for factor analysis} at \url{https://personality-project.org/r}.
+ in this Vignette. A brief review of the functions available is included here.  For basic data entry and descriptive statistics, see the Vignette Intro to Psych \href{https://personality-project.org/r/psych/intro.pdf}{introduction} (vignette).  In addition, there are helpful tutorials for \href{https://personality-project.org/r/psych/HowTo/omega.pdf}{Finding $omega_h$ and $\omega_t$}, \href{https://personality-project.org/r/psych/HowTo/scoring.pdf}{scale scores and scale statistics} and for \href{https://personality-project.org/r/psych/HowTo/factor.pdf}{factor analysis} at the set of HowTos at  \href{https://personality-project.org/r/psych/HowTo}{Howto}.
 
 \begin{itemize}
 
@@ -250,6 +250,7 @@ Many additional functions, particularly designed for basic and advanced psychome
 \begin{Sinput}
 fa.parallel(myData)
 vss(myData)
+
 \end{Sinput}
 \end{Schunk}
 \end{scriptsize}
@@ -261,6 +262,7 @@ vss(myData)
 fa(myData)
 iclust(myData)
 omega(myData)
+unidim(myData)
 \end{Sinput}
 \end{Schunk}
 \end{scriptsize}
@@ -302,7 +304,7 @@ Psychometric applications emphasize techniques for dimension reduction including
 
  Bifactor and hierarchical factor structures may be estimated by using Schmid Leiman transformations \citep{schmid:57} (\pfun{schmid}) to transform a hierarchical factor structure into a \iemph{bifactor} solution \citep{holzinger:37}.  Higher order models can also be found using \pfun{fa.multi}. 
  
- Scale construction can be done using the Item Cluster Analysis \citep{revelle:iclust} (\pfun{iclust}) function to determine the structure  and to calculate reliability coefficients $\alpha$ \citep{cronbach:51}(\pfun{alpha}, \pfun{scoreItems}, \pfun{score.multiple.choice}), $\beta$ \citep{revelle:iclust,rz:09} (\pfun{iclust}) and McDonald's $\omega_h$ and $\omega_t$ \citep{mcdonald:tt} (\pfun{omega}). Guttman's six estimates of internal consistency reliability (\cite{guttman:45}, as well as additional estimates \citep{rz:09} are in the  \pfun{guttman} function. The six measures of Intraclass correlation coefficients (\pfun{ICC}) discussed by \cite{shrout:79} are also available.
+ Scale construction can be done using the Item Cluster Analysis \citep{revelle:iclust} (\pfun{iclust}) function to determine the structure  and to calculate reliability coefficients $\alpha$ \citep{cronbach:51}(\pfun{alpha}, \pfun{scoreItems}, \pfun{score.multiple.choice}), $\beta$ \citep{revelle:iclust,rz:09} (\pfun{iclust}) and McDonald's $\omega_h$ and $\omega_t$ \citep{mcdonald:tt} (\pfun{omega}). Guttman's six estimates of internal consistency reliability (\cite{guttman:45}, as well as additional estimates \citep{rz:09} are in the  \pfun{guttman} function. The six measures of Intraclass correlation coefficients (\pfun{ICC}) discussed by \cite{shrout:79} are also available.  The \pfun{reliabilty} function combines many of these measures and also reports the \iemph{unidim} statistic which estimates the amount of general factor saturation and unidimensionality of a test \cite{rc:uni}.
  
  For data with a a multilevel structure (e.g., items within subjects across time, or items within subjects across groups), the \pfun{describeBy}, \pfun{statsBy} functions will give basic descriptives by group.  \pfun{StatsBy} also will find within group (or subject) correlations as well as the between group correlation.
  
@@ -605,7 +607,7 @@ Yet another approach to the bifactor structure is do use the \pfun{bifactor} rot
 
 \subsubsection{Item Cluster Analysis: iclust}
 \label{sect:iclust}
- An alternative to factor or components analysis is \iemph{cluster analysis}.  The goal of cluster analysis is the same as factor or components analysis (reduce the complexity of the data and attempt to identify homogeneous subgroupings).  Mainly used for clustering people or objects (e.g., projectile points if an anthropologist, DNA if a biologist, galaxies if an astronomer), clustering may be used for clustering items or tests as well.  Introduced to psychologists by \cite{tryon:39} in the 1930's, the cluster analytic literature exploded in the 1970s and 1980s \citep{blashfield:80,blashfield:88,everitt:74,hartigan:75}.  Much of the research is in taxonmetric applications in biology \citep{sneath:73,sokal:63} and marketing \citep{cooksey:06} where clustering remains very popular.  It is also used for taxonomic work in forming clusters of people in family  \citep{henry:05}   and clinical psychology \citep{martinent:07,mun:08}. Interestingly enough it has has had limited applications to psychometrics.  This is unfortunate, for as has been pointed out by e.g. \citep{tryon:35,loevinger:53}, the theory of factors, while mathematically compelling, offers little that the geneticist or behaviorist or perhaps even non-specialist finds compelling. \cite{cooksey:06} reviews why the \pfun{iclust} algorithm is particularly appropriate for scale construction in marketing. 
+ An alternative to factor or components analysis is \iemph{cluster analysis}.  The goal of cluster analysis is the same as factor or components analysis (reduce the complexity of the data and attempt to identify homogeneous subgroupings).  Mainly used for clustering people or objects (e.g., projectile points if an anthropologist, DNA if a biologist, galaxies if an astronomer), clustering may be used for clustering items or tests as well.  Introduced to psychologists by \cite{tryon:39} in the 1930's, the cluster analytic literature exploded in the 1970s and 1980s \citep{blashfield:80,blashfield:88,everitt:74,hartigan:75}.  Much of the research is in taxonmetric applications in biology \citep{sneath:73,sokal:63} and marketing \citep{cooksey:06} where clustering remains very popular.  It is also used for taxonomic work in forming clusters of people in family  \citep{henry:05}   and clinical psychology \citep{martinent:07,mun:08}. Interestingly enough it has has had limited applications to psychometrics.  This is unfortunate, for as has been pointed out by e.g. \citep{tryon:35,loevinger:53}, the theory of factors, while mathematically compelling, offers little that the geneticist or behaviorist or perhaps even non-specialist finds compelling. \cite{cooksey:06} reviews why the \pfun{iclust} algorithm is particularly appropriate for scale construction in marketing. \cite{reise:24} discusses how the $\beta$ coefficient from \pfun{iclust} is a useful addition to the evaluation of a scale.
  
 
 \emph{Hierarchical cluster analysis} \index{hierarchical cluster analysis} forms clusters that are nested within clusters.  The resulting \iemph{tree diagram} (also known somewhat pretentiously as a \iemph{rooted dendritic structure}) shows the nesting structure.  Although there are many hierarchical clustering algorithms in \R{} (e.g., \fun{agnes},  \fun{hclust}, and \pfun{iclust}), the one most applicable to the problems of scale construction is \pfun{iclust}  \citep{revelle:iclust}.
@@ -657,7 +659,7 @@ r.poly <- polychoric(bfi[1:25],correct=0) #the ... indicate the progress of the 
 @
 \end{tiny}
 \end{center}
-\label{tab:bad}1.7.1\end{table}%
+\end{table}%
 
 
 
@@ -937,9 +939,9 @@ A conventional (but non-optimal) estimate of the internal consistency reliabilit
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
 set.seed(17)
-r9 <- sim.hierarchical(n=500,raw=TRUE)$observed
+r9 <- sim.hierarchical(n=1000,raw=TRUE)$observed
 round(cor(r9),2)
-alpha(r9)
+alpha(r9, discrete=FALSE)
 @
 \end{scriptsize}
 
@@ -948,7 +950,7 @@ Some scales have items that need to be reversed before being scored. Rather than
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
 
-alpha(attitude,keys=c("complaints","critical"))
+alpha(attitude,keys=c("complaints","critical"),discrete=FALSE)
 
 @
 \end{scriptsize}
@@ -958,7 +960,7 @@ Note how the reliability of the 7 item scales with an incorrectly reversed item 
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
 
-alpha(attitude)
+alpha(attitude,discrete=FALSE)
 @
 \end{scriptsize}
 
@@ -1042,13 +1044,13 @@ The \pfun{omegaSem} function will do an exploratory analysis and then take the h
 
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
-omegaSem(r9,n.obs=500,lavaan=TRUE)
+omegaSem(r9,n.obs=1000,lavaan=TRUE)
 @
 \end{scriptsize}
 
 
 \subsubsection{Other estimates of reliability}
-Other estimates of reliability are found by the \pfun{splitHalf} and  \pfun{guttman} functions. These are described in more detail in \cite{rz:09} and in \cite{rc:reliability}. They include the 6 estimates from Guttman, four from TenBerge, and an estimate of the greatest lower bound. 
+Other estimates of reliability are found by the \pfun{splitHalf} and  \pfun{guttman} functions. These are described in more detail in \cite{rz:09}, \cite{rc:reliability}, and in  \cite{rc:pa:19}. They include the 6 estimates from Guttman, four from TenBerge, and an estimate of the greatest lower bound. 
 
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
@@ -1070,7 +1072,7 @@ Make a keys.list by by specifying the items for each scale, preceding items to b
  #the newer way is probably preferred 
      
 keys.list  <- list(agree=c("-A1","A2","A3","A4","A5"),
-      conscientious=c("C1","C2","C2","-C4","-C5"),
+      conscientious=c("C1","C2","C3","-C4","-C5"),
       extraversion=c("-E1","-E2","E3","E4","E5"),
       neuroticism=c("N1","N2","N3","N4","N5"),
       openness = c("O1","-O2","O3","O4","-O5")) 
@@ -1093,7 +1095,7 @@ keys.list  <- list(Agree=c(-1,2:5),Conscientious=c(6:8,-9,-10),
 
 \begin{tiny}In the past (prior to version 1.6.9, the keys.list was then converted a keys matrix using  the helper function \pfun{make.keys}. This is no longer necessary.  Logically, scales are merely the weighted composites of a set of items.  The weights used are -1, 0, and 1.  0 implies do not use that item in the scale, 1 implies a positive weight (add the item to the total score), -1 a negative weight (subtract the item from the total score, i.e., reverse score the item).  Reverse scoring an item is equivalent to subtracting the item from the maximum  + minimum possible value for that item.  The minima and maxima can be estimated from all the items, or can be specified by the user.
 
-There are two different ways that scale scores tend to be reported.  Social psychologists and educational psychologists tend to report the scale score as the \emph{average item score} while many personality psychologists tend to report the \emph{total item score}.  The default option for \pfun{scoreItems} is to report item averages (which thus allows interpretation in the same metric as the items) but totals can be found as well. Personality researchers should be encouraged to report scores based upon item means and  avoid using the total score although some reviewers are adamant about the following the tradition of total scores.  
+There are two different ways that scale scores tend to be reported.  Social psychologists and educational psychologists tend to report the scale score as the \emph{average item score} while many personality psychologists tend to report the \emph{total item score}.  The default option for \pfun{scoreItems} is to report item averages (which thus allows interpretation in the same metric as the items) but totals can be found as well. Personality researchers should be encouraged to report scores based upon item means and  avoid using the total score although some reviewers are adamant about following the tradition of total scores.  
 
 
 The printed output includes coefficients $\alpha$ and G6*, the average correlation of the items within the scale (corrected for item ovelap and scale relliability), as well as the correlations between the scales (below the diagonal, the correlations above the diagonal are corrected for attenuation.  As is the case for most of the \Rpkg{psych} functions, additional information is returned as part of the object.
@@ -1137,12 +1139,43 @@ Consider the same \pfun{bfi} data set, but first find the correlations, and then
 
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
+keys.list  <- list(agree=c("-A1","A2","A3","A4","A5"),
+      conscientious=c("C1","C2","C3","-C4","-C5"),
+      extraversion=c("-E1","-E2","E3","E4","E5"),
+      neuroticism=c("N1","N2","N3","N4","N5"),
+      openness = c("O1","-O2","O3","O4","-O5")) 
 r.bfi <- cor(bfi,use="pairwise")
 scales <- scoreItems(keys.list,r.bfi)
 summary(scales)
 @
 \end{scriptsize}
 To find the correlations of the items with each of the scales (the ``structure" matrix) or the correlations of the items controlling for the other scales (the ``pattern" matrix), use the \pfun{cluster.loadings} function.  To do both at once (e.g., the correlations of the scales as well as the item by scale correlations), it is also possible to just use \pfun{scoreItems}.
+
+\subsection{Finding multiple measures scale homogeneity in one function }
+
+Following the introduction of the \emph{u} estimate of undimensionality \cite{rc:uni} I added the \pfun{unidim} and the \pfun{reliability} functions.  These allow the use of a keys lists as well as the data to find multiple estimates of reliability and homogeneity at one time.
+
+\begin{scriptsize}
+<<print=FALSE,echo=TRUE>>=
+uni <- reliability(keys.list, r.bfi,plot=FALSE)
+uni
+@
+\end{scriptsize}
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{scriptsize}
+<<uni>>=
+png('uni.png')
+plot(uni)
+dev.off()
+@
+\end{scriptsize}
+\includegraphics{uni}
+\caption{Displaying the range of split half reliabilities and four estimates of scale homogeneity (\emph{u}, $\omega_h$, $\omega_t$ and $\alpha$). }
+\label{uni:scores}
+\end{center}
+\end{figure}
 
 \subsection{Scoring Multiple Choice Items}
 
@@ -1354,7 +1387,8 @@ Consider 1000 randomly generated subjects with scores on 9 true/false items diff
 
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
-v9 <- sim.irt(9,1000,-2.,2.,mod="normal") #dichotomous items
+set.seed(42)
+v9 <- sim.irt(9,n=1000,-1.5,1.5,mod="normal") #dichotomous items
 items <- v9$items
 test <- irt.fa(items)
 total <- rowSums(items)
@@ -1447,7 +1481,7 @@ The \pfun{statsBy.boot} function will randomize the grouping variable ntrials ti
 
 Consider the case of the relationship between various tests of ability when the data are grouped by level of education (statsBy(sat.act)) or when affect data are analyzed within and between an affect manipulation (statsBy(affect) ). 
 
-\
+
 
 \subsection{Factor analysis by groups}
 Confirmatory factor analysis comparing the structures in multiple groups can be done in the \Rpkg{lavaan} package.  However, for exploratory analyses of the structure within each of multiple groups, the \pfun{faBy} function may be used in combination with the \pfun{statsBy} function.  First run pfun{statsBy} with the correlation option set to TRUE, and then run \pfun{faBy} on the resulting output.
@@ -1904,23 +1938,41 @@ Pedhazur, E. (1997).
   prediction}.
 \newblock Harcourt Brace College Publishers.
 
+\bibitem[\protect\astroncite{Reiss and Haviland}{2024}]{reise:24}
+ Reise, S.P  and Haviland, M.G.
+\newblock Understanding Alpha and Beta and Sources of Common Variance: Theoretical Underpinnings and a Practical Example
+\newblock {\em Journal of Personality Assessment}, 1-16.
+
 \bibitem[\protect\astroncite{Revelle}{1979}]{revelle:iclust}
 Revelle, W. (1979).
 \newblock Hierarchical cluster-analysis and the internal structure of tests.
 \newblock {\em Multivariate Behavioral Research}, 14(1):57--74.
 
-\bibitem[\protect\astroncite{Revelle}{2023}]{psych}
-Revelle, W. (2023).
+\bibitem[\protect\astroncite{Revelle}{2025}]{psych}
+Revelle, W. (2025).
 \newblock {\em psych: Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
   https://cran.r-project.org/web/packages=psych.
-\newblock R package version 2.3.5.
+\newblock R package version 2.5.3.
 
 \bibitem[\protect\astroncite{Revelle}{prep}]{revelle:intro}
 Revelle, W. ({in prep}).
 \newblock {\em An introduction to psychometric theory with applications in
   {R}}.
 \newblock Springer.
+
+\bibitem[\protect\astroncite{Revelle and Condon}{2019}]{rc:pa:19}
+Revelle, W. and Condon, D.~M. (2019).
+\newblock Reliability from $\alpha$ to $\omega$: A tutorial.
+\newblock {\em Psychological Assessment} 31 (12) p 1395-1411.
+
+
+
+\bibitem[Revelle and Condon, 2025]{rc:uni}
+Revelle, W. and Condon, D.~M. (2025).
+\newblock unidim: An Index of Scale Homogeneity and Unidimensionality 
+\newblock  {\em Psychological Methods}  Advance online publication. https://doi.org/10.1037/met0000729 (open access)
+
 
 \bibitem[\protect\astroncite{Revelle et~al.}{2011}]{rcw:methods}
 Revelle, W., Condon, D., and Wilt, J. (2011).

@@ -8,7 +8,7 @@
 \description{A typical problem in data analysis is to combine two data sets into one. vJoin will combine two matrices or data.frames into one data.frame.  Unique column names from set 1 and set 2 are combined as are unique rows. Column names can differ, as can row names. Will match on rownames or a unique key vector. Basically an extension of rbind and cbind without the requirement of matching column and row names. combineMatrices solves a similar problem for correlation matrices.
 }
 \usage{
-vJoin(x, y, rnames = TRUE, cnames=TRUE, key.name= NULL)
+vJoin(x, y, rnames = TRUE, cnames=TRUE, key.name= NULL,by=NULL)
 combineMatrices(x,y, r=NULL)
 }
 
@@ -18,6 +18,7 @@ combineMatrices(x,y, r=NULL)
   \item{rnames}{If TRUE, the default, match on row names, extend to new names.  If FALSE then add the y data following the x data.}
   \item{cnames}{If TRUE colnames are NULL then create unique colnames for x and y}
   \item{key.name}{if NULL, match on rownames, otherwise, match on the values of the key.name column -- must be unique}
+  \item{by}{a grouping variable to be used in the merger}
   \item{r}{shoule we add the diagonal of y?}
   }
 \details{
@@ -46,6 +47,8 @@ vJoin(x,y)
 vJoin(x,y,cnames=FALSE)
 vJoin(x,y, rnames= FALSE, cnames=FALSE)
 
+temp <- vJoin(msqR,epiR,by="study")  #merge by study
+table(temp$study,temp$time)
 
 R <- cor(sat.act,use="pairwise")
 r1 <- R[1:4,1:4]

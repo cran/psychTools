@@ -24,9 +24,12 @@
 }
 
 \details{
-The Burt data set is interesting for several reasons.  It seems to be an early example of the organizaton of emotions into an affective circumplex, a subset of it has been used for factor analysis examples (see \code{\link{Harman.Burt}}, and it is an example of how typos affect data.  The original data matrix has one negative eigenvalue. With the replacement of the correlation between Sorrow and Tenderness from .87 to .81, the matrix is positive definite.
+The Burt data set is interesting for several reasons.  It seems to be an early example of the organizaton of emotions into an affective circumplex, 
+a subset of it has been used for factor analysis examples (see \code{\link[psych]{Harman.Burt}}, and it is an example of how typos affect data.  
+The original data matrix has one negative eigenvalue. With the replacement of the correlation between Sorrow and Tenderness from .87 to .81,
+ the matrix is positive definite.
 
-Alternatively, using \code{\link{cor.smooth}}, the matrix can be made positive definite as well, although cor.smooth makes more (but smaller) changes.
+Alternatively, using \code{\link[psych]{cor.smooth}}, the matrix can be made positive definite as well, although cor.smooth makes more (but smaller) changes.
 }
 \source{
 (retrieved from the web at https://www.biodiversitylibrary.org/item/95822#790)
@@ -42,7 +45,7 @@ London, John Murray, 1916, p. 694-696
 }
 
 
-\seealso{ \code{\link{Harman.Burt}} in the \code{\link{Harman}} dataset and \code{\link{cor.smooth}}
+\seealso{ \code{\link[psych]{Harman.Burt}} in the \code{\link[psych]{Harman}} dataset and \code{\link[psych]{cor.smooth}}
 }
 
 \examples{

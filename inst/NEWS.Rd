@@ -1,29 +1,62 @@
 \name{NEWS}
 \title{News for Package 'psychTools'}
 
-\section{Changes in psychTools version 2.4.3 (2024-03-17)}{ 
+  
+ \section{Changes in psychTools version 2.5.3 (2025-03-21 )}{
   \subsection{Introduction}{
     \itemize{
-      \item Version 2.4.3 is the development release of the psychTools package. It is available as a source file for Macs or PCs in the repository at \url{https://personality-project.org/r/}. The released version on CRAN is 2.4.3  The second digit reflects the year (i.e., 2024), the third set the month (i.e., 2.3.12 was released in December of 2023, the last two digits of development versions reflect  either an minor change or the day of any modifications, e.g. 1.8.3.3 was the third attempt to get 1.8.3 released.  1.7.8 was  released in August, 2017.
+      \item The psychTools package includes functions and data sets to accompany the psych package which does classic and modern psychometrics and to analyze personality  and experimental psychological data sets. The psych package has been developed as a supplement to courses in research methods in psychology, personality research, and graduate level psychometric theory. The functions are a supplement to the text (in progress): An introduction to psychometric theory with applications in R. 
+      \item A number of vignettes describing how to use psych are included in psychTools.
+      \item Miscellaneous helper functions for reading, writing and merging data files and are included as well.
+      
+      \item Version 2.5.3 is the current version of the psychTools package. It is available as a source file for Macs or PCs in the repository at \url{https://personality-project.org/r/}. The released version on CRAN is 2.5.3 The second digit reflects the year (i.e., 2024), the third set the month (i.e., 2.3.12 was released in December of 2023, the last two digits of development versions reflect  either an minor change or the day of any modifications, e.g. 1.8.3.3 was the third attempt to get 1.8.3 released.  1.7.8 was  released in August, 2017.
     \item To install the development version, use the command: install.packages("psychTools", repos="https://personality-project.org/r/", type="source"). Remember to restart R and library(psych) and library(psychTools) to make the new version active.
     \item To see the date of the new version, use packageDate("psychTools").  (I sometimes update the packages on my server without changing the version number.)
 
        
-      \item The psychTools package includes functions and data sets to accompany the psych package which does classic and modern psychometrics and to analyze personality  and experimental psychological data sets. The psych package has been developed as a supplement to courses in research methods in psychology, personality research, and graduate level psychometric theory. The functions are a supplement to the text (in progress): An introduction to psychometric theory with applications in R. 
+    
       \item These data sets are meant to be useful adjuncts to teaching and research.
       \item Additional functions are added sporadically.
       \item This NEWS file reports changes that have been made as the package has been developed.
       \item To report bugs, send email to \url{mailto:revelle@northwestern.edu} using bug.report.  Remember to include the systemInfo() information and a Minimal Working Example. 
    }
     }
+       \subsection{Additions}{
+         \itemize{
+         \item Added the vignette for factor analysis, improved the Omega vignette
+         \item Added capabilities to vJoin to merge by a grouping variable.
+ 
+  }
+ }
+ }
+
+ \section{Changes in psychTools version 2.4.12 (2024-12-20 )}{
+       \subsection{Additions}{
+         \itemize{
+         \item Added the hare function to do Hare or Ranked Choice Voting
+ 
+  }
+ }
+ }
+
+\section{Changes in psychTools version 2.4.6 (2024-06-07)}{ 
+ 
  \subsection{Additions}{
   \itemize{
-      \item Added rd2html to allow for conversion of Rd files to HTML.  This allows for single files or complete directories (e.g. the help files )
+      \item Added rd2html to allow for conversion of Rd files to HTML.  This allows for single files (specify the file) or complete directories (e.g. the help files) by choosing a directory.
       \item Various improvements to vignettes to make them clearer and updated the links
     \item added 3 functions to convert to rtf format for those who like WORD.  df2rtf, cor2rtf, fa2rtf.
+    \item Modified fa2latex to properly handle long tables and some other features requested by Alex Weiss.
     }
     }
-  }  
+  
+  
+  \subsection{Bugs fixed}{
+  \itemize{ 
+     \item Various patches to fa2latex to fix problems reported by Alexander Weiss.
+			 }
+ 			} 
+ } 
  
  \section{Changes in psychTools version 2.3.12 (2023-12-22 )}{
        \subsection{Additions}{

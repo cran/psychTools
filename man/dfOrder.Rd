@@ -31,7 +31,7 @@ The original data frame is now in sorted order. If the input is a correlation ma
 
 \seealso{ Other useful file manipulation functions include \code{\link{read.file}} to read in data from a file or \code{\link{read.clipboard}} from the clipboard,  \code{\link{fileScan}}, \code{\link{filesList}}, \code{\link{filesInfo}},  and \code{\link{fileCreate}}
 
-\code{\link{dfOrder}} code is used in the  \code{\link{test.irt}} function to combine ltm and \code{\link{sim.irt}} output.
+\code{\link{dfOrder}} code is used in the  \code{\link[psych]{test.irt}} function to combine ltm and \code{\link[psych]{sim.irt}} output.
 
 }
 \examples{

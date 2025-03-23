@@ -18,7 +18,7 @@ The Schutz correlation matrix example from Shapiro and ten Berge}
 \details{
 These are 9 cognitive variables of importance mainly because they are used as an example by  Shapiro and ten Berge for their paper on Minimum Rank Factor Analysis. 
 
-The solution from the \code{\link{fa}} function with the fm='minrank'  option is very close (but not exactly equal) to their solution. 
+The solution from the \code{\link[psych]{fa}} function with the fm='minrank'  option is very close (but not exactly equal) to their solution. 
 
 This example is used to show problems with different methods of factoring. Of the various factoring methods, fm = "minres", "uls", or "mle" produce a Heywood case.  Minrank, alpha, and pa do not. 
 

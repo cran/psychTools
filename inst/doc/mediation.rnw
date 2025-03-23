@@ -593,11 +593,10 @@ text(190,2,"grade = 7")
 dev.off()
 @
 
-To show just the coefficients of this model, do the regressions without the plot, turn off the plot option:
-
-<<lm echo=FALSE, print=TRUE>>==
-by(holzinger.swineford,holzinger.swineford$grade,function(x) 
-     lmCor(t07_sentcomp ~ agemo,data=x, std=FALSE, plot=FALSE) )
+<<hsp  echo=FALSE, print=FALSE>>==
+png('hsp.png') 
+ lmCor(t07_sentcomp ~ agemo + grade,data=holzinger.swineford) 
+dev.off()
 @
 
 \begin{figure}[htbp]
@@ -607,19 +606,25 @@ by(holzinger.swineford,holzinger.swineford$grade,function(x)
 \label{fig:hs}
 \end{center}
 \end{figure}
-<<hsp  echo=FALSE, print=FALSE>>==
-png('hsp.png') 
- lmCor(t07_sentcomp ~ agemo + grade,data=holzinger.swineford) 
-dev.off()
+
+
+To show just the coefficients of this model, do the regressions without the plot, turn off the plot option:
+
+<<lm echo=FALSE, print=TRUE>>==
+by(holzinger.swineford,holzinger.swineford$grade,function(x) 
+     lmCor(t07_sentcomp ~ agemo,data=x, std=FALSE, plot=FALSE) )
 @
 
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics{hsp.png}
-\caption{The regression of age and grade on paragraph comprehension.   The data are from the \pfun{holzinger:swineford} data set.  Although age and grade are highly correlated (.53) grade has a positive effect age a negative effect.  Here we show the standardized regressions.  In the subsequent figure we show the raw (understanderized) slopes. }
+\caption{The regression of age and grade on paragraph comprehension.   The data are from the \pfun{holzinger:swineford} data set.  Although age and grade are highly correlated (.53) grade has a positive effect age a negative effect.  Here we show the standardized regressions.  In the previous figure we show the raw (understanderized) slopes. }
 \label{fig:hsp}
 \end{center}
 \end{figure}
+
+
+
 
 
 
@@ -1840,8 +1845,8 @@ Preacher, K.~J., Rucker, D.~D., and Hayes, A.~F. (2007).
   prescriptions.
 \newblock {\em Multivariate behavioral research}, 42(1):185--227.
 
-\bibitem[\protect\astroncite{{R Core Team}}{2023}]{R}
-{R Core Team} (2023).
+\bibitem[\protect\astroncite{{R Core Team}}{2025}]{R}
+{R Core Team} (2025).
 \newblock {\em R: A Language and Environment for Statistical Computing}.
 \newblock R Foundation for Statistical Computing, Vienna, Austria.
 
@@ -1954,14 +1959,14 @@ Preacher, K.~J., Rucker, D.~D., and Hayes, A.~F. (2007).
 \newblock {\em processR: Implementation of the 'PROCESS' Macro}.
 \newblock https://CRAN.R-project.org/package=processR
 
-\bibitem[\protect\astroncite{Revelle}{2023}]{psych}
-Revelle, W. (2023).
+\bibitem[\protect\astroncite{Revelle}{2025}]{psych}
+Revelle, W. (2025).
 \newblock {\em
   \href{https://cran.r-project.org/web/packages/psych/index.html}{psych}:
   Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
   https://CRAN.r-project.org/package=psych.
-\newblock R package version 2.3.5
+\newblock R package version 2.4.3
 
 \bibitem[\protect\astroncite{Revelle}{prep}]{revelle:intro}
 Revelle, W. ({in prep}).

@@ -181,11 +181,15 @@ Watson,D., Clark,  L.A.  and Tellegen, A. (1988)  Development and validation of 
 
 }	
 
-\seealso{\code{\link{msq}} for 3896 participants with scores on five scales of the EPI.  \code{\link{affect}} for an example of the use of some of these adjectives in a mood manipulation study.
+\seealso{\code{\link{msq}} for 3896 participants with scores on five scales of the EPI. 
+ \code{\link{affect}} for an example of the use of some of these adjectives in a mood manipulation study.
 
-\code{\link{make.keys}}, \code{\link{scoreItems}} and \code{\link{scoreOverlap}} for instructions on how to score multiple scales with and without item overlap. Also see  \code{\link{fa}} and \code{\link{fa.extension}} for instructions on how to do factor analyses or factor extension.
+\code{\link[psych]{make.keys}}, \code{\link[psych]{scoreItems}} and \code{\link[psych]{scoreOverlap}} for instructions 
+on how to score multiple scales with and without item overlap. Also see  \code{\link[psych]{fa}} and \code{\link[psych]{fa.extension}} for instructions on how to do factor analyses or factor extension.
 
-Given the temporal ordering of the \code{\link{sai}} data and the \code{\link{msqR}} data, these data are useful for demonstrations of \code{\link{testRetest}} reliability.  See the examples in \code{\link{testRetest}}  for how to combine the  \code{\link{sai}} \code{\link{tai}}  and \code{\link{msqR}} datasets.
+Given the temporal ordering of the \code{\link{sai}} data and the \code{\link{msqR}} data, these data are useful for demonstrations of 
+ \code{\link[psych]{testRetest}} reliability.  See the examples in \code{\link[psych]{testRetest}}  for how to combine the 
+  \code{\link{sai}} \code{\link{tai}}  and \code{\link{msqR}} datasets.
 }
 \examples{
 data(msqR)

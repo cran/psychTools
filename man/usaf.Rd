@@ -4,7 +4,7 @@
 \docType{data}
 \title{17 anthropometric measures from the USAF showing a general factor}
 
-\description{The correlation matrix of 17 anthropometric measures from the United States Air Force survey of 2420 airmen.  The data are taken from the Anthropometry package and included here as a demonstration of a hierarchical factor structure suitable for analysis by the \code{\link{omega}} or \code{\link{omegaSem}}.
+\description{The correlation matrix of 17 anthropometric measures from the United States Air Force survey of 2420 airmen.  The data are taken from the Anthropometry package and included here as a demonstration of a hierarchical factor structure suitable for analysis by the \code{\link[psych]{omega}} or \code{\link[psych]{omegaSem}}.
 }
 \usage{data("USAF")}
 \format{

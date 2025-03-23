@@ -59,7 +59,7 @@ data(Damian)
 Spengler.stat #show the basic descriptives of the original data set
 psych::lowerMat(Spengler[psych::cs(IQ,Parental,Ed.11,OccPres.50),
                         psych::cs(IQ,Parental,Ed.11,OccPres.50)])
-psych::setCor(OccPres.50 ~ IQ + Parental + (Ed.11),data=Spengler)
+psych::lmCor(OccPres.50 ~ IQ + Parental + (Ed.11),data=Spengler)
 #we reduce the number of subjects for faster replication in this example
 mod <- psych::mediate(OccPres.50 ~ IQ + Parental + (Ed.11),data=Spengler,
        n.iter=50,n.obs=1000) #for speed

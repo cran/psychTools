@@ -74,7 +74,7 @@ fa2rtf(f,file=NULL, use = "pairwise", method="pearson", adjust="holm", digits=2,
   \item{heading}{The label appearing at the top of the table}
   \item{caption}{The table caption}
   \item{lower}{in cor2latex, just show the lower triangular matrix}
-  \item{f}{The object returned from a factor analysis using \code{\link{fa}} or \code{\link{irt.fa}}. }
+  \item{f}{The object returned from a factor analysis using \code{\link[psych]{fa}} or \code{\link[psych]{irt.fa}}. }
   \item{label}{The label for the table}
   \item{big.mark}{Comma separate numbers large numbers (big.mark=",")}
   \item{drop.na}{Do not print NA values}
@@ -91,7 +91,7 @@ fa2rtf(f,file=NULL, use = "pairwise", method="pearson", adjust="holm", digits=2,
   \item{silent}{If TRUE, do not print any output, just return silently -- useful if using Sweave}
   \item{file}{If specified, write the output to this file}
   \item{append}{If file is specified, then should we append (append=TRUE) or just write to the file}
-  \item{long}{if TRUE, then do long tables.  (requires the longtables package in latex)}
+  \item{long}{if TRUE, then do long tables.  (requires the longtable package in latex)}
   \item{old}{When appending output with df2rtf, old is the output from the prior run.}
   \item{width}{page width in inches for df2rtf }
   }

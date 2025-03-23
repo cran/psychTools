@@ -1,13 +1,13 @@
 ### R code from vignette source 'intro.Rnw'
 
 ###################################################
-### code chunk number 1: intro.Rnw:513-514
+### code chunk number 1: intro.Rnw:506-507
 ###################################################
     options(width=100)
 
 
 ###################################################
-### code chunk number 2: intro.Rnw:518-522
+### code chunk number 2: intro.Rnw:511-515
 ###################################################
 library(psych)   #need to make psych active the first time you call it
 library(psychTools)  #additional tools and data are here
@@ -16,14 +16,14 @@ describe(sat.act)  #basic descriptive statistics
 
 
 ###################################################
-### code chunk number 3: intro.Rnw:529-531
+### code chunk number 3: intro.Rnw:522-524
 ###################################################
  #basic descriptive statistics by a grouping variable.
 describeBy(sat.act ~ gender,skew=FALSE,ranges=FALSE)
 
 
 ###################################################
-### code chunk number 4: intro.Rnw:539-542
+### code chunk number 4: intro.Rnw:532-535
 ###################################################
 sa.mat <-  describeBy(sat.act ~ gender + education,
  skew=FALSE,ranges=FALSE,mat=TRUE)
@@ -39,7 +39,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 6: intro.Rnw:575-579
+### code chunk number 6: intro.Rnw:568-572
 ###################################################
 x <- matrix(1:120,ncol=10,byrow=TRUE)
 colnames(x) <- paste('V',1:10,sep='')
@@ -48,7 +48,7 @@ new.x
 
 
 ###################################################
-### code chunk number 7: intro.Rnw:596-608
+### code chunk number 7: intro.Rnw:589-601
 ###################################################
 x <- matrix(1:40,ncol=10,byrow=TRUE)
 y <- matrix(1:20,ncol=4)
@@ -113,21 +113,31 @@ dev.off()
 
 
 ###################################################
-### code chunk number 12: intro.Rnw:732-734
+### code chunk number 12: rain
+###################################################
+png('rain.png')
+data(sat.act)
+violinBy(SATV+SATQ ~ gender, data=sat.act,grp.name=cs(Verbal.M,Verbal.F, Quan.M,Quant.F), 
+     main="Rain clouds by gender for SAT V and Q",rain=TRUE,vertical=FALSE)
+dev.off()
+
+
+###################################################
+### code chunk number 13: intro.Rnw:746-748
 ###################################################
 data(epi.bfi)
 error.bars.by(epi.bfi[,6:10],epi.bfi$epilie<4)
 
 
 ###################################################
-### code chunk number 13: intro.Rnw:747-749
+### code chunk number 14: intro.Rnw:761-763
 ###################################################
 error.bars.by(sat.act[5:6],sat.act$gender,bars=TRUE,
         labels=c("Male","Female"),ylab="SAT score",xlab="")
 
 
 ###################################################
-### code chunk number 14: intro.Rnw:763-767
+### code chunk number 15: intro.Rnw:777-781
 ###################################################
 T <- with(sat.act,table(gender,education))
 rownames(T) <- c("M","F")
@@ -136,7 +146,7 @@ main="Proportion of sample by education level")
 
 
 ###################################################
-### code chunk number 15: intro.Rnw:786-796
+### code chunk number 16: intro.Rnw:800-810
 ###################################################
 op <- par(mfrow=c(1,2))
   data(affect)
@@ -151,7 +161,7 @@ op <- par(mfrow=c(1,1))
 
 
 ###################################################
-### code chunk number 16: bibars
+### code chunk number 17: bibars
 ###################################################
 data(bfi) 
 png( 'bibars.png' )
@@ -160,7 +170,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 17: histo
+### code chunk number 18: histo
 ###################################################
 png('histo.png')
 densityBy(bfi,"age",grp="gender")
@@ -168,7 +178,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 18: scatterhist
+### code chunk number 19: scatterhist
 ###################################################
 data(GERAS)
 
@@ -181,13 +191,13 @@ dev.off()
 
 
 ###################################################
-### code chunk number 19: intro.Rnw:873-874
+### code chunk number 20: intro.Rnw:887-888
 ###################################################
 lowerCor(sat.act)
 
 
 ###################################################
-### code chunk number 20: intro.Rnw:881-887
+### code chunk number 21: intro.Rnw:895-901
 ###################################################
 female <- subset(sat.act,sat.act$gender==2)
  male <- subset(sat.act,sat.act$gender==1)
@@ -198,14 +208,14 @@ round(both,2)
 
 
 ###################################################
-### code chunk number 21: intro.Rnw:893-895
+### code chunk number 22: intro.Rnw:907-909
 ###################################################
 diffs <-  lowerUpper(lower,upper,diff=TRUE)
 round(diffs,2)
 
 
 ###################################################
-### code chunk number 22: corplot.png
+### code chunk number 23: corplot.png
 ###################################################
 png('corplot.png')
 corPlot(Thurstone,numbers=TRUE,upper=FALSE,diag=FALSE,cex=.7,
@@ -214,7 +224,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 23: circplot.png
+### code chunk number 24: circplot.png
 ###################################################
 png('circplot.png')
 circ <- sim.circ(24)
@@ -224,7 +234,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 24: spider.png
+### code chunk number 25: spider.png
 ###################################################
 png('spider.png')
 op<- par(mfrow=c(2,2))
@@ -234,49 +244,49 @@ dev.off()
 
 
 ###################################################
-### code chunk number 25: intro.Rnw:963-964
+### code chunk number 26: intro.Rnw:977-978
 ###################################################
 corTest(sat.act)
 
 
 ###################################################
-### code chunk number 26: intro.Rnw:975-976
+### code chunk number 27: intro.Rnw:989-990
 ###################################################
 r.test(50,.3)
 
 
 ###################################################
-### code chunk number 27: intro.Rnw:982-983
+### code chunk number 28: intro.Rnw:996-997
 ###################################################
 r.test(30,.4,.6)
 
 
 ###################################################
-### code chunk number 28: intro.Rnw:990-991
+### code chunk number 29: intro.Rnw:1004-1005
 ###################################################
 r.test(103,.4,.5,.1)
 
 
 ###################################################
-### code chunk number 29: intro.Rnw:997-998
+### code chunk number 30: intro.Rnw:1011-1012
 ###################################################
 r.test(103,.5,.6,.7,.5,.5,.8)  #steiger Case B 
 
 
 ###################################################
-### code chunk number 30: intro.Rnw:1006-1007
+### code chunk number 31: intro.Rnw:1020-1021
 ###################################################
 cortest(sat.act)
 
 
 ###################################################
-### code chunk number 31: intro.Rnw:1021-1021
+### code chunk number 32: intro.Rnw:1035-1035
 ###################################################
 
 
 
 ###################################################
-### code chunk number 32: tetrar.png
+### code chunk number 33: tetrar.png
 ###################################################
 png('tetrar.png')
 draw.tetra()
@@ -284,20 +294,20 @@ dev.off()
 
 
 ###################################################
-### code chunk number 33: intro.Rnw:1097-1098
+### code chunk number 34: intro.Rnw:1111-1112
 ###################################################
 lmCor(y = 5:9,x=1:4,data=Thurstone)
 
 
 ###################################################
-### code chunk number 34: intro.Rnw:1105-1107
+### code chunk number 35: intro.Rnw:1119-1121
 ###################################################
 sc <- lmCor(y = 5:9,x=3:4,data=Thurstone,z=1:2)
 round(sc$residual,2)
 
 
 ###################################################
-### code chunk number 35: intro.Rnw:1120-1134
+### code chunk number 36: intro.Rnw:1134-1148
 ###################################################
 #data from Preacher and Hayes (2004)
 sobel <- structure(list(SATIS = c(-0.59, 1.3, 0.02, 0.01, 0.79, -0.35, 
@@ -316,13 +326,13 @@ sobel <- structure(list(SATIS = c(-0.59, 1.3, 0.02, 0.01, 0.79, -0.35,
 
 
 ###################################################
-### code chunk number 36: intro.Rnw:1136-1137
+### code chunk number 37: intro.Rnw:1150-1151
 ###################################################
 preacher <- mediate(SATIS ~ THERAPY + (ATTRIB),data=sobel)  #The example in Preacher and Hayes
 
 
 ###################################################
-### code chunk number 37: mediate.png
+### code chunk number 38: mediate.png
 ###################################################
 png('mediate.png')
 mediate.diagram(preacher)
@@ -330,13 +340,13 @@ dev.off()
 
 
 ###################################################
-### code chunk number 38: intro.Rnw:1160-1161
+### code chunk number 39: intro.Rnw:1174-1175
 ###################################################
 preacher.lm <- lmCor(SATIS ~ THERAPY + ATTRIB,  data=sobel)  #The example in Preacher and Hayes
 
 
 ###################################################
-### code chunk number 39: preacherlm.png
+### code chunk number 40: preacherlm.png
 ###################################################
 png('preacherlm.png')
 diagram(preacher.lm)
@@ -344,7 +354,7 @@ dev.off()
 
 
 ###################################################
-### code chunk number 40: garcia.png
+### code chunk number 41: garcia.png
 ###################################################
 png('garcia.png')
 model <- mediate(respappr ~ prot2 * sexism +(sexism),data=Garcia,n.iter=50
@@ -354,7 +364,7 @@ model <- mediate(respappr ~ prot2 * sexism +(sexism),data=Garcia,n.iter=50
 
 
 ###################################################
-### code chunk number 41: intro.Rnw:1234-1245
+### code chunk number 42: intro.Rnw:1248-1259
 ###################################################
 
 dancer  <- structure(list(TS = c(1, 7, 4.6, 1, 7, 7, 7, 7), TC = c(1, 1, 
@@ -370,7 +380,7 @@ cancorDiagram(model) #and the associated canonical figure
 
 
 ###################################################
-### code chunk number 42: dancer
+### code chunk number 43: dancer
 ###################################################
 png('dancerlm.png')
 model <- lmCor(TC + TS ~ BC + BS, data = dancer)
@@ -378,7 +388,7 @@ model <- lmCor(TC + TS ~ BC + BS, data = dancer)
 
 
 ###################################################
-### code chunk number 43: dancer
+### code chunk number 44: dancer
 ###################################################
 png('dancer.png')
 cancorDiagram(model)
@@ -386,7 +396,7 @@ cancorDiagram(model)
 
 
 ###################################################
-### code chunk number 44: intro.Rnw:1294-1298
+### code chunk number 45: intro.Rnw:1308-1312
 ###################################################
 
 C <- cov(sat.act,use="pairwise")
@@ -395,14 +405,14 @@ summary(model1)
 
 
 ###################################################
-### code chunk number 45: intro.Rnw:1301-1303
+### code chunk number 46: intro.Rnw:1315-1317
 ###################################################
 #compare with lmCor
 lmCor(c(4:6),c(1:3),C, n.obs=700)
 
 
 ###################################################
-### code chunk number 46: intro.Rnw:1424-1425
+### code chunk number 47: intro.Rnw:1438-1439
 ###################################################
 sessionInfo()
 

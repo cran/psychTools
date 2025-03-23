@@ -11,9 +11,20 @@
 \alias{write.file.csv}
 \alias{read.https}
 \title{Shortcuts for reading from the clipboard or a file}
-\description{Input from a variety of sources may be read. Matrices or data.frames may be read from files with suffixes of .txt, .text, .TXT, .dat, .DATA,.data, .csv, .rds, rda, .xpt, XPT, or  .sav   (i.e., data from SPSS sav files may be  read as can files saved by SAS using the .xpt option). Data exported by JMP or EXCEL in the csv format are also able to be read. Fixed Width Files saved in .txt mode may be read if the  widths parameter is specified. Files saved with writeRDS have suffixes of  .rds or  Rds,  and are read using readRDS.  Files associated with objects with suffixes .rda and .Rda are  loaded (following a security prompt). The default values for read.spss are adjusted for more standard input from SPSS files.  
-Input from the clipboard is easy but a bit obscure, particularly for Mac users. \code{\link{read.clipboard}} and its variations are just an easier way to do so.  Data may be copied to the clipboard from Excel spreadsheets, csv files, or fixed width formatted files and then into a data.frame. Data may also be read from lower  (or upper) triangular matrices and filled out to square matrices.  Writing text files may be done using \code{\link{write.file}} which
- will prompt for a file name (if not given) and then write or save to that file depending upon the suffix (text, txt, or csv will call write.table, R, or r will dput, rda, Rda will save,  Rds,rds will saveRDS).
+\description{Input from a variety of sources may be read. Matrices or data.frames may be read from files with suffixes of .txt, .text, .TXT, .dat, .DATA,.data, .csv, .rds, rda, .xpt, XPT, or  .sav  
+ (i.e., data from SPSS sav files may be  read as can files saved by SAS using the .xpt option).
+  Data exported by JMP or EXCEL in the csv format are also able to be read.
+   Fixed Width Files saved in .txt mode may be read if the  widths parameter is specified. 
+   Files saved with writeRDS have suffixes of  .rds or  Rds,  and are read using readRDS. 
+    Files associated with objects with suffixes .rda and .Rda are  loaded (following a security prompt).
+     The default values for read.spss are adjusted for more standard input from SPSS files.  
+Input from the clipboard is easy but a bit obscure, particularly for Mac users.
+ \code{\link{read.clipboard}} and its variations are just an easier way to do so.  
+ Data may be copied to the clipboard from Excel spreadsheets, csv files, or fixed width formatted files and then into a data.frame.
+  Data may also be read from lower  (or upper) triangular matrices and filled out to square matrices.  
+  Writing text files may be done using \code{\link{write.file}} which
+ will prompt for a file name (if not given) and then write or save to that file depending upon the
+  suffix (text, txt, or csv will call write.table, R, or r will dput, rda, Rda will save,  Rds,rds will saveRDS).
 }
 \usage{
 read.file(file=NULL,header=TRUE,use.value.labels=FALSE,to.data.frame=TRUE,sep=",",
@@ -60,9 +71,13 @@ write.file.csv(x,file=NULL,row.names=FALSE,f=NULL,...)
  \item{filetype}{If specified the reading will use this term rather than the suffix.}
 
 }
-\details{A typical session of R might involve data stored in text files, generated online, etc. Although it is easy to just read from a file (particularly if using \code{\link{read.file}}), an alternative is to use one's local system to copy from the file to the clipboard and then read from the clipboard using  \code{\link{read.clipboard}}. This is  very convenient (and somewhat more intuitive to the naive user). This is particularly useful when copying from a text book or article and just moving a section of text into R.  However, copying from a file and then reading the clipboard is hard to automate in a script.  Thus, \code{\link{read.file}} will read from a file.
+\details{A typical session of R might involve data stored in text files, generated online, etc. 
+Although it is easy to just read from a file (particularly if using \code{\link{read.file}}), an alternative is to use one's local system to copy from the file to the clipboard and then read from the clipboard using  \code{\link{read.clipboard}}. This is  very convenient (and somewhat more intuitive to the naive user). This is particularly useful when copying from a text book or article and just moving a section of text into R.  However, copying from a file and then reading the clipboard is hard to automate in a script.  Thus, \code{\link{read.file}} will read from a file.
 
-The \code{\link{read.file}} function combines the \code{\link{file.choose}} and either \code{\link{read.table}}, \code{\link{read.fwf}}, \code{\link{read.spss}} or  \code{\link{read.xport}}(from foreign) or \code{\link{load}} or \code{\link{readRDS}} commands. By examining the file suffix, it chooses the appropriate way to read the file. For more complicated file structures, see the foreign package. For even more complicated file structures, see the rio or haven packages. 
+The \code{\link{read.file}} function combines the \code{\link{file.choose}} 
+and either \code{\link{read.table}}, \code{\link{read.fwf}}, \code{\link[foreign]{read.spss}} or  
+     \code{\link[foreign]{read.xport}}(from foreign) 
+or \code{\link{load}} or \code{\link{readRDS}} commands. By examining the file suffix, it chooses the appropriate way to read the file. For more complicated file structures, see the foreign package. For even more complicated file structures, see the rio or haven packages. 
 
 Note that \code{\link{read.file}} assumes by default that the first row has column labels (header =TRUE).  If this is not true, then make sure to specify header = FALSE.  If the file is fixed width, the assumption is that it does not have a header field.  In the unlikely case that a fwf file does have a header, then you probably should try fn <- file.choose() and then my.data <- read.fwf(fn,header=TRUE,widths=   widths).
 
@@ -96,7 +111,7 @@ Currently supported input formats are
 
 Some data files have an extra ' in the data ( e.g. the NYT covid data base).  These files can be read specifying quote ""
 
-The foreign function \code{\link{read.spss}} is used to read SPSS .sav files using the most common options.  Just as  \code{\link{read.spss}}  issues various warnings, so does  \code{\link{read.file}}.   In general, these can be ignored.  For more detailed information about using  \code{\link{read.spss}}, see the help pages in the foreign package.
+The foreign function \code{\link[foreign]{read.spss}} is used to read SPSS .sav files using the most common options.  Just as  \code{\link[foreign]{read.spss}}  issues various warnings, so does  \code{\link{read.file}}.   In general, these can be ignored.  For more detailed information about using  \code{\link[foreign]{read.spss}}, see the help pages in the foreign package.
 
 If you have a file written by JMP, you must first export to a csv or text file.
 
@@ -125,7 +140,8 @@ Sometimes missing values are specified as "." or "999", or some other values. Th
 
 If the input file that was copied into the clipboard was an Excel file with blanks for missing data, then read.clipboard.tab() will correctly replace the blanks with NAs.  Similarly for a csv file with blank entries, read.clipboard.csv will replace empty fields with NA.  
 
-\code{\link{read.clipboard.lower}} and \code{\link{read.clipboard.upper}} are adapted from John Fox's read.moments function in the sem package.  They will read a lower (or upper) triangular matrix from the clipboard and return a full, symmetric matrix for use by factanal, \code{\link{fa}} , \code{\link{ICLUST}}, \code{\link{pca}}. \code{\link{omega}} , etc.  If the diagonal is false, it will be replaced by 1.0s.  These two function were added to allow easy reading of examples from various texts and manuscripts with just triangular output. 
+\code{\link{read.clipboard.lower}} and \code{\link{read.clipboard.upper}} are adapted from John Fox's read.moments function in the sem package.  They will read a lower (or upper) triangular matrix from the clipboard and return a full, symmetric matrix for use by factanal, 
+\code{\link[psych]{fa}} , \code{\link[psych]{ICLUST}}, \code{\link[psych]{pca}}. \code{\link[psych]{omega}} , etc.  If the diagonal is false, it will be replaced by 1.0s.  These two function were added to allow easy reading of examples from various texts and manuscripts with just triangular output. 
 
 Many articles will report lower triangular matrices with variable labels in the first column.  read.clipboard.lower  will handle this case. Names must be in the first column if names=TRUE is specified.
 

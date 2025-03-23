@@ -10,7 +10,12 @@
   A data frame with 150 observations on  35 variables. The BLOT was developed as a paper and pencil test for children to measure Logical Thinking as discussed by Piaget and Inhelder. 
  
 }
-\details{Bond and Fox apply Rasch modeling to a variety of data sets.  This one, Bond's Logical Operations Test, is used as an example of Rasch modeling for dichotomous items.  In their text (p 56), Bond and Fox report the results using WINSTEPS.  Those results are consistent (up to a scaling parameter) with those found by the rasch function in the ltm package. The WINSTEPS seem to produce difficulty estimates with a mean item difficulty of 0, whereas rasch from ltm has a mean difficulty of -1.52.  In addition, rasch seems to reverse the signs of the difficulty estimates when reporting the coefficients and is effectively reporting "easiness".   
+\details{Bond and Fox apply Rasch modeling to a variety of data sets.  
+This one, Bond's Logical Operations Test, is used as an example of Rasch modeling for dichotomous items.
+  In their text (p 56), Bond and Fox report the results using WINSTEPS.  
+  Those results are consistent (up to a scaling parameter) with those found by the rasch function in the ltm package.
+   The WINSTEPS seem to produce difficulty estimates with a mean item difficulty of 0, whereas rasch from ltm has a mean difficulty of -1.52. 
+    In addition, rasch seems to reverse the signs of the difficulty estimates when reporting the coefficients and is effectively reporting "easiness".   
 
 However, when using a two parameter model, one of the items (V12) behaves very differently.
 
@@ -25,7 +30,7 @@ T.G. Bond. BLOT:Bond's Logical Operations Test. Townsville, Australia: James Coo
 T. Bond and C. Fox. (2007)  Applying the Rasch model: Fundamental measurement in the human sciences. Lawrence Erlbaum, Mahwah, NJ, US, 2 edition.
 }
 
-\seealso{ See also the \code{\link{irt.fa}} and associated plot functions. }
+\seealso{ See also the \code{\link[psych]{irt.fa}} and associated plot functions. }
 \examples{
 data(blot)
  

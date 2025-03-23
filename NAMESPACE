@@ -39,7 +39,7 @@ importFrom(foreign,read.spss,read.xport,read.systat)
  filesInfo,
  filesList,
  fileScan,
-
+ hare,
  ICC2latex,
 
  irt2latex,

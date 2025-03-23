@@ -43,9 +43,12 @@ data(bfi.dictionary)
    \item{\code{age}}{age in years}
 }
 }
-\details{The first 25 items are organized by five putative factors: Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Opennness.  The scoring key is created using  \code{\link{make.keys}}, the scores are found using  \code{\link{score.items}}.
+\details{The first 25 items are organized by five putative factors: Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Opennness. 
+ The scoring key is created using  \code{\link[psych]{make.keys}}, the scores are found using  \code{\link[psych]{score.items}}.
 
-These five factors are a useful example of using \code{\link{irt.fa}} to do Item Response Theory based latent factor analysis of the \code{\link{polychoric}} correlation matrix.  The endorsement plots for each item, as well as the item information functions reveal that the items differ in their quality.
+These five factors are a useful example of using \code{\link[psych]{irt.fa}} to do Item Response Theory based latent factor analysis\
+ of the \code{\link[psych]{polychoric}} correlation matrix. 
+ The endorsement plots for each item, as well as the item information functions reveal that the items differ in their quality.
 
 The item data were collected using a 6 point response scale: 
 1 Very Inaccurate
@@ -66,7 +69,8 @@ Revelle, W., Wilt, J.,  and Rosenthal, A. (2010)  Individual Differences in Cogn
 
 Revelle, W,  Condon, D.M.,  Wilt, J.,  French, J.A., Brown, A.,  and  Elleman, L.G. (2016) Web and phone based data collection using planned missing designs. In  Fielding, N.G.,  Lee, R.M. and  Blank, G. (Eds). SAGE Handbook of Online Research Methods (2nd Ed), Sage Publcations. }
 
-\seealso{\code{\link{bi.bars}} to show the data by age and gender, \code{\link{irt.fa}} for item factor analysis applying the irt model.} 
+\seealso{\code{\link[psych]{bi.bars}} to show the data by age and gender, \code{\link[psych]{irt.fa}} for item factor analysis applying the irt model.
+   \code{\link{spi}} and \code{\link{big5.100.adjectives}} for other examples of personality factor structure.}
 
 \note{The bfi data set and items should not be confused with the BFI (Big Five Inventory) of Oliver John and colleagues (John, O. P., Donahue, E. M., & Kentle, R. L. (1991). The Big Five Inventory--Versions 4a and 54. Berkeley, CA: University of California,Berkeley, Institute of Personality and Social Research.)
 }
