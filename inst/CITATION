@@ -5,6 +5,6 @@ bibentry(
     organization = "Northwestern University",
     address = "Evanston, Illinois",
     year = 2025,
-    note = "R package version 2.5.3",
+    note = "R package version 2.5.7",
     url = "https://CRAN.R-project.org/package=psychTools"
  )

@@ -1,6 +1,6 @@
 Package: psychTools
-Version: 2.5.3
-Date: 2025-03-17
+Version: 2.5.7.22
+Date: 2025-06-22
 Title: Tools to Accompany the 'psych' Package for Psychological
         Research
 Authors@R: person("William", "Revelle", role =c("aut","cre"), email="revelle@northwestern.edu", comment=c(ORCID  = "0000-0003-4880-9610") )
@@ -15,8 +15,9 @@ VignetteBuilder: knitr
 URL: https://personality-project.org/r/psych/
         https://personality-project.org/r/psych-manual.pdf
 NeedsCompilation: no
-Packaged: 2025-03-23 22:12:29 UTC; WR
-Author: William Revelle [aut, cre] (<https://orcid.org/0000-0003-4880-9610>)
+Packaged: 2025-06-22 21:32:13 UTC; WR
+Author: William Revelle [aut, cre] (ORCID:
+    <https://orcid.org/0000-0003-4880-9610>)
 Maintainer: William Revelle <revelle@northwestern.edu>
 Repository: CRAN
-Date/Publication: 2025-03-23 23:40:01 UTC
+Date/Publication: 2025-06-22 23:30:02 UTC

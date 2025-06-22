@@ -1196,7 +1196,8 @@ Sometimes we are interested in the relationship of the factors in one space with
 \begin{center}
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE, fig=TRUE,eps=FALSE>>=
-v16 <- sim.item(16)
+v16 <- sim.item(nvar=16,nsub=500)
+if(!is.null(names(v16))) v16 <- v16$item #psych version > 2.5.3 
 s <- c(1,3,5,7,9,11,13,15)
 f2 <- fa(v16[,s],2)
 fe <- fa.extension(cor(v16)[s,-s],f2)
