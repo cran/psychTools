@@ -3,12 +3,12 @@
 
   
  
-  \section{Introduction version 2.5.7 (2025-06-22 )}{
+  \section{Introduction version 2.6.4 (2026-04-30 )}{
     \itemize{
       \item The psychTools package includes functions and data sets to accompany the psych package which does classic and modern psychometrics and to analyze personality  and experimental psychological data sets. The psych package has been developed as a supplement to courses in research methods in psychology, personality research, and graduate level psychometric theory. The functions are a supplement to the text (seemingly forever in progress): \url{https://personality-project.org/r/book/}An introduction to psychometric theory with applications in R. 
       \item A number of vignettes describing how to use psych are included in psychTools.
       \item Miscellaneous helper functions for reading, writing and merging data files and are included as well.
-      \item Version 2.5.7 is the current version of the psychTools package. It is available as a source file for Macs or PCs in the repository at \url{https://personality-project.org/r/}. The released version on CRAN is 2.5.7. The second digit reflects the year (i.e., 2024), the third set the month (i.e., 2.3.12 was released in December of 2023, the last two digits of development versions reflect  either an minor change or the day of any modifications, e.g. 1.8.3.3 was the third attempt to get 1.8.3 released.  1.7.8 was  released in August, 2017.
+      \item Version 2.6.4 is the current version of the psychTools package. It is available as a source file for Macs or PCs in the repository at \url{https://personality-project.org/r/}. The released version on CRAN is 2.5.7. The second digit reflects the year (i.e., 2024), the third set the month (i.e., 2.3.12 was released in December of 2023, the last two digits of development versions reflect  either an minor change or the day of any modifications, e.g. 1.8.3.3 was the third attempt to get 1.8.3 released.  1.7.8 was  released in August, 2017.
     \item To install the development version, use the command: install.packages("psychTools", repos="https://personality-project.org/r/", type="source"). Remember to restart R and library(psych) and library(psychTools) to make the new version active.
     \item To see the date of the new version, use packageDate("psychTools").  (I sometimes update the packages on my server without changing the version number.)
   
@@ -18,6 +18,19 @@
       \item To report bugs, send email to \url{mailto:revelle@northwestern.edu} using bug.report.  Remember to include the systemInfo() information and a Minimal Working Example. 
    }
    }
+    \section{Changes in psychTools version 2.6.4 (2026-04-24)}{
+  \subsection{Additions}{
+              \itemize{
+        \item To make the help vignettes more up to date, I am releasing version 2.6.4.   
+        \item Added a discussion of CFA to the how to factor vignette
+        \item Also added a discussion of the change in factor indeterminancy function used in fa and omega as well as the addition of a new function to do all of this (fsi)
+        \item Dropped the functions that use rtf as that is no longer available on CRAN.
+        \item Finally figured out how to properly format URLs in the vignettes!
+         }
+ }
+ }
+   
+  
   
   \section{Changes in psychTools version 2.5.7.22 (2025-06-22)}{
   \subsection{Bugs fixed}{

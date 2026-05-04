@@ -76,7 +76,7 @@ veg \tab Paired comparison of preferences for 9 vegetables (scaling example) \cr
 }
 
 
-Functions to convert various objects to latex
+Functions to convert various objects to LaTeX or HTML
 
 \tabular{ll}{
 \code{\link{fa2latex}}  \tab Convert a data frame, correlation matrix, or factor analysis output to a LaTeX table \cr
@@ -85,6 +85,7 @@ Functions to convert various objects to latex
 \code{\link{irt2latex}} \tab Convert an irt analysis output to a LaTeX table \cr
 \code{\link{cor2latex}} \tab Convert a  correlation matrix output to a LaTeX table \cr
 \code{\link{omega2latex}} \tab Convert a data frame, correlation matrix, or factor analysis output to a LaTeX table \cr
+\code{\link{rd2html}}  \tab Convert a Rd file or set of files to HTML.  Used for testing Rd files \cr
 }
 
 File manipulation functions

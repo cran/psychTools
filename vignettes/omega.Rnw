@@ -116,23 +116,23 @@
 To do basic and advanced personality and psychological research using \R{} is not as complicated as some think.  This is one of a set of ``How To'' to do various things using \R{} \citep{R}, particularly using the \Rpkg{psych} \citep{psych} package.
 
 
-The current list of How To's includes:
+The current list of How To's (aka Vignettes) includes 
 
 \begin{enumerate}
-\item An \href{https://personality-project.org/r/psych/intro.pdf}{introduction} (vignette) of the \Rpkg{psych} package 
-\item An \href{https://personality-project.org/r/psych/overview.pdf}{overview} (vignette) of the \Rpkg{psych} package 
-\item \href{https://personality-project.org/r/psych/HowTo/getting_started.pdf}{Installing} \R{}  and some useful packages
-\item Using \R{} and the \Rpkg{psych} package to find \href{https://personality-project.org/r/psych/HowTo/omega.pdf}{$omega_h$} and $\omega_t$  (this document)..
-\item Using  \R{} and the \Rpkg{psych} for \href{https://personality-project.org/r/psych/HowTo/factor.pdf}{factor analysis} and principal components analysis.
-\item Using the \pfun{scoreItems} function to find \href{https://personality-project.org/r/psych/HowTo/scoring.pdf}{scale scores and scale statistics}.
-\item Using \pfun{mediate} and \pfun{lmCor} to do \href{https://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis}
+\item \href{https://personality-project.org/r/psych//HowTo/getting_started.pdf}{Installing} \R{}  and some useful packages
+\item   \href{../../psychTools/doc/overview.pdf}{overview} (vignette) of the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/intro.pdf}{introduction and data entry} (vignette) of the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/factor.pdf}{Exploratory and Confirmatory Factor Analysis} (vignette) using the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/omega.pdf}{Finding various estimates of reliability} (vignette) e.g., $\omega_h$, $\omega_t$, and $\alpha$  using the \Rpkg{psych} package.
 
+\item   \href{../../psychTools/doc/mediation.pdf}{regression and mediation}
+  (vignette) using the \Rpkg{psych} package.
 
 \end{enumerate}
 
 
 \subsection{$omega_h$ as an estimate of the general factor saturation of a test}
-Cronbach's coefficient $alpha$ \citep{cronbach:51} is pehaps the most used (and most misused) estimate of the internal consistency of a test.  $\alpha$ may be found in the \Rpkg{psych} package using the \pfun{alpha} function.  However, two alternative estimates of reliability that take into account the hierarchical structure of the inventory are McDonald's $\omega_h$ and $\omega_t$ \citep{mcdonald:tt}. These may be found in \R{} in one step  using one of two functions in the \Rpkg{psych} package: the \pfun{omega} function for an exploratory analysis (See Figure~\ref{fig:omega.9}) or \pfun{omegaSem} for a confirmatory analysis using the \Rpkg{sem} package solution based upon the exploratory solution from \pfun{omega}.  This guide explains how to do it for the non or novice \R{}  user.  These set of instructions are adapted from three different sets of notes that the interested reader might find helpful:  A set of slides developed for a \href{http://personality-project.org/r/aps/aps-short.pdf}{ two hour short course} in \R{} given for several years to the Association of Psychological Science as well as a \href{http://personality-project.org/r/}{short guide }to \R{}  for psychologists and the \href{http://cran.r-project.org/web/packages/psych/vignettes/overview.pdf}{vignette} for the \Rpkg{psych} package.
+Cronbach's coefficient $alpha$ \citep{cronbach:51} is pehaps the most used (and most misused) estimate of the internal consistency of a test.  $\alpha$ may be found in the \Rpkg{psych} package using the \pfun{alpha} function.  However, two alternative estimates of reliability that take into account the hierarchical structure of the inventory are McDonald's $\omega_h$ and $\omega_t$ \citep{mcdonald:tt}. These may be found in \R{} in one step  using one of two functions in the \Rpkg{psych} package: the \pfun{omega} function for an exploratory analysis (See Figure~\ref{fig:omega.9}) or \pfun{omegaSem} for a confirmatory analysis using the \Rpkg{sem} package solution based upon the exploratory solution from \pfun{omega}.  This guide explains how to do it for the non or novice \R{}  user.  These set of instructions are adapted from three different sets of notes that the interested reader might find helpful:  A set of slides developed for a \href{https://personality-project.org/r/aps/aps-short.pdf}{ two hour short course} in \R{} given for several years to the Association of Psychological Science as well as a \href{https://personality-project.org/r/}{short guide }to \R{}  for psychologists and the \href{../../psychTools/doc/overview.pdf}{vignette} for the \Rpkg{psych} package.
 
 
 McDonald has proposed coefficient omega (hierarchical) ($\omega_h$) as an estimate of the general factor saturation of a test.  \cite{zinbarg:pm:05} and \cite{rz:09} compare 
@@ -187,8 +187,8 @@ To use \R{} obviously requires installing \R{} on your computer.  This is very e
 
 \subsection{Install R   for the first time}
 \begin{enumerate}
-\item Download from R Cran  (\url{http://cran.r-project.org/}) 
-\item Install R (current version is 4.0.2)
+\item Download from R Cran  (\url{https://CRAN.R-project.org/}) 
+\item Install R (current version is 4.6.0)
 \item Start \R{}.
 
 Note that the \R{} prompt  $>$ starts off every line. This is \R{}'s way of indicating that it wants input.  In addition, note that almost all commands start and finish with parentheses.
@@ -223,7 +223,7 @@ install.views("Psychometrics")  #among others
 	\end{Rinput}
 	
 	\Rpkg{psych} will automatically activate the other packages it needs, as long as they are installed.
-	Note that \Rpkg{psych}  is updated roughly quarterly, the current version is 2.0.8    Patches and improvements to \Rpkg{psych} (the bleeding edge version) are available from the repository at the personality-project web server and may be installed from there:
+	Note that \Rpkg{psych}  is updated roughly quarterly, the current version is 2.6.4   Patches and improvements to \Rpkg{psych} (the bleeding edge version) are available from the repository at the personality-project web server and may be installed from there:
 ~\	
 	 \begin{Rinput}
 install.packages("psych", repos = "https://personality-project.org/r", type="source")
@@ -235,12 +235,12 @@ install.packages("psych", repos = "https://personality-project.org/r", type="sou
 
 \subsubsection{Install R }
 \label{install}
-Go to the \href{http://cran.r-project.org}{Comprehensive R Archive Network (CRAN)} at \url{http://cran.r-project.org}: %(Figure~\ref{fig:cran})
+Go to the \href{https://CRAN.R-project.org/}{Comprehensive R Archive Network (CRAN)} at \url{https://CRAN.R-project.org/}: %(Figure~\ref{fig:cran})
 %\begin{figure}[htbp]
 %\begin{center}
 %%\includegraphics[width=14cm]{../../../tutorials/R_Short_APS.15/rcran3.png}
 %\includegraphics[width=20cm]{../../../images/CRAN.png}
-%\caption{The basic \href{http://cran.r-project.org}{CRAN} window allows you choose your operating system.  Comprehensive R Archive Network (CRAN) is found at \href{http://cran.r-project.org}{http://cran.r-project.org}:}
+%\caption{The basic \href{http://CRSN.R-project.org/}{CRAN} window allows you choose your operating system.  Comprehensive R Archive Network (CRAN) is found at \href{https://CRAN.R-project.org/}{https://CRAN.R-project.org/}:}
 %\label{fig:cran}
 %\end{center}
 %\end{figure}
@@ -274,7 +274,7 @@ Download and install the appropriate version -- Mac,  PC or Unix/Linux
 
 %Starting R on a PC.  
 
-Once you have installed \R{} you probably, and particularly if you have a PC,  will want to download and install the \href{https://www.rstudio.com} {R Studio}  program.  It is a very nice interface for PCs and Macs that combines four windows into one screen.
+Once you have installed \R{} you probably, and particularly if you have a PC,  will want to download and install the \href{https://posit.co} {R Studio}  program.  It is a very nice interface for PCs and Macs that combines four windows into one screen.
 
 %\begin{figure}[htbp]
 %\begin{center}
@@ -376,7 +376,7 @@ install.packages(c("psych","GPArotation","lavaan"),dependencies=TRUE)
 \paragraph{Install a ``task view" to get lots of packages}
 
 If you know that there are a number of packages that you want to use, it is possible they are listed as a ``task view".  For instance, about 50 packages will be installed at once if you install the  ``psychometrics'' task view.
-You can Install all the psychometric packages from the ``psychometrics'' task view by first installing a package (``ctv") that in turn installs many different task views.  To see the list of possible task views, go to \url{https://cran.r-project.org/web/views/}.
+You can Install all the psychometric packages from the ``psychometrics'' task view by first installing a package (``ctv") that in turn installs many different task views.  To see the list of possible task views, go to \url{https://CRAN.R-project.org/web/views/}.
 
 ~\
 \begin{Rinput}
@@ -439,7 +439,7 @@ If you want to read a remote file, specify the file name and then \pfun{read.fil
 
 ~\
 \begin{Rinput}
-datafilename <- "http://personality-project.org/r/datasets/finkel.sav" 
+datafilename <- "https://personality-project.org/r/datasets/finkel.sav" 
 new.data <- read.file(datafilename)  #the data has labels
 \end{Rinput}
 
@@ -507,7 +507,7 @@ The following is an example of reading from a remote SPSS file and then describi
 
 ~\
 \begin{Rinput}
-datafilename <- "http://personality-project.org/r/datasets/finkel.sav" 
+datafilename <- "https://personality-project.org/r/datasets/finkel.sav" 
 eli <-read.file(datafilename)
 
                            
@@ -546,7 +546,7 @@ SATQ        6 687 610.22 115.64    620  617.25 118.61 200 800   600 -0.59    -0.
 \end{Soutput}
 
 
-There are, of course, all kinds of things you could do with your data at this point, but read about them in the  \href{http://cran.r-project.org/web/packages/psych/vignettes/intro.pdf}{introductory vignette}  and \href{http://cran.r-project.org/web/packages/psychTools/vignettes/overview.pdf}{more advanced vignette} for the \Rpkg{psych} package, 
+There are, of course, all kinds of things you could do with your data at this point, but read about them in the  \href{../../psychTools/doc/intro.pdf}{introductory vignette}  and \href{../../psychTools/doc/overview.pdf}{more advanced vignette} for the \Rpkg{psych} package, 
 
 
 \section{Using the \pfun{omega} function to find the $\omega$ statistics}
@@ -555,7 +555,7 @@ Two alternative estimates of reliability that take into account the hierarchical
 
 \subsection{Background on the $\omega$ statistics}
 
-\cite{mcdonald:tt} has proposed coefficient omega (hierarchical) ($\omega_h$) as an estimate of the general factor saturation of a test.  \href{http://personality-project.org/revelle/publications/zinbarg.revelle.pmet.05.pdf}{\cite{zinbarg:pm:05}}
+\cite{mcdonald:tt} has proposed coefficient omega (hierarchical) ($\omega_h$) as an estimate of the general factor saturation of a test.  \href{https://personality-project.org/revelle/publications/zinbarg.revelle.pmet.05.pdf}{\cite{zinbarg:pm:05}}
  compare McDonald's $\omega_h$ to Cronbach's  $\alpha$ and Revelle's $\beta$. They conclude that $\omega_h$ is the best estimate. (See also \cite{zinbarg:apm:06} and \cite{rz:09} ).   
 
 One way to find $\omega_h$ is to do a factor analysis of the original data set, rotate the factors obliquely, factor that correlation matrix, do a   Schmid-Leiman (\pfun{schmid}) transformation to find general factor loadings, and then find $\omega_h$.  
@@ -604,7 +604,7 @@ It can be shown in the case of  simulated  variables,  that the amount of varian
 
 
 \subsection{Yet more alternatives: Coefficient $\beta$ and the unidim statistic}
-$\beta$, an alternative to $\omega_h$, is defined as the worst split half reliability \citep{revelle:iclust}.  It can be estimated by using \pfun{iclust} (Item Cluster analysis: a hierarchical clustering algorithm). For  very complimentary reviews of why the iclust algorithm is useful in scale construction, see \cite{cooksey:06} or \cite{reise:24}.   For a discussion of how to use \pfun{iclust} see the  \href{http://cran.r-project.org/web/packages/psychTools/vignettes/factor.pdf}{factor analysis vignette}.
+$\beta$, an alternative to $\omega_h$, is defined as the worst split half reliability \citep{revelle:iclust}.  It can be estimated by using \pfun{iclust} (Item Cluster analysis: a hierarchical clustering algorithm). For  very complimentary reviews of why the iclust algorithm is useful in scale construction, see \cite{cooksey:06} or \cite{reise:24}.   For a discussion of how to use \pfun{iclust} see the  \href{../../psychTools/doc/factor.pdf}{factor analysis vignette}.
 
 The \pfun{unidim} and \pfun{reliability} functions return the \emph{unidim} statistic which is an estimate of the unidimensionality of a scale.  In a recent paper \citep{rc:uni} we compare \emph{unidim}, $\beta$, and $\omega_h$ as indices of general factor saturation. 
 
@@ -1128,8 +1128,8 @@ Revelle, W. (1979).
 Revelle, W. (2025).
 \newblock {\em psych: Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
-  https://CRAN.r-project.org/package=psych.
-\newblock R package version 2.5.3
+  https://CRAN.R-project.org/package=psych.
+\newblock R package version 2.6.4
 
 \bibitem[\protect\astroncite{Revelle and Condon}{2018}]{rc:reliability}
 Revelle, W. and Condon, D.~M. (2018).

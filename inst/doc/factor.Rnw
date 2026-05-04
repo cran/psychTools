@@ -111,14 +111,17 @@
 To do basic and advanced personality and psychological research using \R{} is not as complicated as some think.  This is one of a set of ``How To'' to do various things using \R{} \citep{R}, particularly using the \Rpkg{psych} \citep{psych} package.
 
 
-The current list of How To's includes:
+The current list of How To's (aka Vignettes) includes 
 
 \begin{enumerate}
-\item \href{http://personality-project.org/r/psych/HowTo/getting_started.pdf}{Installing} \R{}  and some useful packages
-\item Using \R{} and the \Rpkg{psych} package to find \href{http://personality-project.org/r/psych/HowTo/omega.pdf}{$omega_h$} and $\omega_t$.
-\item Using  \R{} and the \Rpkg{psych} for \href{http://personality-project.org/r/psych/HowTo/factor.pdf}{factor analysis} and principal components analysis.  (This document).
-\item Using the \pfun{score.items} function to find \href{http://personality-project.org/r/psych/HowTo/scoring.pdf}{scale scores and scale statistics}.
-\item An \href{http://personality-project.org/r/psych/overview.pdf}{overview} (vignette) of the \Rpkg{psych} package 
+\item \href{https://personality-project.org/r/psych//HowTo/getting_started.pdf}{Installing} \R{}  and some useful packages
+\item   \href{../../psychTools/doc/overview.pdf}{overview} (vignette) of the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/intro.pdf}{introduction and data entry} (vignette) of the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/factor.pdf}{Exploratory and Confirmatory Factor Analysis} (vignette) using the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/omega.pdf}{Finding various estimates of reliability} (vignette) e.g., $\omega_h$, $\omega_t$, and $\alpha$  using the \Rpkg{psych} package.
+
+\item   \href{../../psychTools/doc/mediation.pdf}{regression and mediation}
+  (vignette) using the \Rpkg{psych} package.
 
 Several functions are meant to do multiple regressions, either from the raw data or from a variance/covariance matrix, or a correlation matrix.  This is discussed in more detail in \item How to do mediation and moderation analysis using \pfun{mediate} and \pfun{lmCor} is discussed in the \href{https://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis} tutorial. 
 
@@ -231,8 +234,10 @@ omega(myData)
 bassAckward(myData)
 \end{Rinput}
 
+\item Confirmatory factor analysis \pfun{CFA} allows you to specify a particular factor model and then test that model.  This differs from \emph{exploratory factor analysis} \pfun{fa} by just fitting some of the loadings.  
 
-\item Some people like to find coefficient $\alpha$ as an estimate of reliability.  This may be done for a single scale using the \pfun{alpha} function (see \ref{sect:alpha}).  Perhaps more useful is the ability to create several scales as unweighted averages of specified items using the \pfun{scoreIems} function (see \ref{sect:score}) and to find various estimates of internal consistency for these scales, find their intercorrelations, and find scores for all the subjects.
+
+\item Some people like to find coefficient $\alpha$ as an estimate of reliability.  This may be done for a single scale using the \pfun{alpha} function (see \ref{sect:alpha}).  Perhaps more useful is the ability to create several scales as unweighted averages of specified items using the \pfun{scoreItems} function (see \ref{sect:score}) and to find various estimates of internal consistency for these scales, find their intercorrelations, and find scores for all the subjects.
 
 \begin{Rinput}
 alpha(myData)   #score all of the items as part of one scale.
@@ -243,23 +248,24 @@ my.scores  #show the highlights of the results
 
 \end{enumerate}
 
-At this point you have had a chance to see the highlights of the \Rpkg{psych} package and to do some basic (and advanced) data analysis.  You might find reading the entire  \href{http://personality-project.org/r/psych/overview.pdf}{overview} vignette helpful to get a broader understanding of what can be done in \R{} using the \Rpkg{psych}.   Remember that the help command (?) is available for every function.  Try running the  examples for each help page.  
+At this point you have had a chance to see the highlights of the \Rpkg{psych} package and to do some basic (and advanced) data analysis.  You might find reading the entire  \href{https://personality-project.org/r/psych/overview.pdf}{overview} vignette helpful to get a broader understanding of what can be done in \R{} using the \Rpkg{psych}.   Remember that the help command (?) is available for every function.  Try running the  examples for each help page.  
 
 \newpage
 \section{Overview of this and related documents}
 
-The \Rpkg{psych} package \citep{psych} has been developed at Northwestern University since 2005 to include functions most useful for personality, psychometric,  and psychological research.  The package is also meant to supplement a text on psychometric theory \citep{revelle:intro}, a draft of which is available at \url{http://personality-project.org/r/book/}.  
+The \Rpkg{psych} package \citep{psych} has been developed at Northwestern University since 2005 to include functions most useful for personality, psychometric,  and psychological research.  The package is also meant to supplement a text on psychometric theory \citep{revelle:intro}, a draft of which is available at \url{https://personality-project.org/r/book/}.  
 
 Some of the functions (e.g., \pfun{read.clipboard}, \pfun{describe},  \pfun{pairs.panels},  \pfun{scatter.hist}, \pfun{error.bars}, \pfun{multi.hist}, \pfun{bi.bars}) are useful for basic data entry and descriptive analyses.
 
-Psychometric applications emphasize techniques for dimension reduction including factor analysis, cluster analysis, and principal components analysis.  The \pfun{fa} function includes five methods  of \iemph{factor analysis} (\iemph{minimum residual}, \iemph{principal axis},   \iemph{weighted least squares}, \iemph{generalized least squares} and \iemph{maximum likelihood} factor analysis). Determining the number of factors or components to extract may be done by using the Very Simple Structure \citep{revelle:vss} (\pfun{vss}), Minimum Average Partial correlation \citep{velicer:76} (\pfun{MAP}) or parallel analysis (\pfun{fa.parallel}) criteria.  Item Response Theory  (IRT) models for dichotomous or polytomous items may be found by factoring \pfun{tetrachoric} or \pfun{polychoric} correlation matrices and expressing the resulting parameters in terms of location and discrimination  using  \pfun{irt.fa}. Bifactor and hierarchical factor structures may be estimated by using Schmid Leiman transformations \citep{schmid:57} (\pfun{schmid}) to transform a hierarchical factor structure into a \iemph{bifactor} solution \citep{holzinger:37}. Scale construction can be done using the Item Cluster Analysis \citep{revelle:iclust} (\pfun{iclust}) function to determine the structure  and to calculate reliability coefficients $\alpha$ \citep{cronbach:51}(\pfun{alpha}, \pfun{scoreItems}, \pfun{score.multiple.choice}), $\beta$ \citep{revelle:iclust,rz:09} (\pfun{iclust}) and McDonald's $\omega_h$ and $\omega_t$ \citep{mcdonald:tt} (\pfun{omega}). Guttman's six estimates of internal consistency reliability (\cite{guttman:45}, as well as additional estimates \citep{rz:09} are in the  \pfun{guttman} function. The six measures of Intraclass correlation coefficients (\pfun{ICC}) discussed by \cite{shrout:79} are also available.
+Psychometric applications emphasize techniques for dimension reduction including factor analysis (both exploratory and confirmatory), cluster analysis, and principal components analysis.  The \pfun{fa} function includes five methods  of \iemph{exploratory factor analysis} (\iemph{minimum residual}, \iemph{principal axis},   \iemph{weighted least squares}, \iemph{generalized least squares} and \iemph{maximum likelihood} factor analysis). The \pfun{CFA} function will do simple confirmatory analysis (models without cross loadings). Determining the number of factors or components to extract may be done by using the Very Simple Structure \citep{revelle:vss} (\pfun{vss}), Minimum Average Partial correlation \citep{velicer:76} (\pfun{MAP}) or parallel analysis (\pfun{fa.parallel}) criteria.  Item Response Theory  (IRT) models for dichotomous or polytomous items may be found by factoring \pfun{tetrachoric} or \pfun{polychoric} correlation matrices and expressing the resulting parameters in terms of location and discrimination  using  \pfun{irt.fa}. Bifactor and hierarchical factor structures may be estimated by using Schmid Leiman transformations \citep{schmid:57} (\pfun{schmid}) to transform a hierarchical factor structure into a \iemph{bifactor} solution \citep{holzinger:37}. Scale construction can be done using the Item Cluster Analysis \citep{revelle:iclust} (\pfun{iclust}) function to determine the structure  and to calculate reliability coefficients $\alpha$ \citep{cronbach:51}(\pfun{alpha}, \pfun{scoreItems}, \pfun{score.multiple.choice}), $\beta$ \citep{revelle:iclust,rz:09} (\pfun{iclust}) and McDonald's $\omega_h$ and $\omega_t$ \citep{mcdonald:tt} (\pfun{omega}). Guttman's six estimates of internal consistency reliability (\cite{guttman:45}, as well as additional estimates \citep{rz:09} are in the  \pfun{guttman} function. The six measures of Intraclass correlation coefficients (\pfun{ICC}) discussed by \cite{shrout:79} are also available.  Estimates of the unidimensionality of the data are found using the \pfun{unidim} function.  
+
 
 Graphical displays include Scatter Plot Matrix (SPLOM) plots using \pfun{pairs.panels}, correlation ``heat maps'' (\pfun{cor.plot}) factor, cluster, and  structural diagrams using \pfun{fa.diagram}, \pfun{iclust.diagram}, \pfun{structure.diagram}, as well as item response characteristics and item and test information characteristic curves \pfun{plot.irt} and \pfun{plot.poly}.   
 
 
-%This vignette is meant to give an overview of  the  \Rpkg{psych} package.  That is, it is meant to give a summary of the main functions in the \Rpkg{psych} package with examples of how they are used for data description, dimension reduction, and scale construction.  The extended  user manual at \url{psych_manual.pdf} includes examples of graphic output and more extensive demonstrations than are found in the help menus. (Also available at \url{http://personality-project.org/r/psych_manual.pdf}).  The vignette, psych for sem,  at \url{psych_for_sem.pdf}, discusses how to use psych as a front end to the \Rpkg{sem} package of John Fox \citep{sem}. (The vignette is also available at \href{"http://personality-project.org/r/book/psych_for_sem.pdf"}{\url{http://personality-project.org/r/book/psych_for_sem.pdf}}).
+%This vignette is meant to give an overview of some of the  \Rpkg{psych} package.  That is, it is meant to give a summary of the main functions in the \Rpkg{psych} package with examples of how they are used for data description, dimension reduction, and scale construction.  The extended  user manual at \url{psych_manual.pdf} includes examples of graphic output and more extensive demonstrations than are found in the help menus. (Also available at \url{https://personality-project.org/r/psych_manual.pdf}).  The vignette, psych for sem,  at \url{https://personality-project.org/r/psych-for-sem.pdf}, discusses how to use psych as a front end to the \Rpkg{sem} package of John Fox \citep{sem} and the \Rpkg(lavann) pacakge.% (The vignette is also available at \href{https://personality-project.org/r/book/psych-for-sem.pdf}{https://personality-project.org/r/book/psych-for-sem.pdf}).
 %
-%For a step by step tutorial in the use of the psych package and the base functions in R for basic personality research, see the  guide for using \R{} for personality research at \url{http://personalitytheory.org/r/r.short.html}.  For an \iemph{introduction to psychometric theory with applications in \R{}}, see the draft chapters at \url{http://personality-project.org/r/book}).
+%For a step by step tutorial in the use of the psych package and the base functions in R for basic personality research, see the  guide for using \R{} for personality research at \url{https://personalitytheory.org/r/r.short.html}.  For an \iemph{introduction to psychometric theory with applications in \R{}}, see the draft chapters at \url{https://personality-project.org/r/book/}).
 %
 %
 %
@@ -498,7 +504,7 @@ dev.off()
 %\end{center}
 %\end{figure}
 %
-%Although not recommended, it is possible to use the \pfun{error.bars} function to draw bar graphs with associated error bars.  (This kind of`\iemph{dynamite plot} (Figure~\ref{fig:dynamite}) can be very misleading in that the scale is arbitrary.  Go to  a discussion of the problems in presenting data this way at \url{http://emdbolker.wikidot.com/blog:dynamite}.  In the example shown, note that the graph starts at 0, although is out of the range.  This is a function of using bars, which always are assumed to start at zero.  Consider other ways of showing your data.
+%Although not recommended, it is possible to use the \pfun{error.bars} function to draw bar graphs with associated error bars.  (This kind of`\iemph{dynamite plot} (Figure~\ref{fig:dynamite}) can be very misleading in that the scale is arbitrary.  Go to  a discussion of the problems in presenting data this way at \url{https://emdbolker.wikidot.com/blog:dynamite}.  In the example shown, note that the graph starts at 0, although is out of the range.  This is a function of using bars, which always are assumed to start at zero.  Consider other ways of showing your data.
 %
 %\begin{figure}[htbp]
 %\begin{center}
@@ -589,19 +595,19 @@ round(diffs,2)
 
 \subsubsection{Heatmap displays of correlational structure}
 \label{sect:corplot}
-Perhaps a better way to see the structure in a correlation matrix is to display a \emph{heat map} of the correlations.  This is just a  matrix color coded to represent the magnitude of the correlation.  This is useful when considering the number of factors in a data set.  Consider the \pfun{Thurstone} data set which has a clear 3 factor solution (Figure~\ref{fig:cor.plot}) or a simulated data set of 24 variables with a circumplex structure  (Figure~\ref{fig:cor.plot.circ}). The color coding represents a ``heat map'' of the correlations, with darker shades of red representing stronger negative and darker shades of blue stronger positive correlations.   As an option, the value of the correlation can be shown.
+Perhaps a better way to see the structure in a correlation matrix is to display a \emph{heat map} of the correlations.  This is just a  matrix color coded to represent the magnitude of the correlation.  This is useful when considering the number of factors in a data set.  Consider the \pfun{Thurstone} data set which has a clear 3 factor solution (Figure~\ref{fig:cor.plot}) or a simulated data set of 24 variables with a circumplex structure  (Figure~\ref{fig:cor.plot.circ}). The color coding represents a ``heat map'' of the correlations, with darker shades of red representing stronger negative and darker shades of blue stronger positive correlations. (Although this color choice is the reverse of the standard heat map, it correctly reflects the physical property that blue is a hotter color than red.)  As an option, the value of the correlation can be shown.
 
 \begin{figure}[htbp]
 \begin{center}
 \begin{scriptsize}
 <<corplot.png>>=
 png('corplot.png')
-cor.plot(Thurstone,numbers=TRUE,main="9 cognitive variables from Thurstone")
+cor.plot(Thurstone,numbers=TRUE,main="9 cognitive variables from Thurstone", cex=.6)
 dev.off()
 @
 \end{scriptsize}
 \includegraphics{corplot.png}
-\caption{The structure of correlation matrix can be seen more clearly if the variables are grouped by factor and then the correlations are shown by color.  By using the 'numbers' option, the values are displayed as well. }
+\caption{The structure of correlation matrix can be seen more clearly if the variables are grouped by factor and then the correlations are shown by color.  By using the 'numbers' option, the values are displayed as well. Specifying the character size (cex) makes for a clearer figure. }
 \label{fig:cor.plot}
 \end{center}
 \end{figure}
@@ -700,7 +706,7 @@ dev.off()
 %
 \subsection{Polychoric, tetrachoric, polyserial, and biserial correlations}
 
-The Pearson correlation of dichotomous data is also known as the $\phi$ coefficient.  If the data, e.g., ability items, are thought to represent an underlying continuous although latent variable, the $\phi$ will underestimate the value of the Pearson applied to these latent variables.  One solution to this problem is to use the \pfun{tetrachoric} correlation which is based upon the assumption of a bivariate normal distribution that has been cut at certain points.  The \pfun{draw.tetra} function demonstrates the process (Figure~\ref{fig:tetra}).  A simple generalization of this to the case of the multiple cuts is the \pfun{polychoric} correlation.  
+The Pearson correlation of dichotomous data is also known as the $\phi$ coefficient.  If the data, e.g., ability items, are thought to represent an underlying continuous although latent variable, the $\phi$ will underestimate the value of the Pearson applied to these latent variables.  One solution to this problem is to use the \pfun{tetrachoric} correlation which is based upon the assumption of a bivariate normal distribution that has been cut at certain points.  The \pfun{draw.tetra} function demonstrates the process (not shown)(Figure~\ref{fig:tetra}).  A simple generalization of this to the case of the multiple cuts is the \pfun{polychoric} correlation.  
 %
 %\begin{figure}[htbp]
 %\begin{center}
@@ -758,6 +764,8 @@ Several of the functions in \Rpkg{psych} address the problem of data reduction.
 \begin{description}
 
 \item[\pfun{fa}] incorporates five alternative algorithms: \iemph{minres factor analysis}, \iemph{principal axis factor analysis}, \iemph{weighted least squares factor analysis}, \iemph{generalized least squares factor analysis} and \iemph{maximum likelihood factor analysis}. That is, it includes the functionality of three other functions that will be eventually phased out.
+
+\item[\pfun{CFA}] will find a specified factor solution using the direct approach discussed by Dhaene and Rosseel (2024) for a Multiple Group Method solution.  It can also do a  bifactor solution (\pfun{CFA.bifactor}).
 
 \item[\pfun{bassAckward}] will do multiple factor and principal components analyses and then show the relationship between factor levels by finding the interfactor correlations.
 
@@ -819,6 +827,8 @@ f3t
  An alternative, least squares algorithm, \pfun{factor.pa}, does a  Principal Axis factor analysis by iteratively doing an eigen value decomposition of the correlation matrix with the diagonal replaced by the values estimated by the factors of the previous iteration.  This OLS solution is not as sensitive to improper matrices as is the maximum likelihood method, and will sometimes produce more interpretable results.  It seems as if the SAS example for PA uses only one iteration.  Setting the max.iter parameter to 1 produces the SAS solution.  
 
 The solutions from the \pfun{fa}, the \pfun{factor.minres} and \pfun{factor.pa} as well as the \pfun{principal} functions can be rotated or transformed with a number of options.  Some of these call the \Rpkg{GPArotation} package. Orthogonal rotations are \fun{varimax} and \fun{quartimax}. Oblique transformations include \fun{oblimin}, \fun{quartimin} and then two targeted rotation functions \pfun{Promax} and \pfun{target.rot}. The latter of these will transform a loadings matrix towards an arbitrary target matrix.  The default is to transform towards an independent cluster solution. 
+
+Unfortunately, the process of trying to find the optimal rotation  solution will sometimes achieve a local minima or maxima.  To avoid this, the default for 20 random restarts of the rotation function is now added to \pfun{fa}.  
  
 Using the Thurstone data set, three factors were requested  and then transformed into an independent clusters solution using \pfun{target.rot}  (Table~\ref{tab:Thurstone}).
 
@@ -889,6 +899,83 @@ fa.diagram(f3t)
 
 
 A comparison of these three approaches suggests that the minres solution is more similar to a maximum likelihood solution and fits slightly better than the pa or wls solutions.  Comparisons with SPSS suggest that the pa solution matches the SPSS OLS solution, but that the minres solution is slightly better.  At least in one test data set, the weighted least squares solutions, although fitting equally well, had slightly different structure loadings.  Note that the rotations used by SPSS will sometimes use the ``Kaiser Normalization''.  By default, the rotations used in psych do not normalize, but this can be specified as an option in \pfun{fa}. 
+
+\subsubsection{Confirmatory Factor Analysis (CFA) }
+\label{sect:CFA}
+
+ Confirmatory factor analysis may be done without iteration (and thus not using Maximum Likelihood procedures) by using some very old techniques.  The algorithm follows that of Dhaene and Rosseel (2024) using the ``Spearman" Multiple Group Method to estimate the communalities.  This method was introduced by Guttman (1952) and is discussed by Harman (1967).
+ 
+ \pfun{CFA} follows the Spearman approach for communalities discussed by Dhaene and Rosseel (2024) and described as the ``Multiple Group Method".  \Rpkg{psych}  uses the upper case name (CFA) to avoid conflicts with lavaan's cfa function. Following Harman (1967)	 (Chapter 7, p 115-117) the communality of each variable is estimated by the ratio of the sum of all the correlations to the sum of squared correlations with that  variable.  The square root of the communality is the factor loading. 
+ 
+ \pfun{CFA} requires specifying a model to test and then testing it.  Using the Thurstone data set, and lavaan syntax we specify a 3 factor solution and then test it. 
+ 
+ \begin{table}[htpb]
+\caption{Using the  Thurstone data set we can find 3 correlated factors with no cross loadings or a bifactor solution where there is a higher order factor, g, that accounts for the correlation between the factors. The factors were extracted using a weighted least squares algorithm. }
+
+\begin{scriptsize}
+<<print=FALSE,echo=TRUE>>=
+colnames(Thurstone) <- rownames(Thurstone) <- paste0("x",1:9  ) #to match lavaan syntax
+model <- HS.model <- ' visual  =~ x1 + x2 + x3
+              textual =~ x4 + x5 + x6
+              speed   =~ x7 + x8 + x9 '
+c3 <- CFA(model,Thurstone,n.obs=213,n.iter=5)  
+
+print(c3, cut=0,digits=2)
+@
+\end{scriptsize}
+\label{tab:Thurstone.cfa}
+\end{table}
+
+ \begin{table}[htpb]
+\caption{The bifactor solution}
+
+\begin{scriptsize}
+<<print=FALSE,echo=TRUE>>=
+colnames(Thurstone) <- rownames(Thurstone) <- paste0("x",1:9  ) #to match lavaan syntax
+model <- HS.model <- ' visual  =~ x1 + x2 + x3
+              textual =~ x4 + x5 + x6
+              speed   =~ x7 + x8 + x9 '
+cbi <- CFA.bifactor(model,Thurstone,n.obs=213,n.iter=5)  
+print(cbi, cut=0,digits=2)
+@
+\end{scriptsize}
+\label{tab:Thurstone.bi}
+\end{table}
+
+ \begin{table}[htpb]
+\caption{The higher order solution}
+
+\begin{scriptsize}
+<<print=FALSE,echo=TRUE>>=
+colnames(Thurstone) <- rownames(Thurstone) <- paste0("x",1:9  ) #to match lavaan syntax
+model <- HS.model <- ' visual  =~ x1 + x2 + x3
+              textual =~ x4 + x5 + x6
+              speed   =~ x7 + x8 + x9 '
+c.high <- CFA.bifactor(model,Thurstone,g=TRUE)
+print(c.high)
+@
+\end{scriptsize}
+\label{tab:Thurstone.higher}
+\end{table}
+
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{scriptsize}
+<<print=FALSE,echo=TRUE, fig=TRUE,eps=FALSE>>=
+diagram(c.high)
+op <- par(mfrow=c(1,1))
+@
+\end{scriptsize}
+\caption{A higher order factor solution to the Thurstone 9 variable problem}
+\label{fig:cfa.hi}
+\end{center}
+\end{figure}
+
+
+ 
+ 
+  
 
 \subsubsection{Principal Components analysis (PCA)}
 An alternative to factor analysis, which is unfortunately frequently confused with \iemph{factor analysis}, is \iemph{principal components analysis}.  Although the goals of \iemph{PCA} and \iemph{FA} are similar, PCA is a descriptive model of the data, while FA is a structural model. Psychologists typically use PCA in a manner similar to factor analysis and thus the \pfun{principal} function produces output that is perhaps more understandable than that produced by \fun{princomp} in the \Rpkg{stats} package. Table~\ref{tab:pca} shows a PCA of the Thurstone 9 variable problem rotated using the \pfun{Promax} function. Note how the loadings from the factor model are similar but smaller than the principal component loadings. This is because the PCA model attempts to account for the entire variance of the correlation matrix, while FA accounts for just the \iemph{common variance}.  This distinction becomes most important for small correlation matrices. Also note how the goodness of fit statistics, based upon the residual off diagonal elements, is much worse than the \pfun{fa} solution.
@@ -1227,7 +1314,7 @@ extension.diagram(fe)
 Another way to examine the overlap between two sets is the use of \iemph{set correlation} found by \pfun{lmCor} (discussed later). 
 
 \subsection{Comparing multiple solutions}
-\label{bassAckward}
+\label{sect:bassAckward}
 A procedure dubbed ``bass Ackward" by Lew Goldberg \citep{goldberg:06} compares solutions at multiple levels of complexity.  Here we show a 2, 3, 4  and 5 dimensional solution to the \pfun{bfi} data set.  (Figure~\ref{fig:bass.ack}).  This is done by finding the factor correlations between solutions (see \pfun{faCor})  and then organizing them sequentially.  The factor correlations for two solutions from the same correlation matrix, $\vec{R}$ , $\vec{F_1}  $ and $\vec{F_2}$ are found by using the two weights matrices, $\vec{W_1}$ and $\vec{W_2}$  (for finding factor scores for the first and second model) and then finding the factor covariances, $C = \vec{W_1' R W_2} $  which may then be converted to factor correlations by dividing by the square root of the diagonal of $\vec{C}$.  By default \pfun{bassAckward} uses the correlation preserving weights discussed by \cite{tenBerge.99}, although other options (e.g. regression weights) may also be used.
 
 
@@ -1266,7 +1353,7 @@ And we show the items associated with this solution by using \pfun{fa.lookup} (T
 \section{Classical Test Theory and  Reliability}
 
 
-Surprisingly, 107 years after \cite{spearman:rho} introduced the concept of reliability to psychologists, there are still multiple approaches for measuring it. Although very popular, Cronbach's  $\alpha$  \citep{cronbach:51} underestimates the reliability of a test and over estimates the first factor saturation \citep{rz:09}.
+Surprisingly, 122 years after \cite{spearman:rho} introduced the concept of reliability to psychologists, there are still multiple approaches for measuring it. Although very popular, Cronbach's  $\alpha$  \citep{cronbach:51} underestimates the reliability of a test and over estimates the first factor saturation \citep{rz:09}.
 
 $\alpha$ \citep{cronbach:51} is the same as Guttman's $\lambda3$ \citep{guttman:45} and may be found by
 $$
@@ -1346,7 +1433,7 @@ Two alternative estimates of reliability that take into account the hierarchical
 
 
 McDonald has proposed coefficient omega (hierarchical) ($\omega_h$) as an estimate of the general factor saturation of a test.  \cite{zinbarg:pm:05}
-\url{http://personality-project.org/revelle/publications/zinbarg.revelle.pmet.05.pdf} compare McDonald's $\omega_h$ to Cronbach's  $\alpha$ and Revelle's $\beta$. They conclude that $\omega_h$ is the best estimate. (See also \cite{zinbarg:apm:06} and \cite{rz:09} \url{http://personality-project.org/revelle/publications/revelle.zinbarg.08.pdf},  \cite{rc:reliability} and \cite{rc:pa:19}).   
+\url{https://personality-project.org/revelle/publications/zinbarg.revelle.pmet.05.pdf} compare McDonald's $\omega_h$ to Cronbach's  $\alpha$ and Revelle's $\beta$. They conclude that $\omega_h$ is the best estimate. (See also \cite{zinbarg:apm:06} and \cite{rz:09} \url{https://personality-project.org/revelle/publications/revelle.zinbarg.08.pdf},  \cite{rc:reliability} and \cite{rc:pa:19}).   
 
 One way to find $\omega_h$ is to do a factor analysis of the original data set, rotate the factors obliquely, factor that correlation matrix, do a   Schmid-Leiman (\pfun{schmid}) transformation to find general factor loadings, and then find $\omega_h$.  
 
@@ -1509,7 +1596,7 @@ To find the correlations of the items with each of the scales (the ``structure" 
 
 \subsection{Scoring Multiple Choice Items}
 
-Some items (typically associated with ability tests) are not themselves mini-scales ranging from low to high levels of expression of the item of interest, but are rather multiple choice where one response is the correct response.  Two analyses are useful for this kind of item: examining the response patterns to all the alternatives (looking for good or bad distractors) and scoring the items as correct or incorrect.  Both of these operations may be done using  the \pfun{score.multiple.choice} function.  Consider the 16 example items taken from an online ability test at the Personality  Project: \url{http://test.personality-project.org}.  This is part of the Synthetic Aperture Personality Assessment (\iemph{SAPA}) study discussed in \cite{rcw:methods,rwr:sapa}.   
+Some items (typically associated with ability tests) are not themselves mini-scales ranging from low to high levels of expression of the item of interest, but are rather multiple choice where one response is the correct response.  Two analyses are useful for this kind of item: examining the response patterns to all the alternatives (looking for good or bad distractors) and scoring the items as correct or incorrect.  Both of these operations may be done using  the \pfun{score.multiple.choice} function.  Consider the 16 example items taken from an online ability test at the Personality  Project: \url{https://personality-project.org/}.  This is part of the Synthetic Aperture Personality Assessment (\iemph{SAPA}) study discussed in \cite{rcw:methods,rwr:sapa}.   
 
 \begin{scriptsize}
 <<print=FALSE,echo=TRUE>>=
@@ -1777,7 +1864,7 @@ A number of functions in the psych package will generate simulated data. These f
 \end{description}
 
 
-Some of these functions are described in more detail in the companion vignette: \href{"psych_for_sem.pdf"}{psych for sem}.
+%Some of these functions are described in more detail in the companion vignette: \href{https://personality-project.org/r/psych-for-sem.pdf}{psych for sem}.
 
 The default values for \pfun{sim.structure} is to generate a 4 factor, 12 variable data set with a simplex structure between the factors.
 
@@ -1828,7 +1915,7 @@ omega.diagram(ot)
 \end{scriptsize}
 
 
-The ability to show path diagrams to represent factor analytic and structural models is discussed in somewhat more detail in the accompanying vignette, \href{"psych_for_sem.pdf"}{psych for sem}.   Basic routines to draw path diagrams are included in the \pfun{dia.rect} and accompanying functions.  These are used by the \pfun{fa.diagram}, \pfun{structure.diagram} and \pfun{iclust.diagram} functions.
+The ability to show path diagrams to represent factor analytic and structural models is discussed in somewhat more detail in the accompanying vignette, \href{https://personality-project.org/r/psych-for-sem.pdf}{psych for sem}.   Basic routines to draw path diagrams are included in the \pfun{dia.rect} and accompanying functions.  These are used by the \pfun{fa.diagram}, \pfun{structure.diagram} and \pfun{iclust.diagram} functions.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1906,28 +1993,28 @@ A number of data sets for demonstrating psychometric techniques are included in 
  
 \section{Development version and a users guide} 
 
-The most recent development version is available as a source file at the repository maintained at \href{ href="http://personality-project.org/r"}{\url{http://personality-project.org/r}}.  That version will have removed the most recently discovered bugs (but perhaps introduced other, yet to be discovered ones). To download and install  that version for either Macs or PCs:
+The most recent development version is available as a source file at the repository maintained at \url{https://personality-project.org/r/}.  That version will have removed the most recently discovered bugs (but perhaps introduced other, yet to be discovered ones). To download and install  that version for either Macs or PCs:
 
 \begin{Rinput}
-install.packages("psych",repos="http://personality-project.org/r", type="source")
+install.packages("psych",repos="https://personality-project.org/r", type="source")
 \end{Rinput}
 
-Although the individual help pages for the \Rpkg{psych} package are available as part of \R{} and may be accessed directly (e.g. ?psych) , the full manual for the \pfun{psych} package is also available as a pdf at  \url{http://personality-project.org/r/psych_manual.pdf}
+Although the individual help pages for the \Rpkg{psych} package are available as part of \R{} and may be accessed directly (e.g. ?psych) , the full manual for the \pfun{psych} package is also available as a pdf at  \url{https://personality-project.org/r/psych_manual.pdf}
  %psych\_manual.pdf.
 
 News and a history of changes are available in the NEWS and CHANGES files in the source files. To view the most recent news, 
 
 \begin{Rinput}
-news(Version >= "4.5.3",package="psych")
+news(Version >= "4.6.4",package="psych")
 \end{Rinput}
 
 
 
 \section{Psychometric Theory}
-The \Rpkg{psych} package has been developed to help psychologists do basic research.  Many of the functions were developed to supplement a book (\url{http://personality-project.org/r/book} An introduction to Psychometric Theory with Applications in \R{} \citep{revelle:intro}  More information about the use of some of the functions may be found in the book . 
+The \Rpkg{psych} package has been developed to help psychologists do basic research.  Many of the functions were developed to supplement a book (\url{https://personality-project.org/r/book/} An introduction to Psychometric Theory with Applications in \R{} \citep{revelle:intro}  More information about the use of some of the functions may be found in the book . 
 
 
-For more extensive discussion of the use of \Rpkg{psych} in particular and \R{} in general, consult  \url{http://personality-project.org/r/r.guide.html} A short guide to R.
+For more extensive discussion of the use of \Rpkg{psych} in particular and \R{} in general, consult  \url{https://personality-project.org/r/r.guide.html} A short guide to R.
 
 
 \section{SessionInfo}
@@ -2106,8 +2193,8 @@ Pedhazur, E. (1997).
   prediction}.
 \newblock Harcourt Brace College Publishers.
 
-\bibitem[\protect\astroncite{{R Core Team}}{2025}]{R}
-{R Core Team} (2025).
+\bibitem[\protect\astroncite{{R Core Team}}{2026}]{R}
+{R Core Team} (2026).
 \newblock {\em R: A Language and Environment for Statistical Computing}.
 \newblock R Foundation for Statistical Computing, Vienna, Austria.
 
@@ -2121,12 +2208,12 @@ Revelle, W. (1979).
 \newblock Hierarchical cluster-analysis and the internal structure of tests.
 \newblock {\em Multivariate Behavioral Research}, 14(1):57--74.
 
-\bibitem[\protect\astroncite{Revelle}{2025}]{psych}
-Revelle, W. (2025).
+\bibitem[\protect\astroncite{Revelle}{2026}]{psych}
+Revelle, W. (2026).
 \newblock {\em psych: Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
   https://CRAN.r-project.org/package=psych.
-\newblock R package version 2.5.3
+\newblock R package version 2.6.4
 
 \bibitem[\protect\astroncite{Revelle}{prep}]{revelle:intro}
 Revelle, W. ({in prep}).

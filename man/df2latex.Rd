@@ -5,9 +5,7 @@
 \alias{omega2latex}
 \alias{irt2latex}
 \alias{ICC2latex}
-\alias{df2rtf}
-\alias{cor2rtf}
-\alias{fa2rtf}
+
 
 \title{Convert a data frame, correlation matrix, or factor analysis output to a LaTeX or rtf table}
 
@@ -39,27 +37,6 @@ ICC2latex(icc,digits=2,rowlabels=TRUE,apa=TRUE,ci=TRUE,
     heading="A table from the psych package in R",
    caption="ICC2latex",label="default",char=FALSE,silent=FALSE,file=NULL,append=FALSE) 
 
-#not all options are yet implemented in these next three functions.   
-df2rtf(x,file=NULL, digits=2,rowlabels=TRUE,width=8.5,old=NULL, apa=TRUE,short.names=TRUE,
-	font.size =10,big.mark=NULL, drop.na=TRUE, 
-	heading="A table from the psych package in R",
-	caption="Created with df2rtf",label="default",char=FALSE,stars=FALSE,silent=FALSE,
-	append=FALSE,cut=0,big=.0,abbrev=NULL,long=FALSE) 
-
-cor2rtf(x,file=NULL, use = "pairwise", method="pearson", adjust="holm", digits=2,
-	rowlabels=TRUE,width=8.5,lower=TRUE,old=NULL, apa=TRUE,short.names=TRUE,
-	font.size =10,big.mark=NULL, drop.na=TRUE, 
-	heading="A correlation matrix from the psych package in R",
-	caption="Created with cor2rtf.   left justify output if stars", 
-	label="default",char=FALSE,stars=FALSE,silent=FALSE,
-	append=FALSE,cut=0,big=.0,abbrev=NULL,long=FALSE) 
-	
-fa2rtf(f,file=NULL, use = "pairwise", method="pearson", adjust="holm", digits=2,
-	rowlabels=TRUE,width=8.5,lower=TRUE,old=NULL, apa=TRUE,short.names=TRUE,
-	font.size =10,big.mark=NULL, drop.na=TRUE, 
-	heading="A Factor analysis   from the psych package in R",
-	caption="Created with fa2rtf. ",label="default",char=FALSE,silent=FALSE,
-	append=FALSE,cut=0,big=.0,abbrev=NULL)  
 }
 
 \arguments{
@@ -92,15 +69,14 @@ fa2rtf(f,file=NULL, use = "pairwise", method="pearson", adjust="holm", digits=2,
   \item{file}{If specified, write the output to this file}
   \item{append}{If file is specified, then should we append (append=TRUE) or just write to the file}
   \item{long}{if TRUE, then do long tables.  (requires the longtable package in latex)}
-  \item{old}{When appending output with df2rtf, old is the output from the prior run.}
-  \item{width}{page width in inches for df2rtf }
+  
   }
 \value{A LaTeX table.  Note that if showing "stars" for correlations, then one needs to use the siunitx  package in LaTex. 
   The entire LaTeX output is also returned invisibly.  If using Sweave to create tables, then the silent option should be set to TRUE and the returned object saved as a file.  See the last example.
   
   Finally, some users have asked for the ability to convert these output tables into HTML.  This may be done using the tth package. 
   
-  Three functions to write to rtf files (for use in various proprietary word processing languages) have been added with version 2.4.3.  These will write to an rtf file and may be formatted directly.  df2rtf takes a data frame and writes it as a table with header information.
+  Three functions to write to rtf files (for use in various proprietary word processing languages) were  added with version 2.4.3 but then removed in 2.6.4 because they failed the CRAN tests.  These will write to an rtf file and may be formatted directly.  df2rtf takes a data frame and writes it as a table with header information.
   
   cor2rtf will take either a data matrix (and find the correlations) or just a correlation matrix.  "magic astericks " can be added to the correlations using the stars=TRUE option.  In this case, the result table can be left justified in a word processing language to get the numbers to appear correctly justified.
   
@@ -134,21 +110,21 @@ fa2latex(psych::fa(psych::Thurstone,3),heading="Factor analysis from R in quasi 
 fn <- tempfile(pattern="example",fileext=".rtf")  #create a temporary file
 #better is to create a local file
 # e.g. fn <- "rtf_example.rtf"
-
-cor2rtf(sat.act, file=fn)   #write to the file
+#removed 2024-4-24 because of problems with rtf
+#cor2rtf(sat.act, file=fn)   #write to the file
 
 dd <- psych::describe(sat.act)
-temp <- df2rtf(dd, file=fn, append=TRUE, width=12) #write and keep open
-temp1 <-  cor2rtf(sat.act,old=temp,caption=date(), append=TRUE)  #use date as caption 
-cor2rtf(sat.act, old=temp1, stars=TRUE) #close the file
+#temp <- df2rtf(dd, file=fn, append=TRUE, width=12) #write and keep open
+#temp1 <-  cor2rtf(sat.act,old=temp,caption=date(), append=TRUE)  #use date as caption 
+#cor2rtf(sat.act, old=temp1, stars=TRUE) #close the file
 #now open this with your word processor and reformat with left justify
 
 #now write a factor analysis output to an output file
 # e.g. fn <- "rtf_example.rtf"
 f5 <- psych::fa(bfi,5)
-temp <- fa2rtf(f5, width=12, file=fn, append=TRUE)  #a normal fa output
+#temp <- fa2rtf(f5, width=12, file=fn, append=TRUE)  #a normal fa output
 fl <- psych::fa.lookup(f5, dictionary=bfi.dictionary)
-fa2rtf(fl, old = temp)
+#fa2rtf(fl, old = temp)
 ##now open this with your word processor
 
 #To convert these latex tables to HTML

@@ -240,7 +240,7 @@ mediate(y1 + y2 ~ x1 + x2* mod1 +(med1), data = myData)
 \subsection{Psychometric functions are summarized in this vignette}
 
 Many additional functions, particularly designed for basic and advanced psychometrics are discussed more fully 
- in this Vignette. A brief review of the functions available is included here.  For basic data entry and descriptive statistics, see the Vignette Intro to Psych \href{https://personality-project.org/r/psych/intro.pdf}{introduction} (vignette).  In addition, there are helpful tutorials for \href{https://personality-project.org/r/psych/HowTo/omega.pdf}{Finding $omega_h$ and $\omega_t$}, \href{https://personality-project.org/r/psych/HowTo/scoring.pdf}{scale scores and scale statistics} and for \href{https://personality-project.org/r/psych/HowTo/factor.pdf}{factor analysis} at the set of HowTos at  \href{https://personality-project.org/r/psych/HowTo}{Howto}.
+ in this Vignette. A brief review of the functions available is included here.  For basic data entry and descriptive statistics, see the Vignette Intro to Psych \href{https://personality-project.org/r/psych/intro.pdf}{introduction} (vignette).  In addition, there are helpful tutorials for \href{https://personality-project.org/r/psych/HowTo/omega.pdf}{Finding $omega_h$ and $\omega_t$}, \href{https://personality-project.org/r/psych/HowTo/scoring.pdf}{scale scores and scale statistics} and for \href{https://personality-project.org/r/psych/HowTo/factor.pdf}{factor analysis} at the set of HowTos at  \href{https://personality-project.org/r/psych/HowTo/}{Howto}.
 
 \begin{itemize}
 
@@ -313,22 +313,28 @@ Psychometric applications emphasize techniques for dimension reduction including
 Graphical displays include Scatter Plot Matrix (SPLOM) plots using \pfun{pairs.panels}, correlation ``heat maps'' (\pfun{corPlot}) factor, cluster, and  structural diagrams using \pfun{fa.diagram}, \pfun{iclust.diagram}, \pfun{structure.diagram} and \pfun{het.diagram}, as well as item response characteristics and item and test information characteristic curves \pfun{plot.irt} and \pfun{plot.poly}.   
 
 
-This vignette is meant to give an overview of  the  \Rpkg{psych} package.  That is, it is meant to give a summary of the main functions in the \Rpkg{psych} package with examples of how they are used for data description, dimension reduction, and scale construction.  The extended  user manual at \url{psych_manual.pdf} includes examples of graphic output and more extensive demonstrations than are found in the help menus. (Also available at \url{https://personality-project.org/r/psych_manual.pdf}).  The vignette, psych for sem,  at \url{psych_for_sem.pdf}, discusses how to use psych as a front end to the \Rpkg{sem} package of John Fox \citep{sem}. (The vignette is also available at \href{"https://personality-project.org/r/book/psych_for_sem.pdf"}{\url{https://personality-project.org/r/book/psych_for_sem.pdf}}).
+This vignette is meant to give an overview of  the  \Rpkg{psych} package.  That is, it is meant to give a summary of the main functions in the \Rpkg{psych} package with examples of how they are used for data description, dimension reduction, and scale construction.  The extended  user manual at \url{https://personality-project.org/r/psych-manual.pdf} includes examples of graphic output and more extensive demonstrations than are found in the help menus. (Also available at \url{https://personality-project.org/r/psych-manual.pdf}).  The vignette, psych for sem,  at \url{https://personality-project.org/r/psych-for-sem.pdf}, discusses how to use psych as a front end to the \Rpkg{sem} package of John Fox \citep{sem}. (The vignette is also available at \href{https://personality-project.org/r/book/psych-for-sem.pdf}{https://personality-project.org/r/book/psych-for-sem.pdf}).
 
 In addition, there are a growing number of ``HowTo"s at the personality project.  Currently these include:
 
+The current list of How To's (aka Vignettes) includes 
+
 \begin{enumerate}
-\item An \href{https://personality-project.org/r/psych/intro.pdf}{introduction} (vignette) of the \Rpkg{psych} package 
-\item An \href{https://personality-project.org/r/psych/overview.pdf}{overview} (vignette) of the \Rpkg{psych} package 
-\item \href{https://personality-project.org/r/psych/HowTo/getting_started.pdf}{Installing} \R{}  and some useful packages
-\item Using \R{} and the \Rpkg{psych} package to find \href{https://personality-project.org/r/psych/HowTo/omega.pdf}{$omega_h$} and $\omega_t$.
-\item Using  \R{} and the \Rpkg{psych} for \href{https://personality-project.org/r/psych/HowTo/factor.pdf}{factor analysis} and principal components analysis.
+\item \href{https://personality-project.org/r/psych//HowTo/getting_started.pdf}{Installing} \R{}  and some useful packages
+\item   \href{../../psychTools/doc/overview.pdf}{overview} (vignette) of the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/intro.pdf}{introduction and data entry} (vignette) of the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/factor.pdf}{Exploratory and Confirmatory Factor Analysis} (vignette) using the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/omega.pdf}{Finding various estimates of reliability} (vignette) e.g., $\omega_h$, $\omega_t$, and $\alpha$  using the \Rpkg{psych} package.
+
+\item   \href{../../psychTools/doc/mediation.pdf}{regression and mediation}
+  (vignette) using the \Rpkg{psych} package.
+
 \item Using the \pfun{scoreItems} function to find \href{https://personality-project.org/r/psych/HowTo/scoring.pdf}{scale scores and scale statistics}.
-\item Using \pfun{mediate} and \pfun{lmCor} to do \href{https://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis}.
+
 \end{enumerate}
 
 
-For a step by step tutorial in the use of the psych package and the base functions in R for basic personality research, see the  guide for using \R{} for personality research at \url{https://personalitytheory.org/r/r.short.html}.  For an \iemph{introduction to psychometric theory with applications in \R{}}, see the draft chapters at \url{https://personality-project.org/r/book}).
+For a step by step tutorial in the use of the psych package and the base functions in R for basic personality research, see the  guide for using \R{} for personality research at \url{https://personality-project.org/r/r.short.html}.  For an \iemph{introduction to psychometric theory with applications in \R{}}, see the draft chapters at \url{https://personality-project.org/r/book/}).
 
 
 
@@ -548,6 +554,83 @@ fa.diagram(f3t)
 
 
 A comparison of these three approaches suggests that the minres solution is more similar to a maximum likelihood solution and fits slightly better than the pa or wls solutions.  Comparisons with SPSS suggest that the pa solution matches the SPSS OLS solution, but that the minres solution is slightly better.  At least in one test data set, the weighted least squares solutions, although fitting equally well, had slightly different structure loadings.  Note that the rotations used by SPSS will sometimes use the ``Kaiser Normalization''.  By default, the rotations used in psych do not normalize, but this can be specified as an option in \pfun{fa}. 
+
+
+\subsubsection{Confirmatory Factor Analysis (CFA) }
+\label{sect:CFA}
+
+ Confirmatory factor analysis may be done without iteration (and thus not using Maximum Likelihood procedures) by using some very old techniques.  The algorithm follows that of Dhaene and Rosseel (2024) using the ``Spearman" Multiple Group Method to estimate the communalities.  This method was introduced by Guttman (1952) and is discussed by Harman (1967).
+ 
+ \pfun{CFA} follows the Spearman approach for communalities discussed by Dhaene and Rosseel (2024) and described as the ``Multiple Group Method".  \Rpkg{psych}  uses the upper case name (CFA) to avoid conflicts with lavaan's cfa function. Following Harman (1967)	 (Chapter 7, p 115-117) the communality of each variable is estimated by the ratio of the sum of all the correlations to the sum of squared correlations with that  variable.  The square root of the communality is the factor loading. 
+ 
+ \pfun{CFA} requires specifying a model to test and then testing it.  Using the Thurstone data set, and lavaan syntax we specify a 3 factor solution and then test it. 
+ 
+ \begin{table}[htpb]
+\caption{Using the  Thurstone data set we can find 3 correlated factors with no cross loadings or a bifactor solution where there is a higher order factor, g, that accounts for the correlation between the factors. The factors were extracted using a weighted least squares algorithm. }
+
+\begin{scriptsize}
+<<print=FALSE,echo=TRUE>>=
+colnames(Thurstone) <- rownames(Thurstone) <- paste0("x",1:9  ) #to match lavaan syntax
+model <- HS.model <- ' visual  =~ x1 + x2 + x3
+              textual =~ x4 + x5 + x6
+              speed   =~ x7 + x8 + x9 '
+c3 <- CFA(model,Thurstone,n.obs=213,n.iter=5)  
+
+print(c3, cut=0,digits=2)
+@
+\end{scriptsize}
+\label{tab:Thurstone.cfa}
+\end{table}
+
+ \begin{table}[htpb]
+\caption{The bifactor solution}
+
+\begin{scriptsize}
+<<print=FALSE,echo=TRUE>>=
+colnames(Thurstone) <- rownames(Thurstone) <- paste0("x",1:9  ) #to match lavaan syntax
+model <- HS.model <- ' visual  =~ x1 + x2 + x3
+              textual =~ x4 + x5 + x6
+              speed   =~ x7 + x8 + x9 '
+cbi <- CFA.bifactor(model,Thurstone,n.obs=213,n.iter=5)  
+print(cbi, cut=0,digits=2)
+@
+\end{scriptsize}
+\label{tab:Thurstone.bi}
+\end{table}
+
+ \begin{table}[htpb]
+\caption{The higher order solution}
+
+\begin{scriptsize}
+<<print=FALSE,echo=TRUE>>=
+colnames(Thurstone) <- rownames(Thurstone) <- paste0("x",1:9  ) #to match lavaan syntax
+model <- HS.model <- ' visual  =~ x1 + x2 + x3
+              textual =~ x4 + x5 + x6
+              speed   =~ x7 + x8 + x9 '
+c.high <- CFA.bifactor(model,Thurstone,g=TRUE)
+print(c.high)
+@
+\end{scriptsize}
+\label{tab:Thurstone.higher}
+\end{table}
+
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{scriptsize}
+<<print=FALSE,echo=TRUE, fig=TRUE,eps=FALSE>>=
+diagram(c.high)
+op <- par(mfrow=c(1,1))
+@
+\end{scriptsize}
+\caption{A higher order factor solution to the Thurstone 9 variable problem}
+\label{fig:cfa.hi}
+\end{center}
+\end{figure}
+
+
+ 
+ 
 
 \subsubsection{Principal Components analysis (PCA)}
 An alternative to factor analysis, which is unfortunately frequently confused with \iemph{factor analysis}, is \iemph{principal components analysis}.  Although the goals of \iemph{PCA} and \iemph{FA} are similar, PCA is a descriptive model of the data, while FA is a structural model.  Some psychologists  use PCA in a manner similar to factor analysis and thus the \pfun{principal} function produces output that is perhaps more understandable than that produced by \fun{princomp} in the \Rpkg{stats} package. Table~\ref{tab:pca} shows a PCA of the Thurstone 9 variable problem rotated using the \pfun{Promax} function. Note how the loadings from the factor model are similar but smaller than the principal component loadings. This is because the PCA model attempts to account for the entire variance of the correlation matrix, while FA accounts for just the \iemph{common variance}.  This distinction becomes most important for small correlation matrices. Also note how the goodness of fit statistics, based upon the residual off diagonal elements, is much worse than the \pfun{fa} solution.
@@ -1550,7 +1633,7 @@ A number of functions in the psych package will generate simulated data. These f
 \end{description}
 
 
-Some of these functions are described in more detail in the companion vignette: \href{"psych_for_sem.pdf"}{psych for sem}.
+%Some of these functions are described in more detail in the companion vignette: \href{https://personality-project.org/r/psych-for-sem.pdf}{psych for sem}.
 
 The default values for \pfun{sim.structure} is to generate a 4 factor, 12 variable data set with a simplex structure between the factors.
 
@@ -1601,7 +1684,7 @@ omega.diagram(ot)
 \end{scriptsize}
 
 
-The ability to show path diagrams to represent factor analytic and structural models is discussed in somewhat more detail in the accompanying vignette, \href{"psych_for_sem.pdf"}{psych for sem}.   Basic routines to draw path diagrams are included in the \pfun{dia.rect} and accompanying functions.  These are used by the \pfun{fa.diagram}, \pfun{structure.diagram} and \pfun{iclust.diagram} functions.
+The ability to show path diagrams to represent factor analytic and structural models is discussed in somewhat more detail in the accompanying vignette, \href{https://personality-project.org/r/psych-for-sem.pdf}{psych for sem}.   Basic routines to draw path diagrams are included in the \pfun{dia.rect} and accompanying functions.  These are used by the \pfun{fa.diagram}, \pfun{structure.diagram} and \pfun{iclust.diagram} functions.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1718,8 +1801,7 @@ A number of data sets for demonstrating psychometric techniques are included in 
  
 \section{Development version and a users guide} 
 
-The most recent development version is available as a source file at the repository maintained at \href{ href="https://personality-project.org/r"}{\url{https://personality-project.org/r}}.  That version will have removed the most recently discovered bugs (but perhaps introduced other, yet to be discovered ones). To download that version, go to the repository %\href{"https://personality-project.org/r/src/contrib/}{
-\url{https://personality-project.org/r/src/contrib/} and wander around. For a Mac and PC this version can be installed directly using the ``other repository" option in the package installer.
+The most recent development version is available as a source file at the repository maintained at \href{https://personality-project.org/r/}{https://personality-project.org/r/}.  That version will have removed the most recently discovered bugs (but perhaps introduced other, yet to be discovered ones). To download that version, go to the repository \href{https://personality-project.org/r/}{https://personality-project.org/r/} and wander around. For a Mac and PC this version can be installed directly using the ``other repository" option in the package installer.
 
 \begin{Schunk}
 \begin{Sinput}
@@ -1728,21 +1810,21 @@ The most recent development version is available as a source file at the reposit
 \end{Schunk}
 
 
-Although the individual help pages for the \Rpkg{psych} package are available as part of \R{} and may be accessed directly (e.g. ?psych) , the full manual for the \pfun{psych} package is also available as a pdf at  \url{https://personality-project.org/r/psych_manual.pdf}
+Although the individual help pages for the \Rpkg{psych} package are available as part of \R{} and may be accessed directly (e.g. ?psych) , the full manual for the \pfun{psych} package is also available as a pdf at  \url{https://personality-project.org/r/psych-manual.pdf}
  %psych\_manual.pdf.
 
 News and a history of changes are available in the NEWS and CHANGES files in the source files. To view the most recent news, 
 
 \begin{Schunk}
 \begin{Sinput}
-> news(Version > "2.3.3", package="psych")
+> news(Version > "2.6.3", package="psych")
 \end{Sinput}
 \end{Schunk}
 
 
 
 \section{Psychometric Theory}
-The \Rpkg{psych} package has been developed to help psychologists do basic research.  Many of the functions were developed to supplement a book (\url{https://personality-project.org/r/book} An introduction to Psychometric Theory with Applications in \R{} \citep{revelle:intro}  More information about the use of some of the functions may be found in the book . 
+The \Rpkg{psych} package has been developed to help psychologists do basic research.  Many of the functions were developed to supplement a book (\url{https://personality-project.org/r/book/} An introduction to Psychometric Theory with Applications in \R{} \citep{revelle:intro}  More information about the use of some of the functions may be found in the book . 
 
 
 For more extensive discussion of the use of \Rpkg{psych} in particular and \R{} in general, consult  \url{https://personality-project.org/r/r.guide.html} A short guide to R.

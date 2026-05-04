@@ -1,4 +1,4 @@
-% \VignetteIndexEntry{Overview of the psych package}
+% \VignetteIndexEntry{Overview of the psych package for mediation	}
 % \VignettePackage{psych}
 % \VignetteKeywords{multivariate}
 % \VignetteKeyword{models}
@@ -794,7 +794,8 @@ Mediation analysis is just linear regression reorganized slightly to show the di
 \end{center}
 \end{figure}
 
- A number of papers discuss how to test for the effect of mediation and there are some very popular `macros' for SPSS and SAS to do so \citep{hayes:13,preacher:04,preacher:07,preacher:15}.  A useful discussion of mediation and moderation with sample data sets is found in \cite{hayes:13}. More recently, the \Rpkg{processR} package \citep{processR} has been released with these data sets.  Although these data used to be be available from   \href{"http://www.afhayes.com/public/hayes2018data.zip"}{http://www.afhayes.com/public/hayes2018data.zip}  this now longer seems to be case.\footnote{The Hayes data sets (2018) do not correspond exactly with those from the 2013 book. Those data files were at  \href{"http://www.afhayes.com/public/hayes2013data.zip"}{http://www.afhayes.com/public/hayes2013data.zip}.}.  I use these for comparisons with the results in \cite{hayes:13}.  Four of these data sets are now included in the \Rpkg{psych} package with the kind permission of their authors: \pfun{Garcia} is from \cite{garcia:10}, and \pfun{Tal\_Or} is from \cite{talor:10},  The \pfun{Pollack} correlation matrix is taken from an article by \cite{pollack:12}.   The \pfun{globalWarm} data set is the \pfun{glbwarm} data set in the  \Rpkg{processR} package and added to \Rpkg{psychTools} with the kind permission of the original author, Erik Nisbet.   
+ A number of papers discuss how to test for the effect of mediation and there are some very popular `macros' for SPSS and SAS to do so \citep{hayes:13,preacher:04,preacher:07,preacher:15}.  A useful discussion of mediation and moderation with sample data sets is found in \cite{hayes:13}. More recently, the \Rpkg{processR} package \citep{processR} has been released with these data sets.  Although these data used to be be available from  Hayes' website, that site seems to have vanished. % \href{"http://www.afhayes.com/public/hayes2018data.zip"}{http://www.afhayes.com/public/hayes2018data.zip}  this now longer seems to be case.\footnote{The Hayes data sets (2018) do not correspond exactly with those from the 2013 book. Those data files were at  Hayes' 2-13 website which seems to have vanished.%\href{"http://www.afhayes.com/public/hayes2013data.zip"}{http://www.afhayes.com/public/hayes2013data.zip}.}.  
+ I use these for comparisons with the results in \cite{hayes:13}.  Four of these data sets are now included in the \Rpkg{psych} package with the kind permission of their authors: \pfun{Garcia} is from \cite{garcia:10}, and \pfun{Tal\_Or} is from \cite{talor:10},  The \pfun{Pollack} correlation matrix is taken from an article by \cite{pollack:12}.   The \pfun{globalWarm} data set is the \pfun{glbwarm} data set in the  \Rpkg{processR} package and added to \Rpkg{psychTools} with the kind permission of the original author, Erik Nisbet.   
 
 
 
@@ -1738,30 +1739,30 @@ dev.off()
 
 \section{Development version and a users guide} 
 
-The \Rpkg{psych} package is available from the CRAN repository.  However, the most recent development version of the \Rpkg{psych} package is available as a source file at the repository maintained at \href{ href="http://personality-project.org/r"}{\url{http://personality-project.org/r}}.  That version will have removed the most recently discovered bugs (but perhaps introduced other, yet to be discovered ones). To install this development version, either for PCs or Macs,  
+The \Rpkg{psych} package is available from the CRAN repository.  However, the most recent development version of the \Rpkg{psych} package is available as a source file at the repository maintained at \href{ https://personality-project.org/r/}{https://personality-project.org/r/}.  That version will have removed the most recently discovered bugs (but perhaps introduced other, yet to be discovered ones). To install this development version, either for PCs or Macs,  
 
 
 \begin{Rinput}
-install.packages("psych", repos =  "http://personality-project.org/r", type = "source")
-
+install.packages("psych", repos =  "https://personality-project.org/r", type = "source")
 \end{Rinput}
+
 After doing this, it is important to restart \R{} to get the new package.
 
-Although the individual help pages for the \Rpkg{psych} package are available as part of \R{} and may be accessed directly (e.g. ?psych) , the full manual for the \pfun{psych} package is also available as a pdf at  \url{http://personality-project.org/r/psych_manual.pdf}
+Although the individual help pages for the \Rpkg{psych} package are available as part of \R{} and may be accessed directly (e.g. ?psych) , the full manual for the \pfun{psych} package is also available as a pdf at  \url{https://personality-project.org/r/psych-manual.pdf}
  %psych\_manual.pdf.
 
 News and a history of changes are available in the NEWS and CHANGES files in the source files. To view the most recent news, 
 
 \begin{Schunk}
 \begin{Sinput}
-> news(Version >= "2.3.12",package="psych")
+> news(Version >= "2.6.1",package="psych")
 \end{Sinput}
 \end{Schunk}
 
 
 
 \section{Psychometric Theory}
-The \Rpkg{psych} package has been developed to help psychologists (and other quantitative scientists) do basic research.  Many of the functions were developed to supplement a book (\url{http://personality-project.org/r/book} An introduction to Psychometric Theory with Applications in \R{} \citep{revelle:intro}  More information about the use of some of the functions may be found in the book . 
+The \Rpkg{psych} package has been developed to help psychologists (and other quantitative scientists) do basic research.  Many of the functions were developed to supplement a book (\url{http://personality-project.org/r/book/} An introduction to Psychometric Theory with Applications in \R{} \citep{revelle:intro}  More information about the use of some of the functions may be found in the book . 
 
 
 For more extensive discussion of the use of \Rpkg{psych} in particular and \R{} in general, consult  \url{http://personality-project.org/r/r.guide.html} A short guide to R.
@@ -1850,14 +1851,14 @@ Preacher, K.~J., Rucker, D.~D., and Hayes, A.~F. (2007).
 \newblock {\em R: A Language and Environment for Statistical Computing}.
 \newblock R Foundation for Statistical Computing, Vienna, Austria.
 
-\bibitem[\protect\astroncite{Revelle}{2023}]{psych}
+\bibitem[\protect\astroncite{Revelle}{2026}]{psych}
 Revelle, W. (2023).
 \newblock {\em
-  \href{https://cran.r-project.org/web/packages/psych/index.html}{psych}:
+  \href{https://cran.r-project.org/package=psych}{psych}:
   Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
   https://CRAN.r-project.org/package=psych.
-\newblock R package version 2.3.6
+\newblock R package version 2.6.4
 
 \bibitem[\protect\astroncite{Revelle}{prep}]{revelle:intro}
 Revelle, W. ({in prep}).
@@ -1962,7 +1963,7 @@ Preacher, K.~J., Rucker, D.~D., and Hayes, A.~F. (2007).
 \bibitem[\protect\astroncite{Revelle}{2025}]{psych}
 Revelle, W. (2025).
 \newblock {\em
-  \href{https://cran.r-project.org/web/packages/psych/index.html}{psych}:
+  \href{https://cran.r-project.org/package=psych}{psych}:
   Procedures for Personality and Psychological Research}.
 \newblock Northwestern University, Evanston,
   https://CRAN.r-project.org/package=psych.

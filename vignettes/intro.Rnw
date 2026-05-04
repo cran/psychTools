@@ -248,7 +248,7 @@ lmCor(y1 + y2 ~  x1 + x2 + x1*x2, data = myData)
 \end{scriptsize}
 
 
-\item \pfun{mediate}  will take raw data or a correlation matrix and find  (and graph the path diagram) for multiple y variables depending upon multiple x variables mediated through a mediation variable. It then tests the mediation effect using a boot strap.  Specify the mediation variable by enclosing it in parentheses, and show the moderation by the standard multiplication. For the purpose of this demonstration, we do the boot strap with just 50 iterations.  The default is 5,000.  We use the data from \cite{talor:10} which was downloaded from  the supplementary material for Hayes (2013) \href{"https://www.afhayes.com/public/hayes2013data.zip"}{https://www.afhayes.com/public/hayes2013data.zip} and used by the kind permission of Nurit Tal-Or, Jonathan Cohen, Yariv Tsfati, and Albert C. Gunther.
+\item \pfun{mediate}  will take raw data or a correlation matrix and find  (and graph the path diagram) for multiple y variables depending upon multiple x variables mediated through a mediation variable. It then tests the mediation effect using a boot strap.  Specify the mediation variable by enclosing it in parentheses, and show the moderation by the standard multiplication. For the purpose of this demonstration, we do the boot strap with just 50 iterations.  The default is 5,000.  We use the data from \cite{talor:10} which was downloaded from  the supplementary material for Hayes (2013) \href{https://www.afhayes.com/public/hayes2013data.zip}{https://www.afhayes.com/public/hayes2013data.zip} and used by the kind permission of Nurit Tal-Or, Jonathan Cohen, Yariv Tsfati, and Albert C. Gunther.
 
 \begin{scriptsize}
 %%\begin{Schunk}
@@ -276,7 +276,7 @@ mediate(respappr ~ prot * sexism +(sexism),data=Garcia,zero=FALSE, n.iter=50,
 \subsection{Psychometric functions are summarized in the second vignette}
 
 Many additional functions, particularly designed for basic and advanced psychometrics are discussed more fully 
- in the \emph{Overview Vignette}, which is included in the \Rpkg{psychTools} package or may be downloaded from  \url{https://personality-project.org/r/psych/vignettes/overview.pdf} . A brief review of the functions available is included here.  In addition, there are helpful tutorials for \url{https://personality-project.org/r/psych/vignettes/omega.pdf}{Finding omega}, \url{https://personality-project.org/r/psych/vignettes/scoring.pdf}{How to score scales and find reliability}, and for \url{https://personality-project.org/r/psych/vignettes/factor.pdf}{Using psych for factor analysis} at \url{https://personality-project.org/r/vignettes} which are also included as vignettes.
+ in the \emph{Overview Vignette}, which is included in the \Rpkg{psychTools} package or may be downloaded from  \url{https://personality-project.org/r/psych/vignettes/overview.pdf} . A brief review of the functions available is included here.  In addition, there are helpful tutorials for \url{https://personality-project.org/r/psych/vignettes/omega.pdf}{Finding omega}, \url{https://personality-project.org/r/psych/vignettes/scoring.pdf}{How to score scales and find reliability}, and for \url{https://personality-project.org/r/psych/vignettes/factor.pdf}{Using psych for factor analysis} at \url{https://personality-project.org/r/psych/vignettes/} which are also included as vignettes.
 
 \begin{itemize}
 
@@ -352,25 +352,30 @@ Psychometric applications emphasize techniques for dimension reduction including
 Graphical displays include Scatter Plot Matrix (SPLOM) plots using \pfun{pairs.panels}, correlation ``heat maps'' (\pfun{corPlot}) factor, cluster, and  structural diagrams using \pfun{fa.diagram}, \pfun{iclust.diagram}, \pfun{structure.diagram} and \pfun{het.diagram}, as well as item response characteristics and item and test information characteristic curves \pfun{plot.irt} and \pfun{plot.poly}.   
 
 
-This vignette is meant to give an overview of  the  \Rpkg{psych} package.  That is, it is meant to give a summary of the main functions in the \Rpkg{psych} package with examples of how they are used for data description, dimension reduction, and scale construction.  The extended  user manual at  \href{"https://personality-project.org/r/psych_manual.pdf"}{\url{psych.manual.pdf}} 
-includes examples of graphic output and more extensive demonstrations than are found in the help menus. (Also available at \url{https://personality-project.org/r/psych_manual.pdf}).  The vignette, psych for sem,  at  \href{https://personalty-project.org/r/psych_for_sem.pdf}{\url{https://personalty-project.org/r/psych_for_sem.pdf}}, discusses how to use psych as a front end to the \Rpkg{sem} package of John Fox \citep{sem}. (The vignette is also available at \href{"https://personality-project.org/r/book/psych_for_sem.pdf"}{\url{https://personality-project.org/r/psych/vignettes/psych_for_sem.pdf}}).
+This vignette is meant to give an overview of  the  \Rpkg{psych} package.  That is, it is meant to give a summary of the main functions in the \Rpkg{psych} package with examples of how they are used for data description, dimension reduction, and scale construction.  The extended  user manual at  \href{../../psych/refman/psych.html}{psych.manual.pdf} 
+includes examples of graphic output and more extensive demonstrations than are found in the help menus. (Also available at \url{https://personality-project.org/r/psych-manual.pdf}).  
+%The vignette, psych for sem,  at  \href{https://personality-project.org/r/psych_for_sem.pdf}{https://personality-project.org/r/psych_for_sem.pdf}, discusses how to use psych as a front end to the \Rpkg{sem} package of John Fox \citep{sem}. (The vignette is also available at \href{https://personality-project.org/r/book/psych_for_sem.pdf}{https://personality-project.org/r/psych/vignettes/psych_for_sem.pdf}).
 
 In addition, there are a growing number of ``HowTo"s at the personality project.  Currently these include:
 
+The current list of How To's (aka Vignettes) includes 
+
 \begin{enumerate}
-\item An \href{https://personality-project.org/r/psych/intro.pdf}{introduction} (vignette) of the \Rpkg{psych} package 
-\item An \href{https://personality-project.org/r/psych/overview.pdf}{overview} (vignette) of the \Rpkg{psych} package 
-\item \href{https://personality-project.org/r/psych/HowTo/getting_started.pdf}{Installing} \R{}  and some useful packages
-\item Using \R{} and the \Rpkg{psych} package to find \href{https://personality-project.org/r/psych/HowTo/omega.pdf}{$omega_h$} and $\omega_t$.
-\item Using  \R{} and the \Rpkg{psych} for \href{https://personality-project.org/r/psych/HowTo/factor.pdf}{factor analysis} and principal components analysis.
-\item Using the \pfun{scoreItems} function to find \href{https://personality-project.org/r/psych/HowTo/scoring.pdf}{scale scores and scale statistics}.
-\item Using \pfun{mediate} and \pfun{lmCor} to do \href{https://personality-project.org/r/psych/HowTo/mediation.pdf}{mediation, moderation and regression analysis}.
+\item \href{https://personality-project.org/r/psych//HowTo/getting_started.pdf}{Installing} \R{}  and some useful packages
+\item   \href{../../psychTools/doc/overview.pdf}{overview} (vignette) of the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/intro.pdf}{introduction and data entry} (vignette) of the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/factor.pdf}{Exploratory and Confirmatory Factor Analysis} (vignette) using the \Rpkg{psych} package.
+\item   \href{../../psychTools/doc/omega.pdf}{Finding various estimates of reliability} (vignette) e.g., $\omega_h$, $\omega_t$, and $\alpha$  using the \Rpkg{psych} package.
 
+\item   \href{../../psychTools/doc/mediation.pdf}{regression and mediation}
+  (vignette) using the \Rpkg{psych} package.
 
+../../psych/refman/psych.html
+https://cran.r-project.org/web/packages/psych/refman/psych.html
 \end{enumerate}
 
 
-For a step by step tutorial in the use of the psych package and the base functions in R for basic personality research, see the  guide for using \R{} for personality research at \url{https://personalitytheory.org/r/r.short.html}.  For an \iemph{introduction to psychometric theory with applications in \R{}}, see the draft chapters at \url{https://personality-project.org/r/book}).
+For a step by step tutorial in the use of the psych package and the base functions in R for basic personality research, see the  guide for using \R{} for personality research at \url{https://personality-project.org/r/r.short.html}.  For an \iemph{introduction to psychometric theory with applications in \R{}}, see the draft chapters at \url{https://personality-project.org/r/book/}).
 
 
 
@@ -753,7 +758,7 @@ error.bars.by(epi.bfi[,6:10],epi.bfi$epilie<4)
 \end{center}
 \end{figure}
 
-Although not recommended, it is possible to use the \pfun{error.bars} function to draw bar graphs with associated error bars.  (This kind of \iemph{dynamite plot} (Figure~\ref{fig:dynamite}) can be very misleading in that the scale is arbitrary.  Go to  a discussion of the problems in presenting data this way at \url{https://emdbolker.wikidot.com/blog:dynamite}.  In the example shown, note that the graph starts at 0, although is out of the range.  This is a function of using bars, which always are assumed to start at zero.  Consider other ways of showing your data.
+Although not recommended, it is possible to use the \pfun{error.bars} function to draw bar graphs with associated error bars.  (This kind of \iemph{dynamite plot} (Figure~\ref{fig:dynamite}) can be very misleading in that the scale is arbitrary.  Go to  a discussion of the problems in presenting data this way at \url{http://emdbolker.wikidot.com/blog:dynamite}.  In the example shown, note that the graph starts at 0, although is out of the range.  This is a function of using bars, which always are assumed to start at zero.  Consider other ways of showing your data.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -1392,7 +1397,7 @@ A number of data sets for demonstrating psychometric techniques are included in 
 \item [epi.bfi] A small data set of 5 scales from the Eysenck Personality Inventory, 5 from a Big 5 inventory, a Beck Depression Inventory, and State and Trait Anxiety measures. Used for demonstrations of correlations, regressions, graphic displays.
 
 \item [iqitems] 16 multiple choice ability items were included as part of the Synthetic Aperture Personality Assessment (\iemph{SAPA}) web based personality assessment project. The data from 1525 subjects are included here as a demonstration set for scoring multiple choice inventories and doing basic item statistics.
-\item [ability] The same 16 items, converted to 0,1 scores are used for examples of various IRT procedures.  These data are from the \emph{International Cognitive Ability Resource} (ICAR) \cite{condon:icar:14} and were collected as part of the SAPA web based assessment \href{ https://sapa-project.org}{ https://sapa-project.org} project \cite{sapa:16}.
+\item [ability] The same 16 items, converted to 0,1 scores are used for examples of various IRT procedures.  These data are from the \emph{International Cognitive Ability Resource} (ICAR) \cite{condon:icar:14} and were collected as part of the SAPA web based assessment \href{https://www.sapa-project.org/}{https://www.sapa-project.org/} project \cite{sapa:16}.
 \item [galton] Two of the earliest examples of the correlation coefficient were Francis Galton's data sets on the relationship between mid parent and child height and the similarity of parent generation peas with child peas. \pfun{galton} is the data set for the Galton height. \pfun{peas} is the data set Francis Galton used to introduce the correlation coefficient with an analysis of the similarities of the parent and child generation of 700 sweet peas.
 \item[Dwyer] \cite{dwyer:37} introduced a method for \emph{factor extension} (see \pfun{fa.extension} that finds loadings on factors from an original data set for additional (extended) variables.  This data set includes his example.
 \item [miscellaneous] \pfun{cities} is a matrix of airline distances between 11 US cities and may be used for demonstrating multiple dimensional scaling.  \pfun{vegetables} is a classic data set for demonstrating Thurstonian scaling and is the preference matrix of 9 vegetables from \cite{guilford:54}. Used by \cite{guilford:54,nunnally:67,nunnally:bernstein:84}, this data set allows for examples of basic scaling techniques. 
@@ -1401,14 +1406,14 @@ A number of data sets for demonstrating psychometric techniques are included in 
  
 \section{Development version and a users guide} 
 
-The most recent development version is available as a source file at the repository maintained at \href{ href="https://personality-project.org/r"}{\url{https://personality-project.org/r}}.  That version will have removed the most recently discovered bugs (but perhaps introduced other, yet to be discovered ones). To download that version, go to the repository %\href{"http://personality-project.org/r/src/contrib/}{
-\url{http://personality-project.org/r/src/contrib/} and wander around. For both  Macs and PC, this version can be installed directly using the ``other repository" option in the package installer.  Make sure to specify type="source" 
+The most recent development version is available as a source file at the repository maintained at \href{https://personality-project.org/r/}{https://personality-project.org/r/}.  That version will have removed the most recently discovered bugs (but perhaps introduced other, yet to be discovered ones). To download that version, go to the repository %\href{http://personality-project.org/r/src/contrib/}{}
+\url{https://personality-project.org/r/} and wander around. For both  Macs and PC, this version can be installed directly using the ``other repository" option in the package installer.  Make sure to specify type="source" .  See the example (below)
 
-%\begin{Schunk}
+
 \begin{Sinput}
 > install.packages("psych", repos="https://personality-project.org/r", type="source")
 \end{Sinput}
-%\end{Schunk}
+
 
   % For a PC, the zip file for the most recent release has been created using the win-builder facility at CRAN.  The development release for the Mac is usually several weeks ahead of the PC development version.
 
@@ -1426,7 +1431,7 @@ news(Version >= "2.3.5",package="psych")
 
 
 \section{Psychometric Theory}
-The \Rpkg{psych} package has been developed to help psychologists do basic research.  Many of the functions were developed to supplement a book (\url{https://personality-project.org/r/book} An introduction to Psychometric Theory with Applications in \R{} \citep{revelle:intro}  More information about the use of some of the functions may be found in the book . 
+The \Rpkg{psych} package has been developed to help psychologists do basic research.  Many of the functions were developed to supplement a book (\url{https://personality-project.org/r/book/} An introduction to Psychometric Theory with Applications in \R{} \citep{revelle:intro}  More information about the use of some of the functions may be found in the book . 
 
 
 For more extensive discussion of the use of \Rpkg{psych} in particular and \R{} in general, consult  \url{https://personality-project.org/r/r.guide.html} A short guide to R.
@@ -1498,7 +1503,7 @@ Cohen, J., Cohen, P., West, S.~G., and Aiken, L.~S. (2003).
 \bibitem[\protect\astroncite{Condon}{2018}]{condon:spi}
 Condon, D. (2018)
 \newblock  {\em The SAPA Personality Inventory: An empirically-derived, hierarchically-organized self-report personality assessment model}
-\newblock {\em PsyArXiv}, 
+\newblock {\em PsyArXiv/sc4p9/}, 
 
 \bibitem[\protect\citeauthoryear{Condon \& Revelle}{Condon \&
   Revelle}{2014}]{condon:icar:14}
@@ -1706,7 +1711,7 @@ Revelle, W. and Condon, D.~M. (2018).
 \bibitem[Revelle and Condon, 2019]{rc:pa}
 Revelle, W. and Condon, D.~M. (2019).
 \newblock Reliability from alpha to omega: A tutorial. 
-\newblock  {\em Psychological Assessment}  31, 12, 1395-1411. https://doi.org/10.1037/pas0000754.  \url{https://psyarxiv.com/2y3w9/} Preprint available from PsyArxiv 
+\newblock  {\em Psychological Assessment}  31, 12, 1395-1411. https://doi.org/10.1037/pas0000754.  \url{https://osf.io/preprints/psyarxiv/2y3w9/} Preprint available from PsyArxiv 
 
 
 \bibitem[\protect\astroncite{Revelle et~al.}{2011}]{rcw:methods}

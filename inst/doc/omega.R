@@ -132,5 +132,3 @@ fa.congruence(list(om,dsl,fx))  #compare the two solutions
 ### code chunk number 16: omega.Rnw:1052-1053
 ###################################################
 sessionInfo()
-
-
